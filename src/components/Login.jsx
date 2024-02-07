@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-const App = () => {
+const Login = () => {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Login</h1>
     </div>
   )
 }
 
-export default App
+export default Login

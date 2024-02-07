@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-const App = () => {
+const ProjectList = () => {
   return (
     <div>
-      <h1>Hello</h1>
+      <h1>Project List</h1>
     </div>
   )
 }
 
-export default App
+export default ProjectList
