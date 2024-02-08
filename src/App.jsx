@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 import Nav from './components/Nav';
+import SignUp from './components/SignUp';
 const App = () => {
   return (
     <div>
@@ -18,14 +19,9 @@ const App = () => {
         <div className = 'column'>
           <Routes>
             {/* <Route path = '/signout' element = {<SignOut />} /> */}
-            <Route
-              path = '/projects'
-              element = {<ProjectList />}
-            />
-            <Route
-              path = '/login'
-              element = {<Login />}
-            />
+            <Route path = '/projects' element = {<ProjectList />} />
+            <Route path = '/login' element = {<Login />} />
+            <Route path = '/signup' element = {<SignUp />} />
             {/* <Route path = '/' element = { <Profile /> } /> */}
           </Routes>
         </div>
