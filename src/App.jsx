@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import ProjectList from './components/ProjectList';
+
 import Login from './components/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -8,8 +9,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Nav from './components/Nav';
 const App = () => {
-
-
   return (
     <div>
       <Router>
@@ -27,8 +26,6 @@ const App = () => {
               path = '/login'
               element = {<Login />}
             />
-
-
             {/* <Route path = '/' element = { <Profile /> } /> */}
           </Routes>
         </div>
