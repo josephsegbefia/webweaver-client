@@ -11,6 +11,40 @@ const API_URL = import.meta.env.VITE_API_URL;
 import React from 'react'
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [reload, setReload] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+
+  const navigate = useNavigate();
+
+
+  const { storeToken, authenticateUser } = useContext(AuthContext);
+
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
+  const checkFields = () => {
+    if(email === '' || password === ''){
+      return true;
+    }
+    false;
+  }
+  const reloadPage = () => {
+    setReload(reload => !reload);
+    setErrorMessage(undefined);
+  }
+
+  useEffect(() => {
+    // Empty
+  }, [reload]);
+
+
   return (
     <div className = "container mt-6">
     <div className="LoginPage">
@@ -18,7 +52,7 @@ const Login = () => {
       <hr />
       <div className = "columns">
         <div className = "column is-half is-offset-one-quarter">
-            {/* {errorMessage && (
+            {errorMessage && (
               <article className="message is-danger">
                 <div className="message-header">
                   <p>Error</p>
@@ -28,7 +62,7 @@ const Login = () => {
                   {errorMessage}
                 </div>
               </article>
-          )} */}
+          )}
         </div>
       </div>
       <form>
@@ -40,8 +74,8 @@ const Login = () => {
                   className="input"
                   type="email"
                   placeholder="Email"
-                  // value={email}
-                  // onChange={handleEmail}
+                  value={email}
+                  onChange={handleEmail}
                 />
               </p>
             </div>
@@ -55,9 +89,9 @@ const Login = () => {
                 <input
                   className="input"
                   type="password"
-                  placeholder="Passord"
-                  // value={password}
-                  // onChange={handlePassword}
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePassword}
                 />
               </p>
             </div>
@@ -67,10 +101,10 @@ const Login = () => {
         <div className = "columns">
           <div className = "column is-half is-offset-one-quarter">
             <p className="control">
-              {/* <button className="button is-success"
+              <button className="button is-success"
                disabled = {checkFields()}
               >
-                Sign Up</button> */}
+                Log In</button>
             </p>
           </div>
         </div>
