@@ -55,7 +55,9 @@ const SignUp = () => {
     axios.post(`${API_URL}auth/signup`, requestBody)
       .then((response) => {
         setIsLoading(loading => !loading)
-        navigate('/login');
+        if(response.ok){
+          navigate('/login');
+        }
       })
         .catch((error) => {
           // const errorDescription = error.response.data.message;

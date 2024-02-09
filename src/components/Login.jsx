@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
@@ -45,6 +46,23 @@ const Login = () => {
   }, [reload]);
 
 
+  const handleLoginSubmit = (event) => {
+    event.preventDefault();
+    const requestBody = { email, password };
+
+    axios.post(`${API_URL}auth/login`, requestBody)
+      .then((response) => {
+        console.log('JWT token', response.data.authToken);
+
+        storeToken(response.data.authToken);
+        authenticateUser();
+        navigate('/');
+      })
+        .catch((error) => {
+          const errorDescription = error.response.data.message;
+          setErrorMessage(errorDescription);
+        })
+  }
 
   return (
     <div className = "container mt-6">
@@ -66,7 +84,7 @@ const Login = () => {
           )}
         </div>
       </div>
-      <form>
+      <form onSubmit={handleLoginSubmit}>
         <div className = "columns">
           <div className = "column is-half is-offset-one-quarter">
             <div className="field">
@@ -112,8 +130,8 @@ const Login = () => {
 
         <div className = "columns">
           <div className = "column is-one-quarter is-offset-one-quarter">
-            <p>Already have account?</p>
-            <Link to={"/login"}> Login</Link>
+            <p>Don't have an account yet?</p>
+            <Link to={"/signup"}> Sign Up</Link>
           </div>
         </div>
       </form>
