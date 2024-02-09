@@ -52,14 +52,14 @@ const SignUp = () => {
     checkPasswordFields();
     const requestBody = { firstName, lastName, email, password };
 
-    axios.post(`${API_URL}/auth/signup`, requestBody)
+    axios.post(`${API_URL}auth/signup`, requestBody)
       .then((response) => {
         setIsLoading(loading => !loading)
         navigate('/login');
       })
         .catch((error) => {
-          const errorDescription = error.response.data.message;
-          setErrorMessage(errorDescription);
+          // const errorDescription = error.response.data.message;
+          // setErrorMessage(errorDescription);
         })
   }
 

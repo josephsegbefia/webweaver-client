@@ -1,28 +1,39 @@
-/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
+import { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/auth.context';
+
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { AuthContext } from "../context/auth.context";
 
 const Login = () => {
   return (
-    <div className="container mt-6">
-      <div className="LoginPage columns">
-        <div className="column is-half is-offset-one-quarter auth">
-          <h1 className = 'has-text-centered is-size-3 has-text-primary'>Login</h1>
-
-          {/* {errorMessage && (
-          <article className="message is-danger">
-            <div className="message-header">
-              <p>Error</p>
-              <button onClick = {reloadPage} className="delete" aria-label="delete"></button>
-            </div>
-            <div className = "message-body">
-              {errorMessage}
-            </div>
-          </article>
-        )} */}
-          <form >
+    <div className = "container mt-6">
+    <div className="LoginPage">
+      <h1 className = 'has-text-centered is-size-3 has-text-primary'>Login</h1>
+      <hr />
+      <div className = "columns">
+        <div className = "column is-half is-offset-one-quarter">
+            {/* {errorMessage && (
+              <article className="message is-danger">
+                <div className="message-header">
+                  <p>Error</p>
+                  <button onClick = {reloadPage} className="delete" aria-label="delete"></button>
+                </div>
+                <div className = "message-body">
+                  {errorMessage}
+                </div>
+              </article>
+          )} */}
+        </div>
+      </div>
+      <form>
+        <div className = "columns">
+          <div className = "column is-half is-offset-one-quarter">
             <div className="field">
               <p className="control">
                 <input
@@ -34,32 +45,46 @@ const Login = () => {
                 />
               </p>
             </div>
+          </div>
+        </div>
 
+        <div className = "columns">
+          <div className = "column is-half is-offset-one-quarter">
             <div className="field">
               <p className="control">
                 <input
                   className="input"
-                  // type = {showPassword ? "text" : "password"}
-                  placeholder="Password"
+                  type="password"
+                  placeholder="Passord"
                   // value={password}
                   // onChange={handlePassword}
                 />
-                {/* <button onClick = {handleShowPassword} className = "icon is-small is-right">
-                  <FontAwesomeIcon icon = {showPassword ? faEyeSlash : faEye}/>
-                </button> */}
               </p>
             </div>
-
-            <p className="control">
-              <button className="button is-success">Login</button>
-            </p>
-          </form>
-          {/* {errorMessage && <p className="error-message">{errorMessage}</p>} */}
-          <p>Don't have an account yet?</p>
-          <Link to={"/signup"}> Sign Up</Link>
+          </div>
         </div>
-      </div>
+
+        <div className = "columns">
+          <div className = "column is-half is-offset-one-quarter">
+            <p className="control">
+              {/* <button className="button is-success"
+               disabled = {checkFields()}
+              >
+                Sign Up</button> */}
+            </p>
+          </div>
+        </div>
+
+        <div className = "columns">
+          <div className = "column is-one-quarter is-offset-one-quarter">
+            <p>Already have account?</p>
+            <Link to={"/login"}> Login</Link>
+          </div>
+        </div>
+      </form>
     </div>
+    <hr />
+  </div>
   )
 }
 
