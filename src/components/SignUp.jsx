@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,6 +13,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [successMessage, setSuccessMessage] = useState(undefined);
   const [isLoading, setIsLoading] = useState('');
   const [reload, setReload] = useState(false);
 
@@ -37,8 +38,9 @@ const SignUp = () => {
       setErrorMessage(error);
       setPassword('');
       setRepeatPassword('');
+      return true;
     }
-    return;
+    return false;
   }
 
   const reloadPage = () => {
@@ -46,21 +48,30 @@ const SignUp = () => {
     setErrorMessage(undefined);
   }
 
+  useEffect(() => {
+    // Empty
+  }, [reload]);
+
   const handleSignupSubmit = (event) => {
     event.preventDefault();
     setIsLoading(loading => !loading);
-    checkPasswordFields();
+    if(checkPasswordFields()){
+      setIsLoading(loading => !loading);
+      return;
+    }
     const requestBody = { firstName, lastName, email, password };
 
     axios.post(`${API_URL}auth/signup`, requestBody)
       .then((response) => {
         if(response.status === 201){
           setIsLoading(loading => !loading);
+          setSuccessMessage(`A verification email has been sent to the provided email: ${email}`);
           setFirstName('');
           setLastName('');
           setEmail('');
           setPassword('')
           setRepeatPassword('')
+
         }
       })
         .catch((error) => {
@@ -104,6 +115,19 @@ const SignUp = () => {
                     </div>
                   </article>
               )}
+              {
+                successMessage && (
+                  <article className="message is-success">
+                    <div className="message-header">
+                      <p>Success</p>
+                      <button onClick = {reloadPage} className="delete" aria-label="delete"></button>
+                    </div>
+                    <div className = "message-body">
+                      {successMessage}
+                    </div>
+                  </article>
+                )
+              }
             </div>
           </div>
           <form onSubmit={handleSignupSubmit}>
@@ -160,7 +184,7 @@ const SignUp = () => {
                     <input
                       className="input"
                       type="password"
-                      placeholder="Passord"
+                      placeholder="Password"
                       value={password}
                       onChange={handlePassword}
                     />
