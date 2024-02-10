@@ -3,6 +3,7 @@ import React from 'react';
 import ProjectList from './components/ProjectList';
 import Login from './components/Login';
 import VerifyEmail from './components/VerifyEmail'
+import Home from './components/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
@@ -19,10 +20,11 @@ const App = () => {
         <div className = 'column'>
           <Routes>
             {/* <Route path = '/signout' element = {<SignOut />} /> */}
+            <Route path = '/' element = {<Home />}/>
             <Route path = '/projects' element = {<ProjectList />} />
             <Route path = '/login' element = {<Login />} />
             <Route path = '/signup' element = {<SignUp />} />
-            <Route path = '/email-verification' element = {<VerifyEmail />} />
+            <Route path = '/verify-email' element = {<VerifyEmail />} />
             {/* <Route path = '/' element = { <Profile /> } /> */}
           </Routes>
         </div>
