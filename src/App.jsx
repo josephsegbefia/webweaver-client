@@ -3,6 +3,8 @@ import React from 'react';
 import ProjectList from './components/ProjectList';
 import Login from './components/Login';
 import VerifyEmail from './components/VerifyEmail'
+import ForgotPasswordForm from './components/ForgotPasswordForm';
+import PasswordResetForm from './components/PasswordResetForm';
 import Home from './components/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -25,6 +27,8 @@ const App = () => {
             <Route path = '/login' element = {<Login />} />
             <Route path = '/signup' element = {<SignUp />} />
             <Route path = '/verify-email' element = {<VerifyEmail />} />
+            <Route path = '/forgot-password' element = {<ForgotPasswordForm />} />
+            <Route path = 'password-reset' element = {<PasswordResetForm />}/>
             {/* <Route path = '/' element = { <Profile /> } /> */}
           </Routes>
         </div>
