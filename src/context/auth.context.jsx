@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -56,6 +57,11 @@ function AuthProviderWrapper(props) {
     localStorage.removeItem("authToken");
   }
 
+  const updateUser = useCallback((response) => {
+    localStorage.setItem('user', JSON.stringify(response));
+    setUser(response);
+  })
+
   const logOutUser = () => {
     removeToken();
     authenticateUser();
@@ -70,7 +76,7 @@ function AuthProviderWrapper(props) {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, isLoading, user, storeToken, authenticateUser, logOutUser }}
+      value={{ isLoggedIn, isLoading, user, updateUser, storeToken, authenticateUser, logOutUser }}
     >
       {props.children}
     </AuthContext.Provider>
