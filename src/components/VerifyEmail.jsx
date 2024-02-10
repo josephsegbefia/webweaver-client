@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 import React, {useContext, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
@@ -11,6 +12,7 @@ const VerifyEmail = () => {
   // console.log(user)
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [successMessage, setSuccessMessage] = useState(undefined);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
@@ -31,7 +33,9 @@ const VerifyEmail = () => {
             .then((response) => {
               setIsLoading(false);
               updateUser(response.data);
-              navigate('/login');
+              const successMessageDecription = `Email Verified. Login to begin`
+              setSuccessMessage(successMessageDecription);
+              // navigate('/login');
             })
             .catch((error) => {
               const errorDescription = error.response.data.message;
@@ -48,9 +52,48 @@ const VerifyEmail = () => {
 
   console.log(user)
   return (
-    <div>
-      <h1>Verify Email</h1>
+    <>
+      <div className = "columns">
+        <div className = "column is-half is-offset-one-quarter">
+        <div>
+      {isLoading ? (
+        <progress className = 'progress is-medium is-link' max = '100'>
+          60%
+        </progress>
+      ) : (
+        <div>
+          {user?.isVerified ? (
+            <article className="message is-success">
+              <div className="message-header">
+                <p>Success</p>
+                {/* <button onClick = {reloadPage} className="delete" aria-label="delete"></button> */}
+              </div>
+              <div className = "message-body">
+                {successMessage}
+              </div>
+          </article>
+          ) : (
+            <div>
+              {errorMessage ? (
+              <article className="message is-danger">
+                <div className="message-header">
+                  <p>Error</p>
+                  {/* <button onClick = {reloadPage} className="delete" aria-label="delete"></button> */}
+                </div>
+                <div className = "message-body">
+                  {errorMessage}
+                </div>
+              </article>
+              ) : null}
+            </div>
+          )}
+        </div>
+      )}
     </div>
+
+        </div>
+      </div>
+    </>
   )
 }
 
