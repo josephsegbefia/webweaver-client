@@ -129,8 +129,9 @@ const Login = () => {
         </div>
 
         <div className = "columns">
-          <div className = "column is-one-quarter is-offset-one-quarter">
+          <div className = "column is-half is-offset-one-quarter">
             <p>Don't have an account yet?</p>
+            <p>Can't remember your password? Reset it <Link to = {'/forgot-password'}>here</Link></p>
             <Link to={"/signup"}> Sign Up</Link>
           </div>
         </div>

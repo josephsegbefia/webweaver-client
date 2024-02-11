@@ -28,7 +28,7 @@ const App = () => {
             <Route path = '/signup' element = {<SignUp />} />
             <Route path = '/verify-email' element = {<VerifyEmail />} />
             <Route path = '/forgot-password' element = {<ForgotPasswordForm />} />
-            <Route path = 'password-reset' element = {<PasswordResetForm />}/>
+            <Route path = 'password-reset' element = {<PasswordResetForm />} />
             {/* <Route path = '/' element = { <Profile /> } /> */}
           </Routes>
         </div>
