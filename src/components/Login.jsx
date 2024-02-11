@@ -14,6 +14,7 @@ import React from 'react'
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [reload, setReload] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -48,12 +49,13 @@ const Login = () => {
 
   const handleLoginSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const requestBody = { email, password };
 
     axios.post(`${API_URL}auth/login`, requestBody)
       .then((response) => {
         console.log('JWT token', response.data.authToken);
-
+        setIsLoading(false);
         storeToken(response.data.authToken);
         authenticateUser();
         navigate('/');
@@ -61,6 +63,7 @@ const Login = () => {
         .catch((error) => {
           const errorDescription = error.response.data.message;
           setErrorMessage(errorDescription);
+          setIsLoading(false);
         })
   }
 
@@ -87,6 +90,15 @@ const Login = () => {
       <form onSubmit={handleLoginSubmit}>
         <div className = "columns">
           <div className = "column is-half is-offset-one-quarter">
+            <div className = 'my-6'>
+                {
+                  isLoading && (
+                    <progress className = 'progress is-medium is-link' max = '100'>
+                      60%
+                    </progress>
+                  )
+                }
+              </div>
             <div className="field">
               <p className="control">
                 <input
