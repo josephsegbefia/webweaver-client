@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 
 import React, {useContext, useEffect, useState } from 'react';
@@ -9,7 +10,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const VerifyEmail = () => {
   const { user, updateUser } = useContext(AuthContext);
-  // console.log(user)
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [successMessage, setSuccessMessage] = useState(undefined);
@@ -31,10 +31,10 @@ const VerifyEmail = () => {
           setIsLoading(true);
           axios.post(`${API_URL}auth/verify-email`, { emailToken })
             .then((response) => {
-              setIsLoading(false);
+              // setIsLoading(false);
               updateUser(response.data);
-              const successMessageDecription = `Email Verified. Login to begin`
-              setSuccessMessage(successMessageDecription);
+              // const successMessageDecription = `Email Verified. Login to begin`
+              // setSuccessMessage(successMessageDecription);
               // navigate('/login');
             })
             .catch((error) => {
@@ -48,6 +48,42 @@ const VerifyEmail = () => {
       clearTimeout(timeOutId);
     };
   }, [emailToken, navigate, updateUser, user])
+
+  let userId;
+  if(user){
+    userId = user._id;
+  }
+
+  const requestBody = { user: userId,
+     headLine: 'Summarize your professional identity',
+     bio: 'Tell us a bit about yourself',
+     phone: 'eg. +233 207849440',
+     avatarURL: 'www.google.com',
+     gitHubURL: 'www.github.com/user',
+     linkedInURL: 'www.linkedin.com/user',
+     location: 'eg. Accra, Ghana'
+    };
+
+  useEffect(() => {
+    let timeOutId;
+    setTimeout(() => {
+      axios.post(`${API_URL}api/portfolios`, requestBody)
+      .then((response) => {
+        setErrorMessage(undefined);
+        setIsLoading(false);
+        const successMessageDecription = `Email Verified. Login, complete your profile to begin.`
+        setSuccessMessage(successMessageDecription);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      })
+    }, 4000);
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [user]);
 
 
   console.log(user)

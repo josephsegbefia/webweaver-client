@@ -5,6 +5,7 @@ import Login from './components/auth/Login';
 import VerifyEmail from './components/auth/VerifyEmail'
 import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 import PasswordResetForm from './components/auth/PasswordResetForm';
+import PortfolioPage from './components/portfolio/PortfolioPage';
 import Home from './components/Home';
 import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
@@ -25,6 +26,7 @@ const App = () => {
           <Routes>
             {/* <Route path = '/signout' element = {<SignOut />} /> */}
             <Route path = '/' element = {<Home />}/>
+            <Route path = '/portfolios/'/>
             <Route path = '/projects' element = {<ProjectList />} />
             <Route path = '/login' element = { <IsAnon> <Login /> </IsAnon> } />
             <Route path = '/signup' element = {<IsAnon> <SignUp /> </IsAnon>} />
