@@ -2,7 +2,7 @@
 
 import React, {useContext, useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/auth.context';
+import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;

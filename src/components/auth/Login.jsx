@@ -3,7 +3,7 @@
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/auth.context';
+import { AuthContext } from '../../context/auth.context';
 
 
 const API_URL = import.meta.env.VITE_API_URL;
