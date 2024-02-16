@@ -3,7 +3,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useState, useContext } from 'react';
-import { AuthContext } from '../context/auth.context';
+import { AuthContext } from '../context/auth.context'
 
 const Nav = () => {
   const [activeItem, setActiveItem] = useState('');
@@ -14,6 +14,7 @@ const Nav = () => {
     document.querySelector('.navbar-menu').classList.toggle('is-active');
   }
 
+  console.log(user)
   return (
     <nav className="navbar is-success" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">

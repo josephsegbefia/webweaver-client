@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../../context/auth.context';
 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -29,6 +30,10 @@ const CreatePortfolio = () => {
       })
 
   }
+
+  useEffect(() => {
+
+  })
   return (
     <div>
 
