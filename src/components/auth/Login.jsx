@@ -23,7 +23,7 @@ const Login = () => {
   const navigate = useNavigate();
 
 
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, authenticateUser, user } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -61,9 +61,9 @@ const Login = () => {
         navigate('/');
       })
         .catch((error) => {
+          setIsLoading(false);
           const errorDescription = error.response.data.message;
           setErrorMessage(errorDescription);
-          setIsLoading(false);
         })
   }
 

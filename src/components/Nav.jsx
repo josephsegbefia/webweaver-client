@@ -14,7 +14,7 @@ const Nav = () => {
     document.querySelector('.navbar-menu').classList.toggle('is-active');
   }
 
-  console.log(user)
+
   return (
     <nav className="navbar is-success" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
