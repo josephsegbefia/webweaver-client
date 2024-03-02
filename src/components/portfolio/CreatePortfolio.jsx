@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react';
+import '../../assets/styles.scss'
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 
@@ -62,18 +63,18 @@ const CreatePortfolio = () => {
             <div className = "tile is-child box">
               <p className = "title">Upload a profile photo</p>
               <div className = "file">
-              <label className = "file-label">
-                <input className = "file-input" type="file" name="resume" />
-                <span className = "file-cta">
-                  <span className = "file-icon">
-                    <i className = "fas fa-upload"></i>
+                <label className = "file-label">
+                  <input className = "file-input" type="file" name="resume" />
+                  <span className = "file-cta">
+                    <span className = "file-icon">
+                      <i className = "fas fa-upload"></i>
+                    </span>
+                    <span className = "file-label">
+                      Choose a photo
+                    </span>
                   </span>
-                  <span className = "file-label">
-                    Choose a photo
-                  </span>
-                </span>
-              </label>
-            </div>
+                </label>
+              </div>
               <hr />
 
               <input type = 'text' className = 'input' value = {headLine} />
@@ -81,15 +82,21 @@ const CreatePortfolio = () => {
 
             <div className = "tile is-child box">
               <p className = "title">Skills</p>
-              <input
-                type =  "text"
-                name = 'skills'
-                placeholder = 'Add the skills you have one after the other and press the + button after each add'
-                className = 'input'
-                disabled
-                // value = ''
-              />
+              <div className = 'is-inline-flex'>
+                <input
+                  type =  "text"
+                  name = 'skills'
+                  placeholder = 'Add skills'
+                  className = 'input'
+                  // value = ''
+                />
+                <button className = 'button is-primary add-button'>+</button>
+              </div>
+
+              <hr />
+              <p className = 'title'>Info</p>
             </div>
+
           </div>
 
           <div className = "tile is-parent">
@@ -105,6 +112,7 @@ const CreatePortfolio = () => {
           </div>
         </div>
       </form>
+
     </div>
   )
 }
