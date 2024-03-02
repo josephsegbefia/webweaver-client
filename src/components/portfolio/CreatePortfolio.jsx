@@ -14,6 +14,7 @@ const CreatePortfolio = () => {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [avatarURL, setAvatarURL] = useState('');
   const [linkedInURL, setLinkedInURL] = useState('');
   const [gitHubURL, setGitHubURL] = useState('');
@@ -45,13 +46,41 @@ const CreatePortfolio = () => {
 
   const addSkill = () => {
     const skillToSave = skill;
-    setSkills([...skills, skillToSave]);
+    setSkills([skillToSave, ...skills]);
     setSkill('');
   }
 
   const handleSkillChange = (e) => {
     setSkill(e.target.value);
   };
+
+  const handlePhoneChange = () => {
+
+  }
+
+  const handleAvatarChange = () => {
+
+  }
+
+  const hamdleHeadLineChange = () => {
+
+  }
+
+  const handleLinkedInURLChange = () => {
+
+  }
+
+  const handleGitHubURLChange = () => {
+
+  }
+
+  const handleLocationChange = () => {
+
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   useEffect(() => {
     if(user){
@@ -60,22 +89,24 @@ const CreatePortfolio = () => {
           console.log(response.data[0]);
           setHeadLine(response.data[0].headLine);
           setBio(response.data[0].bio);
+          setEmail(response.data[0].email)
         })
     }
   }, [user]);
+  console.log(skills)
 
 
   return (
     <div className = "container">
       <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box">
               <p className = "title">Upload a profile photo</p>
               <div className = "file">
                 <label className = "file-label">
-                  <input className = "file-input" type="file" name="resume" />
+                  <input className = "file-input" type="file" name="resume" onChange = {handleAvatarChange}/>
                   <span className = "file-cta">
                     <span className = "file-icon">
                       <i className = "fas fa-upload"></i>
@@ -88,7 +119,7 @@ const CreatePortfolio = () => {
               </div>
               <hr />
 
-              <input type = 'text' className = 'input' value = {headLine} />
+              <input type = 'text' className = 'input' value = {headLine} onChange = {hamdleHeadLineChange} />
             </div>
 
             <div className = "tile is-child box">
@@ -104,9 +135,43 @@ const CreatePortfolio = () => {
                 />
                 <button className = 'button is-primary add-button' onClick={addSkill}>+</button>
               </div>
+              <div>
+                {skills && skills.map((skill, index) => {
+                  return (
+                    <div key = {index} className = 'is-inline-flex'>
+                      <span className = 'tag is-success mr-3'>{skill} <i className="fa-solid fa-xmark ml-3"></i></span>
+                    </div>
+                  )
+                })}
+              </div>
 
               <hr />
               <p className = 'title'>Info</p>
+              <p><span><i className = 'fas fa-envelope mr-3 mb-3'></i>{email}</span></p>
+              <input type="text"
+                className = 'input'
+                placeholder='phone'
+                value={phone}
+                onChange={handlePhoneChange}
+              />
+              <input type="text"
+                className = 'input mt-3'
+                placeholder = 'LinkedIn url'
+                value = {linkedInURL}
+                onChange = {handleLinkedInURLChange}
+              />
+              <input type="text"
+                className = 'input mt-3'
+                placeholder = 'GitHub url'
+                value = {gitHubURL}
+                onChange = {handleGitHubURLChange}
+              />
+              <input type="text"
+                className = 'input mt-3'
+                placeholder = 'location e.g Accra, Ghana'
+                value = {location}
+                onChange = {handleLocationChange}
+              />
             </div>
 
           </div>
