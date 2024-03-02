@@ -10,6 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const CreatePortfolio = () => {
   const [headLine, setHeadLine] = useState('');
   const [interests, setInterests] = useState([]);
+  const [interest, setInterest] = useState('');
   const [languages, setLanguages] = useState([]);
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState('');
@@ -50,6 +51,12 @@ const CreatePortfolio = () => {
     setSkill('');
   }
 
+  const addInterest = () => {
+    const interestToSave = interest;
+    setInterests([interestToSave, ...interests]);
+    setInterest('');
+  }
+
   const handleSkillChange = (e) => {
     setSkill(e.target.value);
   };
@@ -78,8 +85,14 @@ const CreatePortfolio = () => {
 
   }
 
+  const removeSkill = (indexToRemove) => {
+    const updatedSkills = skills.filter((_, index) => index !== indexToRemove);
+    setSkills(updatedSkills);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
   }
 
   useEffect(() => {
@@ -139,7 +152,7 @@ const CreatePortfolio = () => {
                 {skills && skills.map((skill, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
-                      <span className = 'tag is-success mr-3'>{skill} <i className="fa-solid fa-xmark ml-3"></i></span>
+                      <span className = 'tag is-success mr-3'>{skill} <i className="fa-solid fa-xmark ml-3" onClick={() => removeSkill(index)}></i></span>
                     </div>
                   )
                 })}
@@ -188,6 +201,7 @@ const CreatePortfolio = () => {
             </div>
           </div>
         </div>
+        <button type='submit' className = 'button is-primary'>Save</button>
       </form>
 
     </div>
