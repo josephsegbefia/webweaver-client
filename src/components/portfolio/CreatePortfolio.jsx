@@ -12,6 +12,7 @@ const CreatePortfolio = () => {
   const [interests, setInterests] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [skills, setSkills] = useState([]);
+  const [skill, setSkill] = useState('');
   const [phone, setPhone] = useState('');
   const [avatarURL, setAvatarURL] = useState('');
   const [linkedInURL, setLinkedInURL] = useState('');
@@ -41,6 +42,16 @@ const CreatePortfolio = () => {
       })
 
   }
+
+  const addSkill = () => {
+    const skillToSave = skill;
+    setSkills([...skills, skillToSave]);
+    setSkill('');
+  }
+
+  const handleSkillChange = (e) => {
+    setSkill(e.target.value);
+  };
 
   useEffect(() => {
     if(user){
@@ -88,9 +99,10 @@ const CreatePortfolio = () => {
                   name = 'skills'
                   placeholder = 'Add skills'
                   className = 'input'
-                  // value = ''
+                  value = {skill}
+                  onChange={handleSkillChange}
                 />
-                <button className = 'button is-primary add-button'>+</button>
+                <button className = 'button is-primary add-button' onClick={addSkill}>+</button>
               </div>
 
               <hr />
