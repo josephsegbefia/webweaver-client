@@ -25,6 +25,7 @@ const Login = () => {
 
   const { storeToken, authenticateUser, user } = useContext(AuthContext);
 
+
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleShowPassword = () => {
@@ -56,9 +57,10 @@ const Login = () => {
       .then((response) => {
         console.log('JWT token', response.data.authToken);
         setIsLoading(false);
+        console.log(response.data.payload.uniqueIdentifier);
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate('/');
+        navigate(`/portfolios/${response.data.payload.uniqueIdentifier}`);
       })
         .catch((error) => {
           setIsLoading(false);

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import '../../assets/styles.scss'
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
@@ -7,7 +8,7 @@ import { AuthContext } from '../../context/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const CreatePortfolio = () => {
+const UserPortfolio = () => {
   const [headLine, setHeadLine] = useState('');
   const [interests, setInterests] = useState([]);
   const [interest, setInterest] = useState('');
@@ -34,6 +35,8 @@ const CreatePortfolio = () => {
 
 
   // let uniqueIdentifier;
+
+  const {uniqueIdentifier} = useParams();
 
 
   const uploadImage = () => {
@@ -156,7 +159,7 @@ const CreatePortfolio = () => {
   useEffect(() => {
     if(user){
       console.log(user);
-      axios.get(`${API_URL}api/portfolios/${user.uniqueIdentifier}`)
+      axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}`)
         .then((response) => {
           console.log(response.data[0]);
           setHeadLine(response.data[0].headLine);
@@ -167,7 +170,7 @@ const CreatePortfolio = () => {
           setOwner(response.data[0].user);
         })
     }
-  }, [user]);
+  }, [uniqueIdentifier, user]);
 
 
   return (
@@ -326,4 +329,4 @@ const CreatePortfolio = () => {
   )
 }
 
-export default CreatePortfolio
+export default UserPortfolio
