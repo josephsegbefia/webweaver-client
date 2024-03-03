@@ -12,6 +12,7 @@ const CreatePortfolio = () => {
   const [interests, setInterests] = useState([]);
   const [interest, setInterest] = useState('');
   const [languages, setLanguages] = useState([]);
+  const [language, setLanguage] = useState('');
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState('');
   const [phone, setPhone] = useState('');
@@ -55,6 +56,13 @@ const CreatePortfolio = () => {
     const interestToSave = interest;
     setInterests([interestToSave, ...interests]);
     setInterest('');
+  };
+
+
+  const addLanguage = () => {
+    const languageToSave = language;
+    setLanguages([languageToSave, ...languages]);
+    setLanguage('');
   }
 
   const handleSkillChange = (e) => {
@@ -85,9 +93,29 @@ const CreatePortfolio = () => {
 
   }
 
+  const handleInterestChange = (e) => {
+    setInterest(e.target.value)
+
+  }
+
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value)
+
+  }
+
   const removeSkill = (indexToRemove) => {
     const updatedSkills = skills.filter((_, index) => index !== indexToRemove);
     setSkills(updatedSkills);
+  }
+
+  const removeInterest = (indexToRemove) => {
+    const updatedInterests = interests.filter((_, index) => index !== indexToRemove);
+    setInterests(updatedInterests);
+  }
+
+  const removeLanguage = (indexToRemove) => {
+    const updatedLanguages = languages.filter((_, index) => index !== indexToRemove);
+    setLanguages(updatedLanguages);
   }
 
   const handleSubmit = (e) => {
@@ -106,7 +134,7 @@ const CreatePortfolio = () => {
         })
     }
   }, [user]);
-  console.log(skills)
+
 
 
   return (
@@ -198,6 +226,47 @@ const CreatePortfolio = () => {
                 className = 'textarea'
                 value = {bio}
               />
+              <div className = 'is-inline-flex'>
+                <input
+                  type =  "text"
+                  name = 'interest'
+                  placeholder = 'Add interests'
+                  className = 'input my-3'
+                  value = {interest}
+                  onChange={handleInterestChange}
+                />
+                <button className = 'button is-primary add-button mt-3' onClick={addInterest}>+</button>
+
+                <input
+                  type =  "text"
+                  name = 'languages'
+                  placeholder = 'Add spoken languages'
+                  className = 'input mt-3 ml-3'
+                  value = {language}
+                  onChange={handleLanguageChange}
+                />
+                <button className = 'button is-primary add-button mt-3' onClick={addLanguage}>+</button>
+              </div>
+              <p className = "is-size-5">Interests</p>
+              <div>
+                {interests && interests.map((interest, index) => {
+                  return (
+                    <div key = {index} className = 'is-inline-flex'>
+                      <span className = 'tag is-primary is-light mr-3'>{interest} <i className="fa-solid fa-xmark ml-3" onClick={() => removeInterest(index)}></i></span>
+                    </div>
+                  )
+                })}
+              </div>
+              <p className = "is-size-5 mt-5">Spoken Languages</p>
+              <div>
+                {languages && languages.map((language, index) => {
+                  return (
+                    <div key = {index} className = 'is-inline-flex'>
+                      <span className = 'tag is-primary is-light mr-3'>{language} <i className="fa-solid fa-xmark ml-3" onClick={() => removeLanguage(index)}></i></span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
