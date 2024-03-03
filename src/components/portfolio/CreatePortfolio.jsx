@@ -69,38 +69,36 @@ const CreatePortfolio = () => {
     setSkill(e.target.value);
   };
 
-  const handlePhoneChange = () => {
-
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
   }
 
   const handleAvatarChange = () => {
 
   }
 
-  const hamdleHeadLineChange = () => {
-
+  const handleHeadLineChange = (e) => {
+    setHeadLine(e.target.value);
   }
 
-  const handleLinkedInURLChange = () => {
-
+  const handleLinkedInURLChange = (e) => {
+    setLinkedInURL(e.target.value);
   }
 
-  const handleGitHubURLChange = () => {
-
+  const handleGitHubURLChange = (e) => {
+    setGitHubURL(e.target.value);
   }
 
-  const handleLocationChange = () => {
-
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
   }
 
   const handleInterestChange = (e) => {
     setInterest(e.target.value)
-
   }
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value)
-
   }
 
   const removeSkill = (indexToRemove) => {
@@ -160,7 +158,7 @@ const CreatePortfolio = () => {
               </div>
               <hr />
 
-              <input type = 'text' className = 'input' value = {headLine} onChange = {hamdleHeadLineChange} />
+              <input type = 'text' className = 'input' value = {headLine} onChange = {handleHeadLineChange} />
             </div>
 
             <div className = "tile is-child box">
