@@ -24,30 +24,17 @@ const CreatePortfolio = () => {
   const [gitHubURL, setGitHubURL] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
-
+  const [owner, setOwner] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [committed, setCommitted] = useState(false);
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('')
   const { user, isLoggedIn } = useContext(AuthContext);
 
 
 
-  let uniqueIdentifier;
+  // let uniqueIdentifier;
 
-
-
-
-  // const uploadImage = (event) => {
-
-  //   const uploadData = new FormData();
-  //   uploadData.append('imgUrl', event.target.files[0]);
-
-  //   axios.post(`${API_URL}api/image-upload`, uploadData)
-  //     .then((response) => {
-  //       setAvatarURL(response.data.fileUrl);
-  //     })
-  //     .catch((error) => {
-  //       console.log('Error uploading the file')
-  //     })
-  //     console.log(avatarURL);
-  // }
 
   const uploadImage = () => {
     if (!selectedFile){
@@ -143,17 +130,41 @@ const CreatePortfolio = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSaving(true);
 
+    const requestBody = {
+      user: owner,
+      headLine, interests,
+      languages, skills,
+      phone, avatarURL,
+      linkedInURL, gitHubURL,
+      bio, location
+    }
+
+    axios.post(`${API_URL}api/portfolios`, requestBody)
+      .then((response) => {
+        if(response.ok){
+          setSaving(false);
+        }
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   useEffect(() => {
     if(user){
+      console.log(user);
       axios.get(`${API_URL}api/portfolios/${user.uniqueIdentifier}`)
         .then((response) => {
           console.log(response.data[0]);
           setHeadLine(response.data[0].headLine);
+          setLastName(response.data[0].lastName);
+          setFirstName(response.data[0].firstName);
           setBio(response.data[0].bio);
           setEmail(response.data[0].email)
+          setOwner(response.data[0].user);
         })
     }
   }, [user]);
@@ -306,7 +317,9 @@ const CreatePortfolio = () => {
             </div>
           </div>
         </div>
-        <button type='submit' className = 'button is-primary'>Save</button>
+        <button type='submit' className='button is-primary'>
+          Save
+        </button>
       </form>
 
     </div>
