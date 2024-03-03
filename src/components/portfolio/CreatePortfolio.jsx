@@ -17,7 +17,9 @@ const CreatePortfolio = () => {
   const [skill, setSkill] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
   const [avatarURL, setAvatarURL] = useState('');
+  const [imageName, setImageName] = useState('');
   const [linkedInURL, setLinkedInURL] = useState('');
   const [gitHubURL, setGitHubURL] = useState('');
   const [bio, setBio] = useState('');
@@ -31,19 +33,37 @@ const CreatePortfolio = () => {
 
 
 
-  const uploadImage = (event) => {
+
+  // const uploadImage = (event) => {
+
+  //   const uploadData = new FormData();
+  //   uploadData.append('imgUrl', event.target.files[0]);
+
+  //   axios.post(`${API_URL}api/image-upload`, uploadData)
+  //     .then((response) => {
+  //       setAvatarURL(response.data.fileUrl);
+  //     })
+  //     .catch((error) => {
+  //       console.log('Error uploading the file')
+  //     })
+  //     console.log(avatarURL);
+  // }
+
+  const uploadImage = () => {
+    if (!selectedFile){
+      console.log('No file selected');
+      return;
+    }
 
     const uploadData = new FormData();
-    uploadData.append('imgUrl', event.target.files[0]);
-
+    uploadData.append('imgUrl', selectedFile);
     axios.post(`${API_URL}api/image-upload`, uploadData)
       .then((response) => {
-        setAvatarURL(response.data.fileUrl);
+        setAvatarURL(response.data.fileUrl)
       })
       .catch((error) => {
-        console.log('Error uploading the file')
+        console.log('Error uploading the file');
       })
-
   }
 
   const addSkill = () => {
@@ -65,6 +85,10 @@ const CreatePortfolio = () => {
     setLanguage('');
   }
 
+  const handleBioChange = (e) => {
+    setBio(e.target.value);
+  }
+
   const handleSkillChange = (e) => {
     setSkill(e.target.value);
   };
@@ -73,8 +97,9 @@ const CreatePortfolio = () => {
     setPhone(e.target.value);
   }
 
-  const handleAvatarChange = () => {
-
+  const handleAvatarChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setImageName(event.target.files[0].name)
   }
 
   const handleHeadLineChange = (e) => {
@@ -135,6 +160,7 @@ const CreatePortfolio = () => {
 
 
 
+  console.log(avatarURL)
   return (
     <div className = "container">
       <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
@@ -156,6 +182,11 @@ const CreatePortfolio = () => {
                   </span>
                 </label>
               </div>
+              {imageName && (
+                <p>{imageName}</p>
+
+              )}
+              <button className = 'button is-primary is-light is-small mt-4' onClick={uploadImage}>Upload Image</button>
               <hr />
 
               <input type = 'text' className = 'input' value = {headLine} onChange = {handleHeadLineChange} />
@@ -219,10 +250,11 @@ const CreatePortfolio = () => {
             <div className = "tile is-child box">
               <p className = "title">About me</p>
               <textarea
-                name="" id=""
+                name="about-me"
                 style={{width: "100%", resize: "none"}}
                 className = 'textarea'
                 value = {bio}
+                onChange = {handleBioChange}
               />
               <div className = 'is-inline-flex'>
                 <input
