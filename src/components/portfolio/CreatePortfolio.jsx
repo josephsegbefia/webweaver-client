@@ -159,8 +159,6 @@ const CreatePortfolio = () => {
   }, [user]);
 
 
-
-  console.log(avatarURL)
   return (
     <div className = "container">
       <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
@@ -185,6 +183,9 @@ const CreatePortfolio = () => {
               {imageName && (
                 <p>{imageName}</p>
 
+              )}
+              {avatarURL && (
+                <p>{avatarURL}</p>
               )}
               <button className = 'button is-primary is-light is-small mt-4' onClick={uploadImage}>Upload Image</button>
               <hr />
