@@ -26,13 +26,21 @@ const UserPortfolio = () => {
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
   const [owner, setOwner] = useState(null);
-  const [saving, setSaving] = useState(false);
+  // const [langFieldActive, setLangFieldActive] = useState(false);
   const [committed, setCommitted] = useState(false);
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('')
+
   const { user, isLoggedIn } = useContext(AuthContext);
 
 
+
+  const fieldCheck = (field) => {
+    if(field === ''){
+      return true;
+    }
+    false;
+  }
 
   // let uniqueIdentifier;
 
@@ -133,7 +141,6 @@ const UserPortfolio = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSaving(true);
 
     const requestBody = {
       user: owner,
@@ -146,9 +153,6 @@ const UserPortfolio = () => {
 
     axios.post(`${API_URL}api/portfolios`, requestBody)
       .then((response) => {
-        if(response.ok){
-          setSaving(false);
-        }
         console.log(response.data)
       })
       .catch((error) => {
@@ -223,7 +227,7 @@ const UserPortfolio = () => {
                   value = {skill}
                   onChange={handleSkillChange}
                 />
-                <button className = 'button is-primary add-button' onClick={addSkill}>+</button>
+                <button className = 'button is-primary add-button' disabled={fieldCheck(skill)} onClick={addSkill}>+</button>
               </div>
               <div>
                 {skills && skills.map((skill, index) => {
@@ -285,7 +289,7 @@ const UserPortfolio = () => {
                   value = {interest}
                   onChange={handleInterestChange}
                 />
-                <button className = 'button is-primary add-button mt-3' onClick={addInterest}>+</button>
+                <button className = 'button is-primary add-button mt-3' disabled={fieldCheck(interest)} onClick={addInterest}>+</button>
 
                 <input
                   type =  "text"
@@ -295,7 +299,7 @@ const UserPortfolio = () => {
                   value = {language}
                   onChange={handleLanguageChange}
                 />
-                <button className = 'button is-primary add-button mt-3' onClick={addLanguage}>+</button>
+                <button className = 'button is-primary add-button mt-3' disabled={fieldCheck(language)} onClick={addLanguage}>+</button>
               </div>
               <p className = "is-size-5">Interests</p>
               <div>
