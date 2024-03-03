@@ -166,7 +166,13 @@ const CreatePortfolio = () => {
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box">
-              <p className = "title">Upload a profile photo</p>
+              {avatarURL ? (
+                <figure className = 'image is-128x128'>
+                  <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' />
+                </figure>
+              ) : (
+                <div>
+                  <p className = "title">Upload a profile photo</p>
               <div className = "file">
                 <label className = "file-label">
                   <input className = "file-input" type="file" name="resume" onChange = {handleAvatarChange}/>
@@ -182,12 +188,11 @@ const CreatePortfolio = () => {
               </div>
               {imageName && (
                 <p>{imageName}</p>
-
-              )}
-              {avatarURL && (
-                <p>{avatarURL}</p>
               )}
               <button className = 'button is-primary is-light is-small mt-4' onClick={uploadImage}>Upload Image</button>
+                </div>
+              )}
+
               <hr />
 
               <input type = 'text' className = 'input' value = {headLine} onChange = {handleHeadLineChange} />
