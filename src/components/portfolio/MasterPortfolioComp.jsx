@@ -12,19 +12,43 @@ import { AuthContext } from '../../context/auth.context';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const MasterPortfolioComp = () => {
+  const [portfolioOwner, setPortfolioOwner] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const { user, isLoggedIn } = useContext(AuthContext);
 
   const { uniqueIdentifier } = useParams();
 
-  if(user){
-    console.log(user.uniqueIdentifier === uniqueIdentifier)
+
+  const toggleEditMode = () => {
+    setEditMode(edit => !edit);
   }
+
+  useEffect(() => {
+    if(user && user.uniqueIdentifier === uniqueIdentifier){
+      setPortfolioOwner(true);
+    } else {
+      setPortfolioOwner(false);
+    }
+  }, [uniqueIdentifier, user])
+
+  console.log('Owner', portfolioOwner)
 
 
   return (
-    <div>
+    <div className = 'container'>
+      {isLoggedIn && portfolioOwner ? (
+        <div>
+          {/* <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1> */}
+          <button onClick = {toggleEditMode} className = 'button is-warning navbar-end'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
+        </div>
+      ) : (<><p></p></>)}
 
+      <div>
+        {editMode && portfolioOwner ? (
+          <EditUserPortfolio />
+        ) : <UserPortfolio />}
+      </div>
     </div>
   )
 }
