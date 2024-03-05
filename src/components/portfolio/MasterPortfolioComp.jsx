@@ -37,18 +37,17 @@ const MasterPortfolioComp = () => {
 
   return (
     <div className = 'container'>
-      {isLoggedIn && portfolioOwner ? (
-        <div>
-          {/* <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1> */}
-          <button onClick = {toggleEditMode} className = 'button is-warning navbar-end'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
-        </div>
-      ) : (<><p></p></>)}
-
       <div>
         {editMode && portfolioOwner ? (
           <EditUserPortfolio />
         ) : <UserPortfolio />}
       </div>
+      {isLoggedIn && portfolioOwner ? (
+        <div>
+          {/* <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1> */}
+          <button onClick = {toggleEditMode} className = 'button is-warning navbar-end my-3'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
+        </div>
+      ) : (<><p></p></>)}
     </div>
   )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom';
@@ -8,6 +9,15 @@ import { AuthContext } from '../../context/auth.context';
 
 const fakeSkills = [
   'React', 'HTML', 'JavaScript', 'NodeJS', 'ExpressJS', 'MongoDB', 'CSS', 'TypeScript', 'Python', 'Git'
+];
+
+const fakeInterests = [
+  'Open Source Contributions', 'Technology Exploration', 'Problem Solving', 'User Experience (UX) Design',
+  'Continuous Learning', 'Outdoor Activities and Sports', 'Travel and Exploration'
+];
+
+const fakeLangs = [
+  'Spanish', 'English', 'German', 'Italian'
 ]
 
 
@@ -54,7 +64,6 @@ const UserPortfolio = () => {
     }
   },[uniqueIdentifier, user])
 
-  console.log(avatarURL)
   return (
     <div className = "container">
       <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
@@ -80,7 +89,7 @@ const UserPortfolio = () => {
                 {fakeSkills.map((skill, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
-                      <span className = 'tag is-success mr-3'>{skill} <i className="fa-solid fa-xmark ml-3"></i></span>
+                      <span className = 'tag is-success is-light mr-3'>{skill}</span>
                     </div>
                   )
                 })}
@@ -93,12 +102,6 @@ const UserPortfolio = () => {
               <p><span><i className = "fa-brands fa-linkedin mr-3 mb-3"></i></span>{linkedInURL}</p>
               <p><span><i className = "fa-brands fa-github mr-3 mb-3"></i></span>{gitHubURL}</p>
               <p><span><i className = "fa-solid fa-location-pin mr-3 mb-3"></i></span>Accra, Ghana</p>
-              <input type="text"
-                className = 'input mt-3'
-                placeholder = 'location e.g Accra, Ghana'
-                value = {location}
-                // onChange = {handleLocationChange}
-              />
             </div>
 
           </div>
@@ -106,50 +109,30 @@ const UserPortfolio = () => {
           <div className = "tile is-parent">
             <div className = "tile is-child box">
               <p className = "title">About me</p>
-              <textarea
-                name="about-me"
-                style={{width: "100%", resize: "none"}}
-                className = 'textarea'
-                value = {bio}
-                // onChange = {handleBioChange}
-              />
-              <div className = 'is-inline-flex'>
-                <input
-                  type =  "text"
-                  name = 'interest'
-                  placeholder = 'Add interests'
-                  className = 'input my-3'
-                  // value = {interest}
-                  // onChange={handleInterestChange}
-                />
-                <button className = 'button is-primary add-button mt-3'>+</button>
 
-                <input
-                  type =  "text"
-                  name = 'languages'
-                  placeholder = 'Add spoken languages'
-                  className = 'input mt-3 ml-3'
-                  // value = {language}
-                  // onChange={handleLanguageChange}
-                />
-                <button className = 'button is-primary add-button mt-3'>+</button>
-              </div>
-              <p className = "is-size-5">Interests</p>
+              <p>I'm a dedicated full-stack developer passionate about crafting seamless web solutions.
+                With skills in both frontend and backend development, I enjoy transforming ideas into impactful products.
+                Curiosity drives my continuous learning journey, and I thrive on collaborative projects. Beyond coding,
+                I explore creative pursuits like writing, photography, and music. Let's build something remarkable together!</p>
+                <hr />
+
+              <p className = "is-size-4 my-4">Interests</p>
               <div>
-                {interests && interests.map((interest, index) => {
+                {fakeInterests.map((interest, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
-                      {/* <span className = 'tag is-primary is-light mr-3'>{interest} <i className="fa-solid fa-xmark ml-3" onClick={() => removeInterest(index)}></i></span> */}
+                      <span className = 'tag is-primary is-light mr-3'>{interest}</span>
                     </div>
                   )
                 })}
               </div>
-              <p className = "is-size-5 mt-5">Spoken Languages</p>
+              <hr />
+              <p className = "is-size-4 my-4">Spoken Languages</p>
               <div>
-                {languages && languages.map((language, index) => {
+                {fakeLangs.map((language, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
-                      {/* <span className = 'tag is-primary is-light mr-3'>{language} <i className="fa-solid fa-xmark ml-3" ></i></span> */}
+                      <span className = 'tag is-primary is-light mr-3'>{language}</span>
                     </div>
                   )
                 })}
@@ -157,9 +140,9 @@ const UserPortfolio = () => {
             </div>
           </div>
         </div>
-        <button type='submit' className='button is-primary'>
+        {/* <button type='submit' className='button is-primary'>
           Save
-        </button>
+        </button> */}
     </div>
   )
 }
