@@ -142,22 +142,22 @@ const EditUserPortfolio = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const requestBody = {
-      user: owner,
-      headLine, interests,
-      languages, skills,
-      phone, avatarURL,
-      linkedInURL, gitHubURL,
-      bio, location
-    }
+    // const requestBody = {
+    //   user: owner,
+    //   headLine, interests,
+    //   languages, skills,
+    //   phone, avatarURL,
+    //   linkedInURL, gitHubURL,
+    //   bio, location
+    // }
 
-    axios.post(`${API_URL}api/portfolios`, requestBody)
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    // axios.post(`${API_URL}api/portfolios`, requestBody)
+    //   .then((response) => {
+    //     console.log(response.data)
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   })
   }
 
   useEffect(() => {

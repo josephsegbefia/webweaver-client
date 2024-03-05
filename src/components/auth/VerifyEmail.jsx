@@ -55,13 +55,13 @@ const VerifyEmail = () => {
   }
 
   const requestBody = { user: userId,
-     headLine: 'Summarize your professional identity',
-     bio: 'Tell us a bit about yourself',
-     phone: 'eg. +233 207849440',
-     avatarURL: 'www.google.com',
-     gitHubURL: 'www.github.com/user',
-     linkedInURL: 'www.linkedin.com/user',
-     location: 'eg. Accra, Ghana'
+     headLine: '',
+     bio: '',
+     phone: '',
+     avatarURL: 'www.exampleurl.com',
+     gitHubURL: 'www.exampleurl.com',
+     linkedInURL: 'www.exampleurl.com',
+     location: ''
     };
 
   useEffect(() => {
