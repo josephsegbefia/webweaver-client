@@ -36,6 +36,8 @@ const UserPortfolio = () => {
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
   const [owner, setOwner] = useState(null);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const { user, isLoggedIn } = useContext(AuthContext);
 
@@ -57,6 +59,8 @@ const UserPortfolio = () => {
           setGitHubURL(response.data[0].gitHubURL);
           setBio(response.data[0].bio);
           setLocation(response.data[0].location);
+          setFirstName(response.data[0].firstName);
+          setLastName(response.data[0].lastName);
         })
         .catch((error) => {
           console.log(error)
@@ -79,21 +83,25 @@ const UserPortfolio = () => {
                   <i className = "fa-regular fa-user fa-2xl"></i>
                 </div>
               )}
+
               <hr />
-              <h1 className = 'has-text-centered is-size-4 mt-3 has-text-primary'>{headLine ? headLine : 'Full Stack Web Developer'}</h1>
+              <p className = 'has-text-centered is-size-4 mt-3'>{firstName} {lastName}</p>
+              <h1 className = 'has-text-centered is-size-4 mt-3 has-text-primary'>{headLine ? headLine : 'Junior Full Stack Web Developer'}</h1>
             </div>
 
             <div className = "tile is-child box">
               <p className = "title">Skills</p>
-              <div>
-                {fakeSkills.map((skill, index) => {
+              {!skills ? <p className='has-text-centered has-text-success'>Your added skills will show here</p> : (
+                <div>
+                {skills.map((skill, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
                       <span className = 'tag is-success is-light mr-3'>{skill}</span>
                     </div>
                   )
                 })}
-              </div>
+              </div>)}
+
 
               <hr />
               <p className = 'title'>Info</p>
@@ -110,10 +118,7 @@ const UserPortfolio = () => {
             <div className = "tile is-child box">
               <p className = "title">About me</p>
 
-              <p>I'm a dedicated full-stack developer passionate about crafting seamless web solutions.
-                With skills in both frontend and backend development, I enjoy transforming ideas into impactful products.
-                Curiosity drives my continuous learning journey, and I thrive on collaborative projects. Beyond coding,
-                I explore creative pursuits like writing, photography, and music. Let's build something remarkable together!</p>
+              <p>{bio}</p>
                 <hr />
 
               <p className = "is-size-4 my-4">Interests</p>

@@ -142,22 +142,22 @@ const EditUserPortfolio = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const requestBody = {
-    //   user: owner,
-    //   headLine, interests,
-    //   languages, skills,
-    //   phone, avatarURL,
-    //   linkedInURL, gitHubURL,
-    //   bio, location
-    // }
+    const requestBody = {
+      user: owner,
+      headLine, interests,
+      languages, skills,
+      phone, avatarURL,
+      linkedInURL, gitHubURL,
+      bio, location
+    }
 
-    // axios.post(`${API_URL}api/portfolios`, requestBody)
-    //   .then((response) => {
-    //     console.log(response.data)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
+    axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}`, requestBody)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   useEffect(() => {
@@ -172,6 +172,7 @@ const EditUserPortfolio = () => {
           setBio(response.data[0].bio);
           setEmail(response.data[0].email)
           setOwner(response.data[0].user);
+          setSkills(response.data[0].skills);
         })
     }
   }, [uniqueIdentifier, user]);
