@@ -7,18 +7,18 @@ import { AuthContext } from '../../context/auth.context';
 
 
 
-const fakeSkills = [
-  'React', 'HTML', 'JavaScript', 'NodeJS', 'ExpressJS', 'MongoDB', 'CSS', 'TypeScript', 'Python', 'Git'
-];
+// const fakeSkills = [
+//   'React', 'HTML', 'JavaScript', 'NodeJS', 'ExpressJS', 'MongoDB', 'CSS', 'TypeScript', 'Python', 'Git'
+// ];
 
-const fakeInterests = [
-  'Open Source Contributions', 'Technology Exploration', 'Problem Solving', 'User Experience (UX) Design',
-  'Continuous Learning', 'Outdoor Activities and Sports', 'Travel and Exploration'
-];
+// const fakeInterests = [
+//   'Open Source Contributions', 'Technology Exploration', 'Problem Solving', 'User Experience (UX) Design',
+//   'Continuous Learning', 'Outdoor Activities and Sports', 'Travel and Exploration'
+// ];
 
-const fakeLangs = [
-  'Spanish', 'English', 'German', 'Italian'
-]
+// const fakeLangs = [
+//   'Spanish', 'English', 'German', 'Italian'
+// ]
 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -68,6 +68,7 @@ const UserPortfolio = () => {
     }
   },[uniqueIdentifier, user])
 
+  console.log("Languages=====>", languages);
   return (
     <div className = "container">
       <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
@@ -123,7 +124,7 @@ const UserPortfolio = () => {
 
               <p className = "is-size-4 my-4">Interests</p>
               <div>
-                {fakeInterests.map((interest, index) => {
+                {interests.map((interest, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
                       <span className = 'tag is-primary is-light mr-3'>{interest}</span>
@@ -134,7 +135,7 @@ const UserPortfolio = () => {
               <hr />
               <p className = "is-size-4 my-4">Spoken Languages</p>
               <div>
-                {fakeLangs.map((language, index) => {
+                {languages.map((language, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
                       <span className = 'tag is-primary is-light mr-3'>{language}</span>

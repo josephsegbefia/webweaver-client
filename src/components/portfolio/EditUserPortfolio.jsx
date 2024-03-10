@@ -173,6 +173,12 @@ const EditUserPortfolio = () => {
           setEmail(response.data[0].email)
           setOwner(response.data[0].user);
           setSkills(response.data[0].skills);
+          setLanguages(response.data[0].languages);
+          setInterests(response.data[0].interests);
+          setPhone(response.data[0].phone);
+          setGitHubURL(response.data[0].gitHubURL);
+          setLinkedInURL(response.data[0].linkedInURL);
+          setLocation(response.data[0].location);
         })
     }
   }, [uniqueIdentifier, user]);
