@@ -28,7 +28,7 @@ const App = () => {
             {/* <Route path = '/signout' element = {<SignOut />} /> */}
             <Route path = '/' element = {<Home />}/>
             <Route path = '/portfolios/:uniqueIdentifier' element = {<MasterPortfolioComp />} />
-            <Route path = '/projects' element = {<ProjectList />} />
+            {/* <Route path = '/projects' element = {<ProjectList />} /> */}
             <Route path = '/login' element = { <IsAnon> <Login /> </IsAnon> } />
             <Route path = '/signup' element = {<IsAnon> <SignUp /> </IsAnon>} />
             <Route path = '/verify-email' element = {<VerifyEmail />} />

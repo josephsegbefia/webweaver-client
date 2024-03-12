@@ -353,7 +353,7 @@ const EditUserPortfolio = () => {
             </div>
           </div>
         </div>
-        <button type='submit' className='button is-primary'>
+        <button type='submit' className='button is-primary navbar-end my-3'>
           Save
         </button>
       </form>
