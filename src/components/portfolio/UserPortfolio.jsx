@@ -75,13 +75,13 @@ const UserPortfolio = () => {
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box has-text-centered">
-              {!avatarURL === 'www.exampleurl.com' ? (
-                <figure className = 'image is-128x128'>
-                  <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' />
+              {avatarURL ? (
+                <figure className='image is-128x128'>
+                  <img className='is-rounded' src={avatarURL} alt='avatar image' />
                 </figure>
-              ) : (
+                ) : (
                 <div>
-                  <i className = "fa-regular fa-user fa-2xl"></i>
+                  <i className="fa-regular fa-user fa-2xl"></i>
                 </div>
               )}
 

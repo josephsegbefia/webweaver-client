@@ -26,6 +26,9 @@ const EditUserPortfolio = () => {
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
   const [owner, setOwner] = useState(null);
+  const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [imgUploading, setImgUploading] = useState(false);
   // const [langFieldActive, setLangFieldActive] = useState(false);
   const [committed, setCommitted] = useState(false);
   const [lastName, setLastName] = useState('');
@@ -52,12 +55,14 @@ const EditUserPortfolio = () => {
       console.log('No file selected');
       return;
     }
+    setImgUploading(loading => !loading);
 
     const uploadData = new FormData();
     uploadData.append('imgUrl', selectedFile);
     axios.post(`${API_URL}api/image-upload`, uploadData)
       .then((response) => {
         setAvatarURL(response.data.fileUrl)
+        setImgUploading(loading => !loading);
       })
       .catch((error) => {
         console.log('Error uploading the file');
@@ -141,6 +146,7 @@ const EditUserPortfolio = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const requestBody = {
       user: owner,
@@ -151,13 +157,17 @@ const EditUserPortfolio = () => {
       bio, location
     }
 
+
     axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}`, requestBody)
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    .then((response) => {
+      console.log(response.data)
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log(error);
+      setLoading(false);
+    })
+
   }
 
   useEffect(() => {
@@ -186,11 +196,23 @@ const EditUserPortfolio = () => {
 
   return (
     <div className = "container">
+      {
+        loading && (
+          <progress className = "progress is-medium is-link' max = '100">
+            60%
+          </progress>
+        )
+      }
       <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
       <form onSubmit={handleSubmit}>
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box">
+              {imgUploading && (
+                <progress className = 'progress is-medium is-link' max = '100'>
+                  60%
+                </progress>
+              )}
               {avatarURL ? (
                 <figure className = 'image is-128x128'>
                   <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' />
@@ -214,7 +236,7 @@ const EditUserPortfolio = () => {
               {imageName && (
                 <p>{imageName}</p>
               )}
-              <button className = 'button is-primary is-light is-small mt-4' onClick={uploadImage}>Upload Image</button>
+              <button className = 'button is-primary is-light is-small mt-4' onClick={uploadImage} disabled={imgUploading}>Upload Image</button>
                 </div>
               )}
 
