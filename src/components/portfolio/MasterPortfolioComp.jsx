@@ -33,6 +33,48 @@ const projects = [
     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
     shortDesc: "A short description",
     techsUsed: ["react", "HTML", "CSS"]
+  },
+  {
+    title: "First Project",
+    description: "A first description",
+    imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
+    shortDesc: "A short description",
+    techsUsed: ["react", "HTML", "CSS"]
+  },
+  {
+    title: "Second Project",
+    description: "A second description",
+    imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
+    shortDesc: "A short description",
+    techsUsed: ["react", "HTML", "CSS"]
+  },
+  {
+    title: "First Project",
+    description: "A first description",
+    imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
+    shortDesc: "A short description",
+    techsUsed: ["react", "HTML", "CSS"]
+  },
+  {
+    title: "First Project",
+    description: "A first description",
+    imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
+    shortDesc: "A short description",
+    techsUsed: ["react", "HTML", "CSS"]
+  },
+  {
+    title: "Second Project",
+    description: "A second description",
+    imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
+    shortDesc: "A short description",
+    techsUsed: ["react", "HTML", "CSS"]
+  },
+  {
+    title: "First Project",
+    description: "A first description",
+    imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
+    shortDesc: "A short description",
+    techsUsed: ["react", "HTML", "CSS"]
   }
 ]
 
