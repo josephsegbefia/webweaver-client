@@ -38,3 +38,7 @@
 .modal-close:hover {
   color: #000;
 }
+
+.action {
+  width: 270px;
+}
