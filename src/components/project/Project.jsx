@@ -1,9 +1,25 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import AddProject from './AddProject';
+import './project.css'
+
 
 const Project = ({ projects }) => {
-  // Assuming projects is an array of project objects with properties like title, subtitle, and links
+
+  const [addProjectFormOpen, setAddProjectFormOpen] = useState(false);
+
+  const handleOpenAddProjectForm = () => {
+    setAddProjectFormOpen(true);
+  }
+
+  const handleCloseAddProjectForm = () => {
+    setAddProjectFormOpen(false);
+  }
+
+
+
+
   return (
     <div className="container">
       <div className="columns is-multiline">
@@ -29,7 +45,28 @@ const Project = ({ projects }) => {
             </div>
           </div>
         ))}
+        <div className = "column is-one-third">
+          <div className="card">
+            <div className="card-content">
+              <button className="title is-size-1 has-text-centered is-success" onClick={handleOpenAddProjectForm}>+</button>
+              <p className="subtitle"></p>
+            </div>
+            <footer className="card-footer">
+              <p className="card-footer-item">
+                {/* <span>
+                  View on <a href={project.imgUrl}>Twitter</a>
+                </span> */}
+              </p>
+              <p className="card-footer-item">
+                {/* <span>
+                  Share on <a href={project.imgUrl}>Facebook</a>
+                </span> */}
+              </p>
+            </footer>
+          </div>
+        </div>
       </div>
+      {addProjectFormOpen && <AddProject onClose={handleCloseAddProjectForm}/>}
     </div>
   );
 };
