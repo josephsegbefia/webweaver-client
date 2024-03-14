@@ -65,25 +65,8 @@ const Project = ({ projects }) => {
         ))}
         {checkOwner() && (
           <div className = "column is-one-third">
-          <div className="card">
-            <div className="card-content">
-              <button className="title is-size-1 has-text-centered is-success" onClick={handleOpenAddProjectForm}>+</button>
-              <p className="subtitle"></p>
-            </div>
-            <footer className="card-footer">
-              <p className="card-footer-item">
-                {/* <span>
-                  View on <a href={project.imgUrl}>Twitter</a>
-                </span> */}
-              </p>
-              <p className="card-footer-item">
-                {/* <span>
-                  Share on <a href={project.imgUrl}>Facebook</a>
-                </span> */}
-              </p>
-            </footer>
+            <button className="button is-primary" onClick={handleOpenAddProjectForm}>Add Project</button>
           </div>
-        </div>
         )}
       </div>
       {addProjectFormOpen && <AddProject onClose={handleCloseAddProjectForm} />}
