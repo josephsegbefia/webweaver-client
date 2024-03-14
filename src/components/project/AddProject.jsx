@@ -2,13 +2,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
+import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const AddProject = ({ onClose }) => {
+  const [title, setTitle] = useState("");
+  const [shortDesc, setShortDesc] = useState("");
+  const [description, setDescription] = useState("");
+
   const [isOpen, setIsOpen] = useState(true);
   const [techsUsed, setTechsUsed] = useState([]);
   const [tech, setTech] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [imgUrl, setImgUrl] = useState("");
+  const [imgUploading, setImgUploading] = useState(false);
+  const [imageName, setImageName] = useState("");
 
   const { user } = useContext(AuthContext);
 
@@ -44,9 +53,43 @@ const AddProject = ({ onClose }) => {
     setTechsUsed(updatedTechs);
   }
 
+  const uploadImage = () => {
+    if (!selectedFile){
+      console.log('No file selected');
+      return;
+    }
+    setImgUploading(loading => !loading);
+
+    const uploadData = new FormData();
+    uploadData.append('imgUrl', selectedFile);
+    axios.post(`${API_URL}api/image-upload`, uploadData)
+      .then((response) => {
+        setImgUrl(response.data.fileUrl)
+        setImgUploading(loading => !loading);
+      })
+      .catch((error) => {
+        console.log('Error uploading the file');
+      })
+  }
+
+  const handleImgChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setImageName(event.target.files[0].name)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const requestBody = {
+      title,
+      shortDesc,
+      description,
+      imgUrl,
+      techsUsed
+    }
   }
+
+  console.log(imgUrl)
 
 
 
@@ -65,8 +108,8 @@ const AddProject = ({ onClose }) => {
                       className="input"
                       type="text"
                       placeholder="Project Title"
-                      // value={lastName}
-                      // onChange={handleLastName}
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </p>
                 </div>
@@ -97,8 +140,8 @@ const AddProject = ({ onClose }) => {
                       className="input"
                       type="text"
                       placeholder="Provide a short description"
-                      // value={lastName}
-                      // onChange={handleLastName}
+                      value={shortDesc}
+                      onChange={(e) => setShortDesc(e.target.value)}
                     />
                   </p>
                 </div>
@@ -111,16 +154,31 @@ const AddProject = ({ onClose }) => {
                     <textarea
                       className="textarea"
                       placeholder="Provide a more detailed description"
+                      onChange = {(e) => setDescription(e.target.value)}
+                      value={description}
                     />
                   </p>
                 </div>
               </div>
             </div>
             <div className = "columns">
+              <div className = "column">
+                <p>Technologies used:</p>
+              {techsUsed.length > 0 && techsUsed.map((tech, index) => {
+                  return (
+                    <div key = {index} className = 'is-inline-flex'>
+                      <span className = 'tag is-success mr-3'>{tech} <i className="fa-solid fa-xmark ml-3" onClick={() => removeTech(index)}></i></span>
+                    </div>
+                  )
+              })}
+
+              </div>
+            </div>
+            <div className = "columns">
               <div className = "column is-inline-flex">
                 <div className = "file">
                   <label className = "file-label">
-                    <input className = "file-input" type="file" name="resume" placeholder='upload project image'/>
+                    <input className = "file-input" type="file" name="resume" placeholder='upload project image' onChange={handleImgChange}/>
                     <span className = "file-cta">
                       <span className = "file-icon">
                         <i className = "fas fa-upload"></i>
@@ -131,7 +189,7 @@ const AddProject = ({ onClose }) => {
                     </span>
                   </label>
                 </div>
-                <button className = "button mx-3">Upload</button>
+                <button className = "button mx-3" onClick={uploadImage}>Upload</button>
               </div>
             </div>
             <div className="columns">
