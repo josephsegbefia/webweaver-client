@@ -189,6 +189,7 @@ const EditUserPortfolio = () => {
           setGitHubURL(response.data[0].gitHubURL);
           setLinkedInURL(response.data[0].linkedInURL);
           setLocation(response.data[0].location);
+          setAvatarURL(response.data[0].avatarURL);
         })
     }
   }, [uniqueIdentifier, user]);
