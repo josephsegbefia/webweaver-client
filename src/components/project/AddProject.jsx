@@ -7,21 +7,48 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const AddProject = ({ onClose }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [techsUsed, setTechsUsed] = useState([]);
+  const [tech, setTech] = useState("");
 
   const { user } = useContext(AuthContext);
 
   let uniqueIdentifier;
   user && (uniqueIdentifier = user.uniqueIdentifier);
 
+
+
+  const fieldCheck = (field) => {
+    if(field === ''){
+      return true;
+    }
+    false;
+  }
+
   const handleClose = () => {
     setIsOpen(false);
     onClose && onClose();
   };
 
+  const handleTechChange = (e) => {
+    setTech(e.target.value);
+  }
+
+  const addTech = () => {
+    const techToSave = tech.trim();
+    setTechsUsed([techToSave, ...techsUsed]);
+    setTech('');
+  }
+
+  const removeTech = (indexToRemove) => {
+    const updatedTechs = techsUsed.filter((_, index) => index !== indexToRemove);
+    setTechsUsed(updatedTechs);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
   }
+
+
 
   return (
     <div className={`modal ${isOpen ? 'is-active' : ''}`}>
@@ -51,14 +78,14 @@ const AddProject = ({ onClose }) => {
                       className="input"
                       type="text"
                       placeholder="Techs used e.g React"
-                      // value={lastName}
-                      // onChange={handleLastName}
+                      value={tech}
+                      onChange={handleTechChange}
                     />
                   </p>
                 </div>
               </div>
               <div className="column">
-                <button className="button is-success">Add</button>
+                <button className="button is-success" onClick={addTech} disabled={fieldCheck(tech)}>Add</button>
               </div>
             </div>
 
