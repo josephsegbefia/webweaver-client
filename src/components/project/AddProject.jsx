@@ -87,6 +87,21 @@ const AddProject = ({ onClose }) => {
       imgUrl,
       techsUsed
     }
+
+    const storedToken = localStorage.getItem('authToken');
+
+    axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/projects`, requestBody,
+    { headers: { Authorization: `Bearer ${storedToken}` } })
+      .then((response) => {
+        console.log(response.data)
+        setTitle('');
+        setShortDesc('');
+        setDescription('');
+        setImgUrl('');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   console.log(imgUrl)
