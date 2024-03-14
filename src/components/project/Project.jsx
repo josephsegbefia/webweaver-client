@@ -22,6 +22,8 @@ const Project = ({ projects }) => {
 
   return (
     <div className="container">
+      <p className = "title is-size-1 my-6 has-text-centered">Projects</p>
+      <hr />
       <div className="columns is-multiline">
         {projects.map((project, index) => (
           <div key={index} className="column is-one-third">

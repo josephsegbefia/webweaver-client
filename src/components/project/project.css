@@ -40,5 +40,6 @@
 }
 
 .action {
-  width: 270px;
+  /* width: 270px; */
+  width: 100%;
 }
