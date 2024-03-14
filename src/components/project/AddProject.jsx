@@ -10,7 +10,7 @@ const AddProject = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [description, setDescription] = useState("");
-
+  const [reload, setReload] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [techsUsed, setTechsUsed] = useState([]);
   const [tech, setTech] = useState("");
@@ -18,6 +18,7 @@ const AddProject = ({ onClose }) => {
   const [imgUrl, setImgUrl] = useState("");
   const [imgUploading, setImgUploading] = useState(false);
   const [imageName, setImageName] = useState("");
+  const [errorMessage, setErrorMessage] = useState(undefined);
 
   const { user } = useContext(AuthContext);
 
@@ -25,6 +26,14 @@ const AddProject = ({ onClose }) => {
   user && (uniqueIdentifier = user.uniqueIdentifier);
 
 
+
+  const checkFormFields = () => {
+    if(title ===  "" || description === "" || shortDesc === "" || techsUsed < 0 ){
+      setErrorMessage("Please fill all fields. Thank you!")
+      return false;
+    }
+    true;
+  }
 
   const fieldCheck = (field) => {
     if(field === ''){
@@ -58,17 +67,18 @@ const AddProject = ({ onClose }) => {
       console.log('No file selected');
       return;
     }
-    setImgUploading(loading => !loading);
+    setImgUploading(true);
 
     const uploadData = new FormData();
     uploadData.append('imgUrl', selectedFile);
     axios.post(`${API_URL}api/image-upload`, uploadData)
       .then((response) => {
         setImgUrl(response.data.fileUrl)
-        setImgUploading(loading => !loading);
+        setImgUploading(false);
       })
       .catch((error) => {
         console.log('Error uploading the file');
+        setImgUploading(false);
       })
   }
 
@@ -77,8 +87,16 @@ const AddProject = ({ onClose }) => {
     setImageName(event.target.files[0].name)
   }
 
+
+  const reloadPage = () => {
+    setReload(reload => !reload);
+    setErrorMessage(undefined);
+  }
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    checkFormFields();
 
     const requestBody = {
       title,
@@ -98,13 +116,15 @@ const AddProject = ({ onClose }) => {
         setShortDesc('');
         setDescription('');
         setImgUrl('');
+        setImageName('');
+        setTechsUsed([]);
       })
       .catch((error) => {
         console.log(error);
       })
   }
 
-  console.log(imgUrl)
+
 
 
 
@@ -114,6 +134,17 @@ const AddProject = ({ onClose }) => {
       <div className="modal-content">
         <div className="box">
           <h1 className="title">Add Project</h1>
+          {errorMessage && (
+            <article className="message is-danger">
+              <div className="message-header">
+                <p>Error</p>
+                <button onClick = {reloadPage} className="delete" aria-label="delete"></button>
+              </div>
+              <div className = "message-body">
+                {errorMessage}
+              </div>
+            </article>
+          )}
           <form onSubmit = {handleSubmit}>
             <div className="columns">
               <div className="column is-half">
@@ -143,7 +174,7 @@ const AddProject = ({ onClose }) => {
                 </div>
               </div>
               <div className="column">
-                <button className="button is-success" onClick={addTech} disabled={fieldCheck(tech)}>Add</button>
+                <button className="button is-success" onClick={addTech} disabled={fieldCheck(tech)} type = "button">Add</button>
               </div>
             </div>
 
@@ -204,12 +235,27 @@ const AddProject = ({ onClose }) => {
                     </span>
                   </label>
                 </div>
-                <button className = "button mx-3" onClick={uploadImage}>Upload</button>
+                <button className = "button mx-3" onClick={uploadImage} type = "button">Upload</button>
               </div>
             </div>
+            {imgUploading && (
+              <div className = "columns">
+                <div className = "column">
+                  <small className = "is-success">Uploading image please wait...</small>
+                </div>
+              </div>
+            )}
+            {imageName && (
+              <div className = "columns">
+                <div className = "column">
+                  <small className = "is-success is-size-7">{imageName}</small>
+                </div>
+              </div>
+            )}
+
             <div className="columns">
               <div className="column">
-                <button className="button is-success action" type = "submit">Save</button>
+                <button className="button is-success action" disabled = {imageName === ""} type = "submit">Save</button>
               </div>
               <div className="column">
                 <button className="button is-danger action" onClick = {handleClose}>Cancel</button>
