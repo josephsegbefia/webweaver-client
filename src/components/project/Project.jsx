@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/auth.context';
 import './project.css';
 import { useParams } from 'react-router-dom';
 
-const Project = ({ projects, next, previous, loading }) => {
+const Project = ({ projects, next, previous, loading, totalPages, currentPage }) => {
   const [addProjectFormOpen, setAddProjectFormOpen] = useState(false);
   const { user, isLoggedIn } = useContext(AuthContext);
   const { uniqueIdentifier } = useParams();
@@ -70,10 +70,10 @@ const Project = ({ projects, next, previous, loading }) => {
           </div>
           <div className="columns">
             <div className="column is-half">
-              <button className="button action is-warning" onClick={previous}>Previous</button>
+              <button className="button action is-warning" onClick={previous} disabled = {currentPage === 1}>Previous</button>
             </div>
             <div className="column is-half">
-              <button className="button action is-primary" onClick={next}>Next</button>
+              <button className="button action is-primary" onClick={next} disabled = {currentPage === totalPages}>Next</button>
             </div>
           </div>
           <div className="columns">
