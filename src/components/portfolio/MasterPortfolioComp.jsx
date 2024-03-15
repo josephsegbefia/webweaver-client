@@ -84,6 +84,7 @@ const MasterPortfolioComp = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState()
+  const [loadingProjects, setLoadingProjects] = useState(false);
 
   const limit = 6;
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -91,12 +92,17 @@ const MasterPortfolioComp = () => {
   const { uniqueIdentifier } = useParams();
 
   const fetchProjects = async () => {
+    setLoadingProjects(true);
     try {
       const response = await axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/projects?limit=${limit}&offset=${(currentPage - 1) * limit }`);
-      setProjects(response.data);
-      console.log(response.data);
+      setProjects(response.data.projects);
+      // console.log(response.data.totalPages);
+      setTotalPages(Math.ceil(response.data.totalPages))
+      console.log(totalPages)
+      setLoadingProjects(false);
     }catch(error){
       console.log("Error fetching projects", error);
+      setLoadingProjects(false);
     }
   }
 
@@ -104,6 +110,17 @@ const MasterPortfolioComp = () => {
     fetchProjects();
   }, [currentPage]);
 
+  const nextPage = () => {
+    if(currentPage < totalPages){
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
+  const prevPage = () => {
+    if(currentPage > 1){
+      setCurrentPage(currentPage - 1);
+    }
+  }
 
 
   const toggleEditMode = () => {
@@ -134,7 +151,7 @@ const MasterPortfolioComp = () => {
           <button onClick = {toggleEditMode} className = 'button is-warning navbar-end my-3'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
         </div>
       ) : (<><p></p></>)}
-      <Project projects = {projects} />
+      <Project projects = {projects} next = {nextPage} previous = {prevPage} loading = {loadingProjects}/>
     </div>
   )
 }
