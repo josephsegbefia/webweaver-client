@@ -45,12 +45,19 @@ const Project = ({ projects, next, previous, loading, totalPages, currentPage })
       ) : (
         <div>
           <div className="columns is-multiline">
-            {projects.map((project) => (
+            {projects.length !== 0 && projects.map((project) => (
               <div key={project._id} className="column is-one-third">
                 <div className="card">
                   <div className="card-content">
                     <p className="title">{project.title}</p>
                     <p className="subtitle">{project.shortDesc}</p>
+                    {project.techsUsed.map((tech, index) => {
+                      return (
+                        <div key = {index} className = 'is-inline-flex'>
+                          <span className = 'tag is-success is-light mr-3'>{tech}</span>
+                        </div>
+                      )
+                    })}
                   </div>
                   <footer className="card-footer">
                     <p className="card-footer-item">
@@ -68,14 +75,24 @@ const Project = ({ projects, next, previous, loading, totalPages, currentPage })
               </div>
             ))}
           </div>
-          <div className="columns">
-            <div className="column is-half">
-              <button className="button action is-warning" onClick={previous} disabled = {currentPage === 1}>Previous</button>
+          {projects.length !== 0 && (
+            <div className="columns">
+              <div className="column is-half">
+                <button className="button action is-warning" onClick={previous} disabled = {currentPage === 1}>Previous</button>
+              </div>
+              <div className="column is-half">
+                <button className="button action is-primary" onClick={next} disabled = {currentPage === totalPages}>Next</button>
+              </div>
             </div>
-            <div className="column is-half">
-              <button className="button action is-primary" onClick={next} disabled = {currentPage === totalPages}>Next</button>
+          )}
+          {projects.length === 0 && (
+            <div className = "columns is-centered is-vcentered">
+              <div className = "column is-half has-text-centered">
+                <p className = "has-text-danger is-size-5">No Projects yet</p>
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="columns">
             <div className="column">
               {checkOwner() && (

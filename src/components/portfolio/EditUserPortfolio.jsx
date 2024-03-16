@@ -214,7 +214,7 @@ const EditUserPortfolio = () => {
                   60%
                 </progress>
               )}
-              {avatarURL ? (
+              {!avatarURL ? (
                 <figure className = 'image is-128x128'>
                   <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' />
                 </figure>
@@ -237,7 +237,7 @@ const EditUserPortfolio = () => {
               {imageName && (
                 <p>{imageName}</p>
               )}
-              <button className = 'button is-primary is-light is-small mt-4' onClick={uploadImage} disabled={imgUploading}>Upload Image</button>
+              <button type = "button" className = 'button is-primary is-light is-small mt-4' onClick={uploadImage} disabled={imgUploading}>Upload Image</button>
                 </div>
               )}
 

@@ -151,6 +151,7 @@ const MasterPortfolioComp = () => {
           <button onClick = {toggleEditMode} className = 'button is-warning navbar-end my-3'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
         </div>
       ) : (<><p></p></>)}
+
       <Project
         projects = {projects}
         next = {nextPage}
@@ -162,5 +163,7 @@ const MasterPortfolioComp = () => {
     </div>
   )
 }
+
+
 
 export default MasterPortfolioComp

@@ -106,10 +106,10 @@ const UserPortfolio = () => {
               <hr />
               <p className = 'title'>Info</p>
               <p><span><i className = 'fas fa-envelope mr-3 mb-3'></i></span>{email}</p>
-              <p><span><i className = 'fas fa-phone mr-3 mb-3'></i></span>+491636966417</p>
+              <p><span><i className = 'fas fa-phone mr-3 mb-3'></i></span>{phone}</p>
               <p><span><i className = "fa-brands fa-linkedin mr-3 mb-3"></i></span>{linkedInURL}</p>
               <p><span><i className = "fa-brands fa-github mr-3 mb-3"></i></span>{gitHubURL}</p>
-              <p><span><i className = "fa-solid fa-location-pin mr-3 mb-3"></i></span>Accra, Ghana</p>
+              <p><span><i className = "fa-solid fa-location-pin mr-3 mb-3"></i></span>{location}</p>
             </div>
 
           </div>
