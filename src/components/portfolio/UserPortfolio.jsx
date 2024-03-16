@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
@@ -23,7 +24,7 @@ import { AuthContext } from '../../context/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const UserPortfolio = () => {
+const UserPortfolio = ({ owner }) => {
   const [headLine, setHeadLine] = useState('');
   const [interests, setInterests] = useState([]);
   const [languages, setLanguages] = useState([]);
@@ -35,7 +36,7 @@ const UserPortfolio = () => {
   const [gitHubURL, setGitHubURL] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
-  const [owner, setOwner] = useState(null);
+  // const [owner, setOwner] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -70,7 +71,8 @@ const UserPortfolio = () => {
 
   return (
     <div className = "container">
-      <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>
+      {owner ? (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>) : (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Welcome to my portfolio</h1>)}
+
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box has-text-centered">

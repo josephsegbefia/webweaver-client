@@ -62,12 +62,17 @@ const Project = ({ projects, next, previous, loading, totalPages, currentPage })
                   <footer className="card-footer">
                     <p className="card-footer-item">
                       <span>
-                        View on <a href={project.imgUrl}>Twitter</a>
+                        <i className = "fa-solid fa-up-right-and-down-left-from-center"></i>
                       </span>
                     </p>
                     <p className="card-footer-item">
                       <span>
-                        Share on <a href={project.imgUrl}>Facebook</a>
+                      <i className = "fa-regular fa-eye"></i>
+                      </span>
+                    </p>
+                    <p className="card-footer-item">
+                      <span>
+                        <i className = "fa-brands fa-github"></i>
                       </span>
                     </p>
                   </footer>

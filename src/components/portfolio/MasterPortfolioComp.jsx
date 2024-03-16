@@ -143,7 +143,7 @@ const MasterPortfolioComp = () => {
       <div>
         {editMode && portfolioOwner ? (
           <EditUserPortfolio />
-        ) : <UserPortfolio />}
+        ) : <UserPortfolio owner = {portfolioOwner}/>}
       </div>
       {isLoggedIn && portfolioOwner ? (
         <div>
