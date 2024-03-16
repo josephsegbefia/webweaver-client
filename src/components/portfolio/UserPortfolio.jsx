@@ -106,7 +106,7 @@ const UserPortfolio = ({ owner }) => {
 
 
               <hr />
-              <p className = 'title'>Info</p>
+              <p className = 'title'>Contact</p>
               <p><span><i className = 'fas fa-envelope mr-3 mb-3'></i></span>{email}</p>
               <p><span><i className = 'fas fa-phone mr-3 mb-3'></i></span>{phone}</p>
               <p><span><i className = "fa-brands fa-linkedin mr-3 mb-3"></i></span>{linkedInURL}</p>
