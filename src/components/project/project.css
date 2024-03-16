@@ -56,8 +56,13 @@
   height: 100%; /* Ensures the card takes up full height of its container */
   display: flex;
   flex-direction: column;
+  border: 1px solid #00d1b2;
 }
 
 .card-footer {
   margin-top: auto; /* Pushes the footer to the bottom of the card */
 }
+
+/* .card-footer-item:hover {
+  border: 1px solid #ffdb4a;
+} */

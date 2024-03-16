@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
 import EditUserPortfolio from "./EditUserPortfolio";
 import UserPortfolio from "./UserPortfolio";
 import Project from "../project/Project";
+import EducationList from "../education/EducationList";
 
 
 import '../../assets/styles.scss'
@@ -87,8 +89,8 @@ const MasterPortfolioComp = () => {
           {/* <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1> */}
           <button onClick = {toggleEditMode} className = 'button is-warning navbar-end my-3'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
         </div>
-      ) : (<><p></p></>)}
-
+      ) : ("")}
+      <EducationList />
       <Project
         projects = {projects}
         next = {nextPage}
