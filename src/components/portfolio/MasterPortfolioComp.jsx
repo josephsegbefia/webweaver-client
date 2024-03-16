@@ -12,71 +12,6 @@ import { AuthContext } from '../../context/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// const projects = [
-//   {
-//     title: "First Project",
-//     description: "A first description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "Second Project",
-//     description: "A second description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "First Project",
-//     description: "A first description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "First Project",
-//     description: "A first description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "Second Project",
-//     description: "A second description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "First Project",
-//     description: "A first description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "First Project",
-//     description: "A first description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "Second Project",
-//     description: "A second description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   },
-//   {
-//     title: "First Project",
-//     description: "A first description",
-//     imgUrl: "https://res.cloudinary.com/dexb8osc9/image/upload/v1710262854/webweaver/innjvjnqhkaizgo4nzoa.jpg",
-//     shortDesc: "A short description",
-//     techsUsed: ["react", "HTML", "CSS"]
-//   }
-// ]
 
 const MasterPortfolioComp = () => {
   const [portfolioOwner, setPortfolioOwner] = useState(false);
@@ -85,6 +20,7 @@ const MasterPortfolioComp = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState()
   const [loadingProjects, setLoadingProjects] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(undefined);
 
   const limit = 6;
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -101,7 +37,8 @@ const MasterPortfolioComp = () => {
       console.log(totalPages)
       setLoadingProjects(false);
     }catch(error){
-      console.log("Error fetching projects", error);
+      console.log("Error fetching projects", error.response.data.message);
+      setErrorMessage(error.response.data.message)
       setLoadingProjects(false);
     }
   }
@@ -142,8 +79,8 @@ const MasterPortfolioComp = () => {
     <div className = 'container'>
       <div>
         {editMode && portfolioOwner ? (
-          <EditUserPortfolio />
-        ) : <UserPortfolio owner = {portfolioOwner}/>}
+          <EditUserPortfolio errorMessage = {errorMessage}/>
+        ) : <UserPortfolio owner = {portfolioOwner} errorMessage = {errorMessage}/>}
       </div>
       {isLoggedIn && portfolioOwner ? (
         <div>

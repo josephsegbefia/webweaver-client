@@ -24,7 +24,7 @@ import { AuthContext } from '../../context/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const UserPortfolio = ({ owner }) => {
+const UserPortfolio = ({ owner, errorMessage }) => {
   const [headLine, setHeadLine] = useState('');
   const [interests, setInterests] = useState([]);
   const [languages, setLanguages] = useState([]);
@@ -36,6 +36,7 @@ const UserPortfolio = ({ owner }) => {
   const [gitHubURL, setGitHubURL] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
+
   // const [owner, setOwner] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -48,7 +49,7 @@ const UserPortfolio = ({ owner }) => {
 
       axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}`)
         .then((response) => {
-          console.log(response.data[0])
+          // console.log(response.data[0])
           setHeadLine(response.data[0].headLine);
           setInterests(response.data[0].interests);
           setLanguages(response.data[0].languages);
@@ -62,15 +63,31 @@ const UserPortfolio = ({ owner }) => {
           setLocation(response.data[0].location);
           setFirstName(response.data[0].firstName);
           setLastName(response.data[0].lastName);
+
+
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
+
         })
   },[uniqueIdentifier])
 
 
+
   return (
     <div className = "container">
+      {errorMessage && (
+        <article className="message is-danger">
+          <div className="message-header">
+            <p>Error</p>
+            <button  className="delete" aria-label="delete"></button>
+          </div>
+          <div className = "message-body">
+            {errorMessage}
+          </div>
+        </article>
+      )}
+
       {owner ? (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>) : (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Welcome to my portfolio</h1>)}
 
         <div className = "tile is-ancestor mt-6">
