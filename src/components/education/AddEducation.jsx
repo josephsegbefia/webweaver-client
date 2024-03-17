@@ -15,9 +15,26 @@ const AddEducation = ({ onClose }) => {
   const [selectedCert, setSelectedCert] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState('');
   const [selectedEndDate, setSelectedEndDate] = useState('');
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [saveStatus, setSaveStatus] = useState("Ready");
+  const [reload, setReload] = useState(false);
+
+  const [schoolName, setSchoolName] = useState('');
+  const [program, setProgram] = useState('');
+  const [beginDate, seBeginDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [educationType, setEducationType] = useState('');
+  const [earnedCert, setEarnedCert] = useState('');
 
 
-  console.log(selectedStartDate);
+
+  const checkFormFields = () => {
+    if(schoolName === '' || program === '' || beginDate === '' || endDate === '' || educationType === '' || earnedCert === ''){
+      return true;
+    }
+    false;
+  }
+  console.log(typeof(selectedStartDate));
   const { user } = useContext(AuthContext);
 
   let uniqueIdentifier;
@@ -35,13 +52,18 @@ const AddEducation = ({ onClose }) => {
     setIsOpen(false);
     onClose && onClose();
   };
+
+  const reloadPage = () => {
+    setReload(reload => !reload);
+    setErrorMessage(undefined);
+  }
   return (
     <div className={`modal ${isOpen ? 'is-active' : ''}`}>
       <div className="modal-background" onClick={handleClose}></div>
       <div className="modal-content">
         <div className="box">
           <h1 className="title">Add Education</h1>
-          {/* {errorMessage && (
+          {errorMessage && (
             <article className="message is-danger">
               <div className="message-header">
                 <p>Error</p>
@@ -51,7 +73,7 @@ const AddEducation = ({ onClose }) => {
                 {errorMessage}
               </div>
             </article>
-          )} */}
+          )}
           <form>
             <div className="columns">
               <div className="column">
@@ -61,8 +83,8 @@ const AddEducation = ({ onClose }) => {
                       className="input"
                       type="text"
                       placeholder="School Name"
-                      // value={title}
-                      // onChange={(e) => setTitle(e.target.value)}
+                      value={schoolName}
+                      onChange={(e) => setSchoolName(e.target.value)}
                     />
                   </p>
                 </div>
@@ -77,6 +99,8 @@ const AddEducation = ({ onClose }) => {
                       className = "input"
                       type="text"
                       placeholder = "Program/Course"
+                      value = {program}
+                      onChange = {(e) => setProgram(e.target.value)}
                     />
                   </p>
                 </div>
@@ -144,8 +168,8 @@ const AddEducation = ({ onClose }) => {
             </div>
             <div className="columns">
               <div className="column">
-                {/* <button className="button is-success action" disabled = {imageName === ""} type = "submit">Save</button> */}
-                {/* {
+                {/* <button className="button is-success action" disabled = {checkFormFields()} type = "submit">Save</button> */}
+                {
                   {
                     Saving: (
                       <button className = "button is-success action" value = "Creating..." type = "submit" disabled = {true}>Saving...</button>
@@ -157,10 +181,10 @@ const AddEducation = ({ onClose }) => {
                       <button className = "button is-success action" value = "Save Failed - Retry?" type = "submit"></button>
                     ),
                     Ready: (
-                      <button className = "button is-success action" value = "Save" type = "submit" disabled = {imageName === ""}>Save</button>
+                      <button className = "button is-success action" value = "Save" type = "submit" disabled = {checkFormFields()}>Save</button>
                     )
                   }[saveStatus]
-                } */}
+                }
               </div>
               <div className="column">
                 <button className="button is-danger action" onClick = {handleClose}>Cancel</button>
