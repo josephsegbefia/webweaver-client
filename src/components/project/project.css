@@ -63,6 +63,6 @@
   margin-top: auto; /* Pushes the footer to the bottom of the card */
 }
 
-/* .card-footer-item:hover {
-  border: 1px solid #ffdb4a;
-} */
+.card-footer-item {
+  cursor: pointer;
+}

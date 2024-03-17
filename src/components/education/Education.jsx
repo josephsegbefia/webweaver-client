@@ -26,6 +26,7 @@ const Education = ({ educations }) => {
         <div className="card">
           <div className="card-content">
             <p className = "is-size-5"><span><i className = "fa-solid fa-school mr-3 mb-3"></i></span>{education.schoolName}</p>
+            <hr />
             <p className = "is-size-7"><span><i className = "fa-solid fa-book-open-reader mr-4 mb-4"></i></span>{education.program}</p>
             <p className = "is-size-7"><span><i className = "fa-solid fa-graduation-cap mr-4 mb-4"></i></span>{education.educationType}</p>
             <p className = "is-size-7"><span><i className="fa-solid fa-certificate mr-4 mb-4"></i></span>{education.earnedCert}</p>
