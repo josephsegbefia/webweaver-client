@@ -3,18 +3,33 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../context/auth.context';
 import axios from "axios";
- import '../education/education.css';
+import Flatpickr from 'react-flatpickr';
+import 'flatpickr/dist/themes/light.css';
+// import '../education/education.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const AddEducation = ({ onClose }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [selectedEdType, setSelectedEdType] = useState('');
+  const [selectedCert, setSelectedCert] = useState('');
+  const [selectedStartDate, setSelectedStartDate] = useState('');
+  const [selectedEndDate, setSelectedEndDate] = useState('');
 
 
+  console.log(selectedStartDate);
   const { user } = useContext(AuthContext);
 
   let uniqueIdentifier;
   user && (uniqueIdentifier = user.uniqueIdentifier);
+
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date[0]);
+  };
+
+  const handleEndDateChange = (date) => {
+    setSelectedEndDate(date[0]);
+  };
 
   const handleClose = () => {
     setIsOpen(false);
@@ -39,81 +54,94 @@ const AddEducation = ({ onClose }) => {
           )} */}
           <form>
             <div className="columns">
-              <div className="column is-half">
+              <div className="column">
                 <div className="field">
                   <p className="control">
                     <input
                       className="input"
                       type="text"
-                      placeholder="Project Title"
+                      placeholder="School Name"
                       // value={title}
                       // onChange={(e) => setTitle(e.target.value)}
                     />
                   </p>
                 </div>
               </div>
-              <div className="column is-one-third">
-                <div className="field">
-                  <p className="control">
+            </div>
+
+            <div className="columns">
+              <div className = "column is-half">
+                <div className = "field">
+                  <p className = "control">
                     <input
-                      className="input"
+                      className = "input"
                       type="text"
-                      placeholder="Techs used e.g React"
-                      // value={tech}
-                      // onChange={handleTechChange}
+                      placeholder = "Program/Course"
                     />
                   </p>
                 </div>
               </div>
-              <div className="column">
-                {/* <button className="button is-success" onClick={addTech} disabled={fieldCheck(tech)} type = "button">Add</button> */}
-              </div>
-            </div>
-
-            <div className="columns">
-              <div className="column">
-                <div className="field">
-                  <p className="control">
-                    <input
-                      className="input"
-                      type="text"
-                      placeholder="Provide a short description"
-                      // value={shortDesc}
-                      // onChange={(e) => setShortDesc(e.target.value)}
-                    />
-                  </p>
+              <div className="column is-half">
+                <div className="select is-fullwidth">
+                  <select value = {selectedEdType} onChange = {(e) => setSelectedEdType(e.target.value)}>
+                    <option>Select Education Type</option>
+                    <option>Self tutored</option>
+                    <option>Bootcamp</option>
+                    <option>Tertiary Education</option>
+                  </select>
                 </div>
               </div>
             </div>
             <div className="columns">
               <div className="column">
-                <div className="field">
-                  <p className="control">
-                    <textarea
-                      className="textarea"
-                      placeholder="Provide a more detailed description"
-                      // onChange = {(e) => setDescription(e.target.value)}
-                      // value={description}
-                    />
-                  </p>
+                <div className="select is-fullwidth">
+                  <select value = {selectedCert} onChange = {(e) => setSelectedCert(e.target.value)}>
+                    <option>Select certificate earned</option>
+                    <option>Under graduate</option>
+                    <option>Post graduate</option>
+                    <option>other</option>
+                  </select>
                 </div>
               </div>
             </div>
-            {/* {imgUploading && (
-              <div className = "columns">
-                <div className = "column">
-                  <small className = "is-success">Uploading image please wait...</small>
+            <div className = "columns">
+              <div className = "column is-half">
+                <div className="field">
+                  <label className="label">Select Start Date:</label>
+                  <div className = "control">
+                  <Flatpickr
+                    className="input"
+                    value={selectedStartDate}
+                    onChange={handleStartDateChange}
+                    options={{
+                      dateFormat: 'Y-m-d',
+                      altInput: true,
+                      altFormat: 'F j, Y',
+                      defaultDate: selectedStartDate
+                    }}
+                  />
+                  </div>
                 </div>
               </div>
-            )} */}
-            {/* {imageName && (
-              <div className = "columns">
-                <div className = "column">
-                  <small className = "is-success is-size-7">{imageName}</small>
+              <div className = "column is-half">
+                <div className="field">
+                  <label className="label">Select End Date:</label>
+                  <div className = "control">
+                  <Flatpickr
+                    className="input"
+                    value={selectedEndDate}
+                    onChange={handleEndDateChange}
+                    options={{
+                      dateFormat: 'Y-m-d',
+                      altInput: true,
+                      altFormat: 'F j, Y',
+                      defaultDate: selectedEndDate
+                    }}
+                  />
+                  </div>
                 </div>
               </div>
-            )} */}
-
+            </div>
             <div className="columns">
               <div className="column">
                 {/* <button className="button is-success action" disabled = {imageName === ""} type = "submit">Save</button> */}

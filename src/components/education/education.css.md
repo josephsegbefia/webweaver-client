@@ -1,0 +1,66 @@
+.modal {
+  display: none;
+}
+
+.modal.is-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.action {
+  width: 100%;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch; /* Ensures equal height for flex items */
+}
+
+.card {
+  width: 100%; /* Ensures the card takes up full width of its container */
+  height: 100%; /* Ensures the card takes up full height of its container */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #00d1b2;
+}
+
+.card-footer {
+  margin-top: auto; /* Pushes the footer to the bottom of the card */
+}
+
+.card-footer-item {
+  cursor: pointer;
+}
