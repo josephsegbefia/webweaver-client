@@ -1,22 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 
-const Education = ({ educations }) => {
-  const { uniqueIdentifier } = useParams();
-  const { user, isLoggedIn } = useContext(AuthContext);
+const Education = ({ educations, checkOwner }) => {
+  const [addEducationFormOpen, setAddEducationFormOpen] = useState(false);
 
-
-  const checkOwner = () => {
-    if (user) {
-      if (user.uniqueIdentifier === uniqueIdentifier && isLoggedIn) {
-        return true;
-      }
-    }
-    return false;
-  };
 
   return (
     <div className = "container">
@@ -51,15 +41,15 @@ const Education = ({ educations }) => {
       </div>
       ))}
     </div>
-    <div className="columns">
-        <div className="column">
-          {checkOwner() && (
-            <div>
-              <button className="button is-primary">+ Add Education</button>
-            </div>
-          )}
-        </div>
+    {/* <div className="columns">
+      <div className="column">
+        {checkOwner() && (
+          <div>
+            <button className="button is-primary">+ Add Education</button>
+          </div>
+        )}
       </div>
+      </div> */}
     </div>
   )
 }

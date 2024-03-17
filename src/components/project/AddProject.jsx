@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/auth.context';
+// import './project.css';
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
