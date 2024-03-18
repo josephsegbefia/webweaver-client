@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import Education from './Education'
 import { AuthContext } from '../../context/auth.context'
 import AddEducation from './AddEducation'
+import EditEducation from './EditEducation';
 
 const EducationList = () => {
   const [addEducationFormOpen, setAddEducationFormOpen] = useState(false);
@@ -14,9 +15,26 @@ const EducationList = () => {
   const [totalPages, setTotalPages] = useState(null)
   const [loadingEducations, setLoadingEducations] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [educationId, setEducationId] = useState('');
 
   const { uniqueIdentifier } = useParams();
   const { user, isLoggedIn } = useContext(AuthContext);
+
+  // const navigate = useNavigate();
+  // const history = useHistory();
+
+  const [addEducationEditFormOpen, setAddEducationEditFormOpen] = useState(false);
+  // const [editMode, setEditMode] = useState(false);
+
+  const handleOpenEditEducationForm = () => {
+    setAddEducationEditFormOpen(true);
+    // history.push(`/portfolios/${uniqueIdentifier}/educations/${educationId}/edit`)
+  };
+  const handleCloseEditEducationForm = () => {
+    setAddEducationEditFormOpen(false);
+  };
+
+
 
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -91,7 +109,7 @@ const EducationList = () => {
         </div>
       )}
 
-      {educationList.length > 0 ? (<Education educations = {educationList} checkOwner = {checkOwner} />) : (
+      {educationList.length > 0 ? (<Education educations = {educationList} checkOwner = {checkOwner} onOpenEditor = {handleOpenEditEducationForm} setEdId = {setEducationId}/>) : (
         <div className = "columns is-centered is-vcentered">
           <div className = "column is-half has-text-centered">
             <p className = "has-text-danger is-size-5">Education history not provided</p>
@@ -118,6 +136,7 @@ const EducationList = () => {
         </div>
       </div>
       {addEducationFormOpen && <AddEducation onClose = {handleCloseAddEducationForm}/>}
+      {addEducationEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} edId = {educationId}/>}
     </div>
   )
 }
