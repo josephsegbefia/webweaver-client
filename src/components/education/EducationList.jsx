@@ -15,26 +15,27 @@ const EducationList = () => {
   const [totalPages, setTotalPages] = useState(null)
   const [loadingEducations, setLoadingEducations] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [refresh, setRefresh] = useState(false);
+
+  /* This state is needed by EditEducation which is a direct child of this comp.
+  However there is no way to directly access this (education._id) which can be found in Education.jsx hence this var
+  was created to hold the id. The var is passed to the education comp to be updated sent back then passed to
+  edit education comp.
+  */
   const [educationId, setEducationId] = useState('');
 
   const { uniqueIdentifier } = useParams();
   const { user, isLoggedIn } = useContext(AuthContext);
-
-  // const navigate = useNavigate();
-  // const history = useHistory();
 
   const [addEducationEditFormOpen, setAddEducationEditFormOpen] = useState(false);
   // const [editMode, setEditMode] = useState(false);
 
   const handleOpenEditEducationForm = () => {
     setAddEducationEditFormOpen(true);
-    // history.push(`/portfolios/${uniqueIdentifier}/educations/${educationId}/edit`)
   };
   const handleCloseEditEducationForm = () => {
     setAddEducationEditFormOpen(false);
   };
-
-
 
 
   const API_URL = import.meta.env.VITE_API_URL;
@@ -77,7 +78,8 @@ const EducationList = () => {
 
   useEffect(() => {
     fetchEducationList();
-  }, [currentPage]);
+  }, [currentPage, refresh]);
+
 
 
   const nextPage = () => {
@@ -136,7 +138,7 @@ const EducationList = () => {
         </div>
       </div>
       {addEducationFormOpen && <AddEducation onClose = {handleCloseAddEducationForm}/>}
-      {addEducationEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} edId = {educationId}/>}
+      {addEducationEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} edId = {educationId} refresh = {setRefresh} />}
     </div>
   )
 }

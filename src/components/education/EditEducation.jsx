@@ -1,10 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, {useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/auth.context';
+import axios from 'axios';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/light.css';
 
-const EditEducation = ({ onClose, edId }) => {
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+const EditEducation = ({ onClose, edId, refresh }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedEdType, setSelectedEdType] = useState('');
   const [selectedCert, setSelectedCert] = useState('');
@@ -15,6 +22,19 @@ const EditEducation = ({ onClose, edId }) => {
   const [schoolName, setSchoolName] = useState('');
   const [program, setProgram] = useState('');
   const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
+  const { user } = useContext(AuthContext);
+
+  let uniqueIdentifier;
+
+  if(user){
+    uniqueIdentifier = user.uniqueIdentifier;
+  }
+
+  console.log(uniqueIdentifier);
+
 
   const checkFormFields = () => {
     if(schoolName === '' || program === '' || selectedStartDate === '' || selectedEndDate === '' || selectedEdType === '' || selectedCert === ''){
@@ -24,8 +44,6 @@ const EditEducation = ({ onClose, edId }) => {
   }
 
 
-
-  console.log("edId====>", edId);
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date[0]);
   };
@@ -44,9 +62,64 @@ const EditEducation = ({ onClose, edId }) => {
     setErrorMessage(undefined);
   }
 
+  const fetchEducation = () => {
+    setLoading(true);
+    axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/educations/${edId}`)
+      .then((response) => {
+        const data = response.data;
+        setSchoolName(data.schoolName);
+        setProgram(data.program);
+        setSelectedCert(data.earnedCert);
+        setSelectedEdType(data.educationType);
+        setSelectedStartDate(data.beginDate);
+        setSelectedEndDate(data.endDate);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      })
+  }
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    fetchEducation()
+  }, [uniqueIdentifier, edId])
 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const requestBody = {
+      schoolName,
+      program,
+      earnedCert: selectedCert,
+      educationType: selectedEdType,
+      beginDate: selectedStartDate,
+      endDate: selectedEndDate
+    }
+
+    const storedToken = localStorage.getItem('authToken');
+
+    axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}/educations/${edId}`, requestBody,
+      { headers: { Authorization: `Bearer ${storedToken}` } })
+      .then((response) => {
+        setSchoolName("");
+        setProgram("");
+        setSelectedCert("");
+        setSelectedCert("");
+        setSelectedStartDate("");
+        setSelectedEndDate("");
+        setSaveStatus("Success");
+
+
+        setTimeout(() => {
+          handleClose();
+          refresh(true);
+        }, 1000)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -55,6 +128,15 @@ const EditEducation = ({ onClose, edId }) => {
       <div className="modal-content">
         <div className="box">
           <h1 className="title">Edit Education</h1>
+          {loading && (
+            <div className="columns is-vcentered">
+              <div className="column">
+                <progress className='progress is-medium is-link' max='100'>
+                  60%
+                </progress>
+              </div>
+            </div>
+          )}
           {errorMessage && (
             <article className="message is-danger">
               <div className="message-header">
@@ -77,6 +159,7 @@ const EditEducation = ({ onClose, edId }) => {
                       placeholder="School Name"
                       value={schoolName}
                       onChange={(e) => setSchoolName(e.target.value)}
+                      disabled={loading}
                     />
                   </p>
                 </div>
@@ -93,6 +176,7 @@ const EditEducation = ({ onClose, edId }) => {
                       placeholder = "Program/Course"
                       value = {program}
                       onChange = {(e) => setProgram(e.target.value)}
+                      disabled = {loading}
                     />
                   </p>
                 </div>
@@ -127,13 +211,13 @@ const EditEducation = ({ onClose, edId }) => {
                   <div className = "control">
                   <Flatpickr
                     className="input"
-                    // value={selectedStartDate}
-                    // onChange={handleStartDateChange}
+                    value={selectedStartDate}
+                    onChange={handleStartDateChange}
                     options={{
                       dateFormat: 'Y-m-d',
                       altInput: true,
                       altFormat: 'F j, Y',
-                      // defaultDate: selectedStartDate
+                      defaultDate: selectedStartDate
                     }}
                   />
                   </div>
@@ -145,13 +229,13 @@ const EditEducation = ({ onClose, edId }) => {
                   <div className = "control">
                   <Flatpickr
                     className="input"
-                    // value={selectedEndDate}
-                    // onChange={handleEndDateChange}
+                    value={selectedEndDate}
+                    onChange={handleEndDateChange}
                     options={{
                       dateFormat: 'Y-m-d',
                       altInput: true,
                       altFormat: 'F j, Y',
-                      // defaultDate: selectedEndDate
+                      defaultDate: selectedEndDate
                     }}
                   />
                   </div>

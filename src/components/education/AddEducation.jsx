@@ -21,7 +21,7 @@ const AddEducation = ({ onClose }) => {
 
   const [schoolName, setSchoolName] = useState('');
   const [program, setProgram] = useState('');
-  console.log(selectedCert)
+
 
 
   const checkFormFields = () => {
