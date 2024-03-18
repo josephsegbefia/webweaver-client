@@ -17,7 +17,7 @@ const Education = ({ educations, checkOwner }) => {
   return (
     <div className = "container">
     <div className="columns is-multiline">
-      {educations.length > 0 && educations.map((education, index) => (
+      {educations.map((education, index) => (
         <div key={index} className="column is-one-third">
         <div className="card">
           <div className="card-content">

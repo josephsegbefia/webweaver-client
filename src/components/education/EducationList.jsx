@@ -59,7 +59,7 @@ const EducationList = () => {
 
   useEffect(() => {
     fetchEducationList();
-  }, [currentPage, educationList]);
+  }, [currentPage]);
 
 
   const nextPage = () => {
@@ -81,6 +81,15 @@ const EducationList = () => {
     <div className = "container">
       <p className="title is-size-1 my-6 has-text-centered">Education</p>
       <hr />
+      {loadingEducations && (
+        <div className="columns is-vcentered">
+          <div className="column">
+            <progress className='progress is-medium is-link' max='100'>
+              60%
+            </progress>
+          </div>
+        </div>
+      )}
 
       {educationList.length > 0 ? (<Education educations = {educationList} checkOwner = {checkOwner} />) : (
         <div className = "columns is-centered is-vcentered">
