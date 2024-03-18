@@ -21,20 +21,16 @@ const AddEducation = ({ onClose }) => {
 
   const [schoolName, setSchoolName] = useState('');
   const [program, setProgram] = useState('');
-  const [beginDate, seBeginDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [educationType, setEducationType] = useState('');
-  const [earnedCert, setEarnedCert] = useState('');
-
+  console.log(selectedCert)
 
 
   const checkFormFields = () => {
-    if(schoolName === '' || program === '' || beginDate === '' || endDate === '' || educationType === '' || earnedCert === ''){
+    if(schoolName === '' || program === '' || selectedStartDate === '' || selectedEndDate === '' || selectedEdType === '' || selectedCert === ''){
       return true;
     }
     false;
   }
-  console.log(typeof(selectedStartDate));
+
   const { user } = useContext(AuthContext);
 
   let uniqueIdentifier;
@@ -57,6 +53,31 @@ const AddEducation = ({ onClose }) => {
     setReload(reload => !reload);
     setErrorMessage(undefined);
   }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const requestBody = {
+      schoolName,
+      program,
+      endDate:selectedEndDate,
+      beginDate: selectedStartDate,
+      earnedCert: selectedCert,
+      educationType: selectedEdType
+    }
+
+
+    axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/educations`, requestBody)
+      .then((response) => {
+        console.log(response)
+        setSaveStatus("Success");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
   return (
     <div className={`modal ${isOpen ? 'is-active' : ''}`}>
       <div className="modal-background" onClick={handleClose}></div>
@@ -74,7 +95,7 @@ const AddEducation = ({ onClose }) => {
               </div>
             </article>
           )}
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -111,7 +132,7 @@ const AddEducation = ({ onClose }) => {
                     <option>Select Education Type</option>
                     <option>Self tutored</option>
                     <option>Bootcamp</option>
-                    <option>Tertiary Education</option>
+                    <option>Tertiary education</option>
                   </select>
                 </div>
               </div>
