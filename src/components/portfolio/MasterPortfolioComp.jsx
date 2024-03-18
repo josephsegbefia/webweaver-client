@@ -20,7 +20,7 @@ const MasterPortfolioComp = () => {
   const [projects, setProjects] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState()
+  const [totalPages, setTotalPages] = useState(null)
   const [loadingProjects, setLoadingProjects] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
 

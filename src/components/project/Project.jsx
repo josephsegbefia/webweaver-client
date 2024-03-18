@@ -80,7 +80,7 @@ const Project = ({ projects, next, previous, loading, totalPages, currentPage })
               </div>
             ))}
           </div>
-          {projects.length !== 0 && (
+          {totalPages > 1  && (
             <div className="columns">
               <div className="column is-half">
                 <button className="button action is-warning" onClick={previous} disabled = {currentPage === 1}>Previous</button>
