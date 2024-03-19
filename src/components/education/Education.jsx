@@ -3,11 +3,14 @@
 import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
-import EditEducation from './EditEducation';
+// import EditEducation from './EditEducation';
+import DeleteConfirmation from './DeleteConfirmation';
 
-const Education = ({ educations, checkOwner, onOpenEditor, setEdId, openDelete }) => {
+const Education = ({ educations, checkOwner, onOpenEditor, setEdId, setRefresh }) => {
   const [educationId, setEducationId] = useState('');
+  const [schoolName, setSchoolName] = useState('');
 
+  const [showDeleteNotification, setShowDeleteNotification] = useState(false);
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
@@ -15,17 +18,29 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId, openDelete }
   };
 
 
+  const handleDeleteNotificationShow = () => {
+    setShowDeleteNotification(true);
+  }
+
+
 
   const getEdId = (edId) => {
-    // setEducationId(edId);
+    setEducationId(edId);
     setEdId(edId);
     onOpenEditor();
+  }
+
+  const getEIdAndSch4Del = (edId, name) => {
+    setEducationId(edId);
+    setSchoolName(name);
+    handleDeleteNotificationShow()
   }
 
   console.log("EducationId====>", educationId)
 
   return (
     <div className="container">
+      {showDeleteNotification && <DeleteConfirmation educationId = {educationId} setShowDeleteNotification = {setShowDeleteNotification} schoolName = {schoolName} reload = {setRefresh}/>}
       <div className="columns is-multiline">
         {educations.map((education, index) => (
           <div key={index} className="column is-one-third">
@@ -64,7 +79,10 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId, openDelete }
                       <i className="fa-solid fa-pen-to-square"></i>
                     </span>
                   </p>
-                  <p className="card-footer-item has-text-danger" onClick={()=> openDelete()}>
+                  <p className="card-footer-item has-text-danger"
+                    // onClick={()=> openDelete()}
+                    onClick={() => getEIdAndSch4Del(education._id, education.schoolName)}
+                  >
                     <span>
                       <i className="fa-solid fa-trash"></i>
                     </span>
@@ -75,7 +93,6 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId, openDelete }
           </div>
         ))}
       </div>
-
     </div>
   );
 

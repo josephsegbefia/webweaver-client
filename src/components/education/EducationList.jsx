@@ -12,7 +12,7 @@ import DeleteConfirmation from './DeleteConfirmation';
 const EducationList = () => {
   const [addEducationFormOpen, setAddEducationFormOpen] = useState(false);
   // const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
+  // const [openDelete, setOpenDelete] = useState(false);
   const [educationList, setEducationList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null)
@@ -43,13 +43,13 @@ const EducationList = () => {
   };
 
 
-  const handleCloseDeleteMessageConfirmation = () => {
-    setOpenDelete(false)
-  }
+  // const handleCloseDeleteMessageConfirmation = () => {
+  //   setOpenDelete(false)
+  // }
 
-  const handleOpenDeleteMessageConfirmation = () => {
-    setOpenDelete(true);
-  }
+  // const handleOpenDeleteMessageConfirmation = () => {
+  //   setOpenDelete(true);
+  // }
 
   const handleOpenAddEducationForm = () => {
     setAddEducationFormOpen(true);
@@ -122,7 +122,16 @@ const EducationList = () => {
         </div>
       )}
 
-      {educationList.length > 0 ? (<Education educations = {educationList} checkOwner = {checkOwner} onOpenEditor = {handleOpenEditEducationForm} setEdId = {setEducationId} openDelete = {handleOpenDeleteMessageConfirmation}/>) : (
+      {educationList.length > 0 ? (
+        <Education
+          educations = {educationList}
+          checkOwner = {checkOwner}
+          onOpenEditor = {handleOpenEditEducationForm}
+          setEdId = {setEducationId}
+          setRefresh={setRefresh}
+          // openDelete = {handleOpenDeleteMessageConfirmation}
+        />
+        ) : (
         <div className = "columns is-centered is-vcentered">
           <div className = "column is-half has-text-centered">
             <p className = "has-text-danger is-size-5">Education history not provided</p>
@@ -137,7 +146,7 @@ const EducationList = () => {
           <div className="column is-half">
             <button className="button action is-primary" onClick={nextPage} disabled = {currentPage === totalPages}>Next</button>
           </div>
-      `</div>
+        </div>
       )}
       <div className="columns">
         <div className="column">
@@ -150,7 +159,7 @@ const EducationList = () => {
       </div>
       {addEducationFormOpen && <AddEducation onClose = {handleCloseAddEducationForm}/>}
       {addEducationEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} edId = {educationId} refresh = {setRefresh} />}
-      {openDelete && <DeleteConfirmation onClose = {handleCloseDeleteMessageConfirmation} />}
+      {/* {openDelete && <DeleteConfirmation onClose = {handleCloseDeleteMessageConfirmation} setEdId = {setEducationId} />} */}
     </div>
   )
 }
