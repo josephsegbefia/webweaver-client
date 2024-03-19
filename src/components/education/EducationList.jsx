@@ -7,9 +7,12 @@ import Education from './Education'
 import { AuthContext } from '../../context/auth.context'
 import AddEducation from './AddEducation'
 import EditEducation from './EditEducation';
+import DeleteConfirmation from './DeleteConfirmation';
 
 const EducationList = () => {
   const [addEducationFormOpen, setAddEducationFormOpen] = useState(false);
+  // const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [educationList, setEducationList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null)
@@ -30,6 +33,8 @@ const EducationList = () => {
   const [addEducationEditFormOpen, setAddEducationEditFormOpen] = useState(false);
   // const [editMode, setEditMode] = useState(false);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const handleOpenEditEducationForm = () => {
     setAddEducationEditFormOpen(true);
   };
@@ -38,7 +43,13 @@ const EducationList = () => {
   };
 
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  const handleCloseDeleteMessageConfirmation = () => {
+    setOpenDelete(false)
+  }
+
+  const handleOpenDeleteMessageConfirmation = () => {
+    setOpenDelete(true);
+  }
 
   const handleOpenAddEducationForm = () => {
     setAddEducationFormOpen(true);
@@ -111,7 +122,7 @@ const EducationList = () => {
         </div>
       )}
 
-      {educationList.length > 0 ? (<Education educations = {educationList} checkOwner = {checkOwner} onOpenEditor = {handleOpenEditEducationForm} setEdId = {setEducationId}/>) : (
+      {educationList.length > 0 ? (<Education educations = {educationList} checkOwner = {checkOwner} onOpenEditor = {handleOpenEditEducationForm} setEdId = {setEducationId} openDelete = {handleOpenDeleteMessageConfirmation}/>) : (
         <div className = "columns is-centered is-vcentered">
           <div className = "column is-half has-text-centered">
             <p className = "has-text-danger is-size-5">Education history not provided</p>
@@ -139,6 +150,7 @@ const EducationList = () => {
       </div>
       {addEducationFormOpen && <AddEducation onClose = {handleCloseAddEducationForm}/>}
       {addEducationEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} edId = {educationId} refresh = {setRefresh} />}
+      {openDelete && <DeleteConfirmation onClose = {handleCloseDeleteMessageConfirmation} />}
     </div>
   )
 }

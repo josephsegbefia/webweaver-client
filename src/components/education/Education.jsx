@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import EditEducation from './EditEducation';
 
-const Education = ({ educations, checkOwner, onOpenEditor, setEdId }) => {
+const Education = ({ educations, checkOwner, onOpenEditor, setEdId, openDelete }) => {
   const [educationId, setEducationId] = useState('');
 
   const formatDate = (dateString) => {
@@ -13,6 +13,8 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId }) => {
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     return formattedDate;
   };
+
+
 
   const getEdId = (edId) => {
     // setEducationId(edId);
@@ -62,7 +64,7 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId }) => {
                       <i className="fa-solid fa-pen-to-square"></i>
                     </span>
                   </p>
-                  <p className="card-footer-item has-text-danger">
+                  <p className="card-footer-item has-text-danger" onClick={()=> openDelete()}>
                     <span>
                       <i className="fa-solid fa-trash"></i>
                     </span>
