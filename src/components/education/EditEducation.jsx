@@ -110,12 +110,8 @@ const EditEducation = ({ onClose, edId, refresh }) => {
         setSelectedStartDate("");
         setSelectedEndDate("");
         setSaveStatus("Success");
-
-
-        setTimeout(() => {
-          handleClose();
-          refresh(true);
-        }, 1000)
+        refresh(refresh => !refresh);
+        handleClose()
       })
       .catch((error) => {
         console.log(error)

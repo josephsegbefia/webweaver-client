@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import ProjectList from './components/ProjectList';
 import Login from './components/auth/Login';
 import VerifyEmail from './components/auth/VerifyEmail'
 import ForgotPasswordForm from './components/auth/ForgotPasswordForm';

@@ -4,8 +4,10 @@ import React, { useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
 import EditUserPortfolio from "./EditUserPortfolio";
 import UserPortfolio from "./UserPortfolio";
-import Project from "../project/Project";
+// import Project from "../project/Project";
 import EducationList from "../education/EducationList";
+import ProjectList from "../project/ProjectList";
+import "../project/project.css"
 
 
 import '../../assets/styles.scss'
@@ -17,49 +19,19 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const MasterPortfolioComp = () => {
   const [portfolioOwner, setPortfolioOwner] = useState(false);
-  const [projects, setProjects] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null)
-  const [loadingProjects, setLoadingProjects] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
 
-  const limit = 6;
+
   const { user, isLoggedIn } = useContext(AuthContext);
 
   const { uniqueIdentifier } = useParams();
 
-  const fetchProjects = async () => {
-    setLoadingProjects(true);
-    try {
-      const response = await axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/projects?limit=${limit}&offset=${(currentPage - 1) * limit }`);
-      setProjects(response.data.projects);
-      // console.log(response.data.totalPages);
-      setTotalPages(Math.ceil(response.data.totalPages))
-      console.log(totalPages)
-      setLoadingProjects(false);
-    }catch(error){
-      console.log("Error fetching projects", error.response.data.message);
-      setErrorMessage(error.response.data.message)
-      setLoadingProjects(false);
-    }
-  }
 
-  useEffect(() => {
-    fetchProjects();
-  }, [currentPage]);
 
-  const nextPage = () => {
-    if(currentPage < totalPages){
-      setCurrentPage(currentPage + 1);
-    }
-  }
 
-  const prevPage = () => {
-    if(currentPage > 1){
-      setCurrentPage(currentPage - 1);
-    }
-  }
+
+
 
 
   const toggleEditMode = () => {
@@ -91,14 +63,15 @@ const MasterPortfolioComp = () => {
         </div>
       ) : ("")}
       <EducationList />
-      <Project
+      <ProjectList />
+      {/* <Project
         projects = {projects}
         next = {nextPage}
         previous = {prevPage}
         loading = {loadingProjects}
         currentPage = {currentPage}
         totalPages = {totalPages}
-      />
+      /> */}
     </div>
   )
 }

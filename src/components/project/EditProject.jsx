@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from 'react'
+import React, {useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
-import axios from "axios";
+import axios from 'axios';
 
-// import '../education/education.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const AddProject = ({ onClose, setRefresh }) => {
+const EditProject = ({ onClose, projId, refresh }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [title, setTitle] = useState("");
   const [shortDesc, setShortDesc] = useState("");
@@ -22,6 +23,7 @@ const AddProject = ({ onClose, setRefresh }) => {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [saveStatus, setSaveStatus] = useState("Ready");
   const [reload, setReload] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -96,6 +98,33 @@ const AddProject = ({ onClose, setRefresh }) => {
     setImageName(event.target.files[0].name)
   }
 
+  console.log(projId)
+
+
+  const fetchProject = () => {
+    setLoading(true);
+    axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/projects/${projId}`)
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setTitle(data.title);
+        setShortDesc(data.shortDesc);
+        setDescription(data.description);
+        setTechsUsed(data.techsUsed);
+        setImgUrl(data.ImgUrl);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      })
+  }
+
+  useEffect(() => {
+    fetchProject()
+  }, [uniqueIdentifier, projId])
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -103,27 +132,26 @@ const AddProject = ({ onClose, setRefresh }) => {
       title,
       shortDesc,
       description,
-      techsUsed,
-      imgUrl
+      imgUrl,
+      techsUsed
     }
 
     const storedToken = localStorage.getItem('authToken');
 
-    axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/projects`, requestBody,
-    { headers: { Authorization: `Bearer ${storedToken}` } })
+    axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}/projects/${projId}`, requestBody,
+      { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((response) => {
-        console.log(response)
-        setTitle('');
-        setShortDesc('');
-        setDescription('');
-        setTechsUsed([]);
-        setImgUrl('');
+        setTitle("");
+        setShortDesc("");
+        setDescription("");
+        setImgUrl("");
+        setTechsUsed("");
         setSaveStatus("Success");
-        setRefresh(refresh => !refresh);
+        refresh(refresh => !refresh);
         handleClose();
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
       })
   }
 
@@ -132,7 +160,16 @@ const AddProject = ({ onClose, setRefresh }) => {
       <div className="modal-background" onClick={handleClose}></div>
       <div className="modal-content">
         <div className="box">
-          <h1 className="title is-size-4">Add Project</h1>
+          <h1 className="title is-size-4">Edit Project</h1>
+          {loading && (
+            <div className="columns is-vcentered">
+              <div className="column">
+                <progress className='progress is-medium is-link' max='100'>
+                  60%
+                </progress>
+              </div>
+            </div>
+          )}
           {errorMessage && (
             <article className="message is-danger">
               <div className="message-header">
@@ -267,7 +304,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                       <button className = "button is-success action" value = "Save Failed - Retry?" type = "submit"></button>
                     ),
                     Ready: (
-                      <button className = "button is-success action" value = "Save" type = "submit" disabled = {imageName === ""}>Save</button>
+                      <button className = "button is-success action" value = "Save" type = "submit">Save</button>
                     )
                   }[saveStatus]
                 }
@@ -284,4 +321,4 @@ const AddProject = ({ onClose, setRefresh }) => {
   )
 }
 
-export default AddProject;
+export default EditProject;

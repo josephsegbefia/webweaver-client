@@ -67,8 +67,10 @@ const AddEducation = ({ onClose, setRefresh }) => {
       educationType: selectedEdType
     }
 
+    const storedToken = localStorage.getItem('authToken');
 
-    axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/educations`, requestBody)
+    axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/educations`, requestBody,
+    { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((response) => {
         console.log(response)
         setSchoolName('');
