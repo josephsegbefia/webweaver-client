@@ -157,7 +157,7 @@ const EducationList = () => {
           )}
         </div>
       </div>
-      {addEducationFormOpen && <AddEducation onClose = {handleCloseAddEducationForm}/>}
+      {addEducationFormOpen && <AddEducation onClose = {handleCloseAddEducationForm} setRefresh={setRefresh} />}
       {addEducationEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} edId = {educationId} refresh = {setRefresh} />}
       {/* {openDelete && <DeleteConfirmation onClose = {handleCloseDeleteMessageConfirmation} setEdId = {setEducationId} />} */}
     </div>

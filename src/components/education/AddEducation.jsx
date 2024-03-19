@@ -9,7 +9,7 @@ import 'flatpickr/dist/themes/light.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const AddEducation = ({ onClose }) => {
+const AddEducation = ({ onClose, setRefresh }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedEdType, setSelectedEdType] = useState('');
   const [selectedCert, setSelectedCert] = useState('');
@@ -71,7 +71,15 @@ const AddEducation = ({ onClose }) => {
     axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/educations`, requestBody)
       .then((response) => {
         console.log(response)
+        setSchoolName('');
+        setProgram('');
+        setSelectedCert('');
+        setSelectedEdType('');
+        setSelectedStartDate('');
+        setSelectedEndDate('');
         setSaveStatus("Success");
+        setRefresh(refresh => !refresh);
+        handleClose();
       })
       .catch((error) => {
         console.log(error);
