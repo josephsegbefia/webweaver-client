@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import EditUserPortfolio from "./EditUserPortfolio";
 import UserPortfolio from "./UserPortfolio";
 // import Project from "../project/Project";
+import ExperienceList from "../experience/ExperienceList";
 import EducationList from "../education/EducationList";
 import ProjectList from "../project/ProjectList";
 import "../project/project.css"
@@ -13,6 +14,7 @@ import "../project/project.css"
 import '../../assets/styles.scss'
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
+
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -62,6 +64,7 @@ const MasterPortfolioComp = () => {
           <button onClick = {toggleEditMode} className = 'button is-warning navbar-end my-3'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
         </div>
       ) : ("")}
+      <ExperienceList />
       <EducationList />
       <ProjectList />
       {/* <Project
