@@ -64,7 +64,7 @@ const ProjectList = () => {
     try {
       const response = await axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/projects?limit=${limit}&offset=${(currentPage - 1) * limit }`);
       setProjectList(response.data.projects);
-      console.log(projectList)
+      console.log(response.data)
       // console.log(response.data.totalPages);
       setTotalPages(Math.ceil(response.data.totalPages))
       console.log(totalPages)

@@ -43,6 +43,7 @@ const Project = ({ projects, checkOwner, onOpenEditor, setProjId, setRefresh, to
               <div className="card-content">
                 <p className="title">{project.title}</p>
                 <p className="subtitle">{project.shortDesc}</p>
+                <p className = "is-size-7 my-3 has-text-primary">Added on: {formatDate(project.createdAt)}</p>
                 {project.techsUsed.map((tech, index) => (
                   <div key={index} className="is-inline-flex">
                     <span className="tag is-success is-light mr-3">{tech}</span>
