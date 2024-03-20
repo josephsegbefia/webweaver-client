@@ -6,8 +6,8 @@ import axios from 'axios';
 import Experience from './Experience';
 import { AuthContext } from '../../context/auth.context'
 import AddExperience from './AddExperience'
-import EditEducation from './EditEducation';
 import DeleteConfirmation from './DeleteConfirmation';
+import EditExperience from './EditExperience';
 
 const ExperienceList = () => {
   const [addExperienceFormOpen, setAddExperienceFormOpen] = useState(false);
@@ -148,7 +148,7 @@ const ExperienceList = () => {
         </div>
       </div>
       {addExperienceFormOpen && <AddExperience onClose = {handleCloseAddExperienceForm} setRefresh={setRefresh} />}
-      {/* {addExperienceEditFormOpen && <EditEducation onClose = {handleCloseEditEducationForm} exId = {experienceId} refresh = {setRefresh} />} */}
+      {addExperienceEditFormOpen && <EditExperience onClose = {handleCloseEditExperienceForm} exId = {experienceId} refresh = {setRefresh} />}
       {/* {openDelete && <DeleteConfirmation onClose = {handleCloseDeleteMessageConfirmation} setEdId = {setEducationId} />} */}
     </div>
   )

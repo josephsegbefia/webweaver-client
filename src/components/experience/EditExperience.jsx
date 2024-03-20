@@ -11,16 +11,17 @@ import 'flatpickr/dist/themes/light.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const EditExperience = ({ onClose, edId, refresh }) => {
+const EditExperience = ({ onClose, exId, refresh }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [selectedEdType, setSelectedEdType] = useState('');
-  const [selectedCert, setSelectedCert] = useState('');
+  const [position, setPosition] = useState('');
+  const [company, setCompany] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState('');
   const [selectedEndDate, setSelectedEndDate] = useState('');
+  const [location, setLocation] = useState('')
+  const [currentPosition, setCurrentPosition] = useState(false);
+  const [responsibilities, setResponsibilties] = useState()
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [saveStatus, setSaveStatus] = useState("Ready");
-  const [schoolName, setSchoolName] = useState('');
-  const [program, setProgram] = useState('');
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -37,11 +38,18 @@ const EditExperience = ({ onClose, edId, refresh }) => {
 
 
   const checkFormFields = () => {
-    if(schoolName === '' || program === '' || selectedStartDate === '' || selectedEndDate === '' || selectedEdType === '' || selectedCert === ''){
+    if (
+      company === '' ||
+      position === '' ||
+      selectedStartDate === '' ||
+      responsibilities === '' ||
+      location === '' ||
+      (selectedEndDate === '' && !currentPosition)
+    ) {
       return true;
     }
-    false;
-  }
+    return false;
+  };
 
 
   const handleStartDateChange = (date) => {
@@ -62,17 +70,18 @@ const EditExperience = ({ onClose, edId, refresh }) => {
     setErrorMessage(undefined);
   }
 
-  const fetchEducation = () => {
+  const fetchExperience = () => {
     setLoading(true);
-    axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/educations/${edId}`)
+    axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/experiences/${exId}`)
       .then((response) => {
         const data = response.data;
-        setSchoolName(data.schoolName);
-        setProgram(data.program);
-        setSelectedCert(data.earnedCert);
-        setSelectedEdType(data.educationType);
-        setSelectedStartDate(data.beginDate);
+        setCompany(data.company);
+        setLocation(data.location);
+        setSelectedStartDate(data.startDate);
         setSelectedEndDate(data.endDate);
+        setResponsibilties(data.responsibilities);
+        setCurrentPosition(data.currentPosition);
+        setPosition(data.position);
         setLoading(false);
       })
       .catch((error) => {
@@ -82,31 +91,33 @@ const EditExperience = ({ onClose, edId, refresh }) => {
   }
 
   useEffect(() => {
-    fetchEducation()
-  }, [uniqueIdentifier, edId])
+    fetchExperience()
+  }, [uniqueIdentifier, exId])
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const requestBody = {
-      schoolName,
-      program,
-      earnedCert: selectedCert,
-      educationType: selectedEdType,
-      beginDate: selectedStartDate,
+      company,
+      location,
+      position,
+      responsibilities,
+      currentPosition,
+      startDate: selectedStartDate,
       endDate: selectedEndDate
     }
 
     const storedToken = localStorage.getItem('authToken');
 
-    axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}/educations/${edId}`, requestBody,
+    axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}/experiences/${exId}`, requestBody,
       { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((response) => {
-        setSchoolName("");
-        setProgram("");
-        setSelectedCert("");
-        setSelectedCert("");
+        setCompany("");
+        setLocation("");
+        setCurrentPosition(false);
+        setResponsibilties("");
+        setPosition("")
         setSelectedStartDate("");
         setSelectedEndDate("");
         setSaveStatus("Success");
@@ -152,10 +163,9 @@ const EditExperience = ({ onClose, edId, refresh }) => {
                     <input
                       className="input"
                       type="text"
-                      placeholder="School Name"
-                      value={schoolName}
-                      onChange={(e) => setSchoolName(e.target.value)}
-                      disabled={loading}
+                      placeholder="Company Name"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
                     />
                   </p>
                 </div>
@@ -169,35 +179,50 @@ const EditExperience = ({ onClose, edId, refresh }) => {
                     <input
                       className = "input"
                       type="text"
-                      placeholder = "Program/Course"
-                      value = {program}
-                      onChange = {(e) => setProgram(e.target.value)}
-                      disabled = {loading}
+                      placeholder = "Position e.g, Junior Product Manager"
+                      value = {position}
+                      onChange = {(e) => setPosition(e.target.value)}
                     />
                   </p>
                 </div>
               </div>
               <div className="column is-half">
-                <div className="select is-fullwidth">
-                  <select value = {selectedEdType} onChange = {(e) => setSelectedEdType(e.target.value)}>
-                    <option>Select Education Type</option>
-                    <option>Self tutored</option>
-                    <option>Bootcamp</option>
-                    <option>Tertiary education</option>
-                  </select>
+                <div className = "field">
+                  <p className = "control">
+                    <input
+                      className = "input"
+                      type="text"
+                      placeholder = "Location e.g Accra, Ghana"
+                      value = {location}
+                      onChange = {(e) => setLocation(e.target.value)}
+                    />
+                  </p>
                 </div>
               </div>
             </div>
             <div className="columns">
               <div className="column">
-                <div className="select is-fullwidth">
-                  <select value = {selectedCert} onChange = {(e) => setSelectedCert(e.target.value)}>
-                    <option>Select certificate earned</option>
-                    <option>Under graduate</option>
-                    <option>Post graduate</option>
-                    <option>other</option>
-                  </select>
-                </div>
+                <textarea
+                  type = 'text'
+                  className='textarea'
+                  placeholder='What are/were your responsibilities? Separate each point with a period. Keep it short. About 4 - 6 points are enough.'
+                  value = {responsibilities}
+                  onChange = {(e) => setResponsibilties(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className = "columns">
+              <div className = "column">
+                <label className="checkbox">
+                  <input
+                    type="checkbox"
+                    className = "mr-4"
+                    checked = {currentPosition}
+                    onChange = {() => setCurrentPosition(!currentPosition)}
+                    disabled = {selectedEndDate !== ""}
+                  />
+                    I still work here.
+                </label>
               </div>
             </div>
             <div className = "columns">
@@ -219,7 +244,7 @@ const EditExperience = ({ onClose, edId, refresh }) => {
                   </div>
                 </div>
               </div>
-              <div className = "column is-half">
+              <div className = "column is-half" style={{"display": `${currentPosition ? "none" : "block"}`}}>
                 <div className="field">
                   <label className="label">Select End Date:</label>
                   <div className = "control">
@@ -231,7 +256,8 @@ const EditExperience = ({ onClose, edId, refresh }) => {
                       dateFormat: 'Y-m-d',
                       altInput: true,
                       altFormat: 'F j, Y',
-                      defaultDate: selectedEndDate
+                      defaultDate: selectedEndDate,
+                      disabled: true
                     }}
                   />
                   </div>
