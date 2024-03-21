@@ -92,6 +92,13 @@
 }
 
 .bio-text{
-  line-height: 2.5;
+  line-height: 2;
   font-size: 14px;
+}
+
+.submit-button{
+  border: none;
+  outline: none !important;
+  cursor: pointer;
+  background-color: white;
 }
