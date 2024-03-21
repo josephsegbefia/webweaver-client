@@ -41,8 +41,8 @@ const Project = ({ projects, checkOwner, onOpenEditor, setProjId, setRefresh, to
           <div key={project._id} className="column is-one-third">
             <div className="card">
               <div className="card-content">
-                <p className="title">{project.title}</p>
-                <p className="subtitle">{project.shortDesc}</p>
+                <p className="title is-size-5">{project.title}</p>
+                <p className="subtitle is-size-6">{project.shortDesc}</p>
                 <p className = "is-size-7 my-3 has-text-primary">Added on: {formatDate(project.createdAt)}</p>
                 {project.techsUsed.map((tech, index) => (
                   <div key={index} className="is-inline-flex">

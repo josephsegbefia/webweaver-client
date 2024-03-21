@@ -24,6 +24,8 @@ const EditProject = ({ onClose, projId, refresh }) => {
   const [saveStatus, setSaveStatus] = useState("Ready");
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [liveLink, setLiveLink] = useState("");
+  const [gitHubLink, setGitHubLink] = useState("");
 
   const { user } = useContext(AuthContext);
 
@@ -112,6 +114,8 @@ const EditProject = ({ onClose, projId, refresh }) => {
         setDescription(data.description);
         setTechsUsed(data.techsUsed);
         setImgUrl(data.ImgUrl);
+        setLiveLink(data.liveLink);
+        setGitHubLink(data.gitHubLink);
         setLoading(false);
       })
       .catch((error) => {
@@ -133,7 +137,9 @@ const EditProject = ({ onClose, projId, refresh }) => {
       shortDesc,
       description,
       imgUrl,
-      techsUsed
+      techsUsed,
+      gitHubLink,
+      liveLink
     }
 
     const storedToken = localStorage.getItem('authToken');
@@ -146,6 +152,8 @@ const EditProject = ({ onClose, projId, refresh }) => {
         setDescription("");
         setImgUrl("");
         setTechsUsed("");
+        setGitHubLink("");
+        setLiveLink("");
         setSaveStatus("Success");
         refresh(refresh => !refresh);
         handleClose();
@@ -224,6 +232,36 @@ const EditProject = ({ onClose, projId, refresh }) => {
                       placeholder="Provide a short description"
                       value={shortDesc}
                       onChange={(e) => setShortDesc(e.target.value)}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <p className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Provide link to view the app live."
+                      value={liveLink}
+                      onChange={(e) => setLiveLink(e.target.value)}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <p className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Provide a link to the project's github repo"
+                      value={gitHubLink}
+                      onChange={(e) => setGitHubLink(e.target.value)}
                     />
                   </p>
                 </div>
