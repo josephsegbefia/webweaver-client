@@ -237,6 +237,21 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 </div>
               </div>
             </div>
+
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <p className="control">
+                    <textarea
+                      className="textarea"
+                      placeholder="Provide a more detailed description"
+                      onChange = {(e) => setDescription(e.target.value)}
+                      value={description}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
             <div className="columns">
               <div className="column">
                 <div className="field">
@@ -262,20 +277,6 @@ const EditProject = ({ onClose, projId, refresh }) => {
                       placeholder="Provide a link to the project's github repo"
                       value={gitHubLink}
                       onChange={(e) => setGitHubLink(e.target.value)}
-                    />
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="columns">
-              <div className="column">
-                <div className="field">
-                  <p className="control">
-                    <textarea
-                      className="textarea"
-                      placeholder="Provide a more detailed description"
-                      onChange = {(e) => setDescription(e.target.value)}
-                      value={description}
                     />
                   </p>
                 </div>

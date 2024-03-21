@@ -9,6 +9,7 @@ import ExperienceList from "../experience/ExperienceList";
 import EducationList from "../education/EducationList";
 import ProjectList from "../project/ProjectList";
 import CreateMessage from "../message/createMessage";
+import Footer from "../../Footer";
 import "../project/project.css"
 
 
@@ -69,6 +70,7 @@ const MasterPortfolioComp = () => {
       <EducationList />
       <ProjectList />
       <CreateMessage />
+      <Footer />
     </div>
   )
 }

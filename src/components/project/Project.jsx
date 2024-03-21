@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/auth.context';
 // import EditEducation from './EditEducation';
 import DeleteConfirmation from './DeleteConfirmation';
 
-const Project = ({ projects, checkOwner, onOpenEditor, setProjId, setRefresh, totalPages, currentPage, previous, next }) => {
+const Project = ({ projects, checkOwner, onOpenEditor, openProjectDetails, setProjId, setRefresh, totalPages, currentPage, previous, next }) => {
   const [projectId, setProjectId] = useState('');
   const [projectTitle, setProjectTitle] = useState('');
   const [showDeleteNotification, setShowDeleteNotification] = useState(false);
@@ -26,6 +26,12 @@ const Project = ({ projects, checkOwner, onOpenEditor, setProjId, setRefresh, to
     setProjId(projId);
     onOpenEditor();
   };
+
+  const openDetails = (projId) => {
+    setProjectId(projId);
+    setProjId(projId)
+    openProjectDetails();
+  }
 
   const getPIdAndProj4Del = (projId, name) => {
     setProjectId(projId);
@@ -51,7 +57,7 @@ const Project = ({ projects, checkOwner, onOpenEditor, setProjId, setRefresh, to
                 ))}
               </div>
               <footer className="card-footer">
-                <p className="card-footer-item">
+                <p className="card-footer-item" onClick = {() => openDetails(project._id)}>
                   <span>
                     <i className="fa-solid fa-up-right-and-down-left-from-center"></i>
                   </span>

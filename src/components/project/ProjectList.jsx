@@ -7,11 +7,13 @@ import Project from './Project'
 import { AuthContext } from '../../context/auth.context'
 import EditProject from './EditProject';
 import AddProject from './AddProject';
+import ProjectDetails from './ProjectDetails';
 
 import DeleteConfirmation from './DeleteConfirmation';
 
 const ProjectList = () => {
   const [addProjectFormOpen, setAddProjectFormOpen] = useState(false);
+  const [addProjectDetailsOpen, setProjectDetailsOpen] = useState(false)
   const [projectList, setProjectList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null)
@@ -47,6 +49,14 @@ const ProjectList = () => {
   const handleCloseAddProjectForm = () => {
     setAddProjectFormOpen(false);
   };
+
+  const handleOpenProjectDetails = () => {
+    setProjectDetailsOpen(true);
+  }
+
+  const handleCloseProjectDetails = () => {
+    setProjectDetailsOpen(false);
+  }
 
   const checkOwner = () => {
     if (user) {
@@ -116,6 +126,7 @@ const ProjectList = () => {
           projects = {projectList}
           checkOwner = {checkOwner}
           onOpenEditor = {handleOpenEditProjectForm}
+          openProjectDetails = {handleOpenProjectDetails}
           setProjId = {setProjectId}
           setRefresh={setRefresh}
         />
@@ -147,6 +158,7 @@ const ProjectList = () => {
       </div>
       {addProjectFormOpen && <AddProject onClose = {handleCloseAddProjectForm} setRefresh={setRefresh} />}
       {addProjectEditFormOpen && <EditProject onClose = {handleCloseEditProjectForm} projId = {projectId} refresh = {setRefresh} />}
+      {addProjectDetailsOpen && <ProjectDetails onClose = {handleCloseProjectDetails} projId = {projectId} />}
       {/* {openDelete && <DeleteConfirmation onClose = {handleCloseDeleteMessageConfirmation} setEdId = {setEducationId} />} */}
     </div>
   )
