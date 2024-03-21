@@ -8,6 +8,7 @@ import UserPortfolio from "./UserPortfolio";
 import ExperienceList from "../experience/ExperienceList";
 import EducationList from "../education/EducationList";
 import ProjectList from "../project/ProjectList";
+import CreateMessage from "../message/createMessage";
 import "../project/project.css"
 
 
@@ -67,14 +68,7 @@ const MasterPortfolioComp = () => {
       <ExperienceList />
       <EducationList />
       <ProjectList />
-      {/* <Project
-        projects = {projects}
-        next = {nextPage}
-        previous = {prevPage}
-        loading = {loadingProjects}
-        currentPage = {currentPage}
-        totalPages = {totalPages}
-      /> */}
+      <CreateMessage />
     </div>
   )
 }

@@ -103,19 +103,19 @@ const UserPortfolio = ({ owner, errorMessage }) => {
                 </div>
               )}
 
-              <hr />
-              <p className = 'has-text-centered is-size-4 mt-3'>{firstName} {lastName}</p>
-              <h1 className = 'has-text-centered is-size-4 mt-3 has-text-primary'>{headLine ? headLine : 'Junior Full Stack Web Developer'}</h1>
+
+              <p className = 'has-text-centered is-size-5 mt-3'>{firstName} {lastName}</p>
+              <h1 className = 'has-text-centered is-size-5 mt-3 has-text-primary'>{headLine ? headLine : 'Junior Full Stack Web Developer'}</h1>
             </div>
 
             <div className = "tile is-child box">
-              <p className = "title">Skills</p>
+              <p className = "title is-size-5">Skills</p>
               {!skills ? <p className='has-text-centered has-text-success'>Your added skills will show here</p> : (
                 <div>
                 {skills.map((skill, index) => {
                   return (
                     <div key = {index} className = 'is-inline-flex'>
-                      <span className = 'tag is-success is-light mr-3'>{skill}</span>
+                      <span className = 'tag is-success is-light mr-3'><p className = "is-size-7">{skill}</p></span>
                     </div>
                   )
                 })}
@@ -123,24 +123,24 @@ const UserPortfolio = ({ owner, errorMessage }) => {
 
 
               <hr />
-              <p className = 'title'>Contact</p>
-              <p><span><i className = 'fas fa-envelope mr-3 mb-3'></i></span>{email}</p>
-              <p><span><i className = 'fas fa-phone mr-3 mb-3'></i></span>{phone}</p>
-              <p><span><i className = "fa-brands fa-linkedin mr-3 mb-3"></i></span>{linkedInURL}</p>
-              <p><span><i className = "fa-brands fa-github mr-3 mb-3"></i></span>{gitHubURL}</p>
-              <p><span><i className = "fa-solid fa-location-pin mr-3 mb-3"></i></span>{location}</p>
+              <p className = "title is-size-5">Contact</p>
+              <p className = "is-size-7"><span><i className = 'fas fa-envelope mr-3 mb-3'></i></span>{email}</p>
+              <p className = "is-size-7"><span><i className = 'fas fa-phone mr-3 mb-3'></i></span>{phone}</p>
+              <p className = "is-size-7"><span><i className = "fa-brands fa-linkedin mr-3 mb-3"></i></span>{linkedInURL}</p>
+              <p className = "is-size-7"><span><i className = "fa-brands fa-github mr-3 mb-3"></i></span>{gitHubURL}</p>
+              <p className = "is-size-7"><span><i className = "fa-solid fa-location-pin mr-3 mb-3"></i></span>{location}</p>
             </div>
 
           </div>
 
           <div className = "tile is-parent">
             <div className = "tile is-child box">
-              <p className = "title">About me</p>
+              <p className = "title is-size-5">About me</p>
 
-              <p>{bio}</p>
+              <p className = "bio-text">{bio}</p>
                 <hr />
 
-              <p className = "is-size-4 my-4">Interests</p>
+              <p className = "title is-size-5 my-4">Interests</p>
               <div>
                 {interests.map((interest, index) => {
                   return (
@@ -151,7 +151,7 @@ const UserPortfolio = ({ owner, errorMessage }) => {
                 })}
               </div>
               <hr />
-              <p className = "is-size-4 my-4">Spoken Languages</p>
+              <p className = "title is-size-5 my-4">Spoken Languages</p>
               <div>
                 {languages.map((language, index) => {
                   return (

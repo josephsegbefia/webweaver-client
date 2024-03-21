@@ -37,6 +37,8 @@ const EditExperience = ({ onClose, exId, refresh }) => {
   console.log(uniqueIdentifier);
 
 
+  console.log(selectedEndDate);
+
   const checkFormFields = () => {
     if (
       company === '' ||
@@ -95,8 +97,11 @@ const EditExperience = ({ onClose, exId, refresh }) => {
   }, [uniqueIdentifier, exId])
 
 
+  console.log(currentPosition);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
 
     const requestBody = {
       company,
@@ -107,6 +112,8 @@ const EditExperience = ({ onClose, exId, refresh }) => {
       startDate: selectedStartDate,
       endDate: selectedEndDate
     }
+
+
 
     const storedToken = localStorage.getItem('authToken');
 
@@ -134,7 +141,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
       <div className="modal-background" onClick={handleClose}></div>
       <div className="modal-content">
         <div className="box">
-          <h1 className="title">Edit Education</h1>
+          <h1 className="title">Edit Experience</h1>
           {loading && (
             <div className="columns is-vcentered">
               <div className="column">
@@ -220,6 +227,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                     checked = {currentPosition}
                     onChange = {() => setCurrentPosition(!currentPosition)}
                     disabled = {selectedEndDate !== ""}
+                    value={currentPosition}
                   />
                     I still work here.
                 </label>
