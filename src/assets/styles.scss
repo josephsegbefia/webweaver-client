@@ -61,7 +61,7 @@
 
 .card {
   width: 100%; /* Ensures the card takes up full width of its container */
-  height: 100%; /* Ensures the card takes up full height of its container */
+  min-height: 100%; /* Ensures the card takes up full height of its container */
   display: flex;
   flex-direction: column;
   border: 1px solid #00d1b2;
@@ -101,4 +101,8 @@
   outline: none !important;
   cursor: pointer;
   background-color: white;
+}
+
+a:visited {
+  color: #4a4a4a;
 }

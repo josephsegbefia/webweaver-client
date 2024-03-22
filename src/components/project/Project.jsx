@@ -65,14 +65,18 @@ const Project = ({ projects, checkOwner, onOpenEditor, openProjectDetails, setPr
                   </span>
                 </p>
                 <p className="card-footer-item">
-                  <span>
-                    <i className="fa-regular fa-eye"></i>
-                  </span>
+                  <a href= {project.liveLink} target="_blank" rel="noopener noreferrer">
+                    <span>
+                      <i className="fa-regular fa-eye"></i>
+                    </span>
+                  </a>
                 </p>
                 <p className="card-footer-item">
-                  <span>
-                    <i className="fa-brands fa-github"></i>
-                  </span>
+                  <a href= {project.gitHubLink} target="_blank" rel="noopener noreferrer">
+                    <span>
+                      <i className="fa-brands fa-github"></i>
+                    </span>
+                  </a>
                 </p>
                 {checkOwner() && (
                   <>

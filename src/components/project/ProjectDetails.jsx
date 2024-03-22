@@ -12,7 +12,17 @@ const ProjectDetails = ({ onClose, projId, }) => {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("")
+  const [createdAt, setCreatedAt] = useState("");
+  const [shortDesc, setShortDesc] = useState("");
+  const [techsUsed, setTechsUsed] = useState([]);
+  const [description, setDescription] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
+  const [liveLink, setLiveLink] = useState("");
+  const [gitHubLink, setGitHubLink] = useState("");
   const { user } = useContext(AuthContext);
+
+
+
 
 
   const handleClose = () => {
@@ -23,6 +33,9 @@ const ProjectDetails = ({ onClose, projId, }) => {
   let uniqueIdentifier;
   user && (uniqueIdentifier = user.uniqueIdentifier);
 
+  // const visitLink = (link) => {
+  //   window.location.href = link;
+  // }
   const fetchProject = () => {
     setLoading(true);
     axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/projects/${projId}`)
@@ -30,6 +43,13 @@ const ProjectDetails = ({ onClose, projId, }) => {
         console.log(response.data)
         const data = response.data;
         setTitle(data.title)
+        setCreatedAt(data.createdAt);
+        setShortDesc(data.shortDesc);
+        setTechsUsed(data.techsUsed);
+        setDescription(data.description);
+        setLiveLink(data.liveLink)
+        setGitHubLink(data.gitHubLink)
+        setImgUrl(data.imgUrl)
         setLoading(false);
       })
       .catch((error) => {
@@ -41,7 +61,12 @@ const ProjectDetails = ({ onClose, projId, }) => {
     fetchProject();
   }, []);
 
-  console.log(projId);
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
+    return formattedDate;
+  };
+
   return (
     <div className={`modal ${isOpen ? 'is-active' : ''}`}>
       <div className="modal-background" onClick={handleClose}></div>
@@ -51,9 +76,35 @@ const ProjectDetails = ({ onClose, projId, }) => {
               60%
             </progress>
           )}
+
           <div className = "card">
+            <div className ="card-image">
+              <figure className = "image is-4by3">
+                {imgUrl ? (
+                  <img
+                    src = {imgUrl}
+                    alt ="project image"
+                  />
+                ): (
+                  <img
+                    src = "https://bulma.io/assets/images/placeholders/1280x960.png"
+                    alt = "placeholder image"
+                  />
+                )}
+
+              </figure>
+            </div>
             <div className = "card-content">
               <p className = "title is-size-5">{title}</p>
+              <p className = "subtitle is-size-6">{shortDesc}</p>
+              <p className = "is-size-7 has-text-success my-2">{formatDate(createdAt)}</p>
+              <p className = "is-size-6">App powered by:</p>
+              {techsUsed.map((tech, index) => (
+                  <div key={index} className="is-inline-flex">
+                    <span className="tag is-success is-light mr-3">{tech}</span>
+                  </div>
+                ))}
+              <p className = "is-size-7 mt-5">{description}</p>
             </div>
 
             <div className = "card-footer">
@@ -62,15 +113,19 @@ const ProjectDetails = ({ onClose, projId, }) => {
                   <i className="fa-solid fa-backward-step"></i>
                 </span>
               </p>
+                <p className="card-footer-item">
+                  <a href= {liveLink} target="_blank" rel="noopener noreferrer">
+                    <span>
+                      <i className="fa-regular fa-eye"></i>
+                    </span>
+                  </a>
+                </p>
               <p className="card-footer-item">
-                <span>
-                  <i className="fa-regular fa-eye"></i>
-                </span>
-              </p>
-              <p className="card-footer-item">
-                <span>
-                  <i className="fa-brands fa-github"></i>
-                </span>
+                <a href = {gitHubLink} target = "_blank" rel = "noopener noreferrer">
+                  <span>
+                    <i className="fa-brands fa-github"></i>
+                  </span>
+                </a>
               </p>
             </div>
           </div>
