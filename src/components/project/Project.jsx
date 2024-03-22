@@ -43,7 +43,9 @@ const Project = ({ projects, checkOwner, onOpenEditor, openProjectDetails, setPr
     <div className="container">
       {showDeleteNotification && <DeleteConfirmation projectId={projectId} setShowDeleteNotification={setShowDeleteNotification} projectTitle = {projectTitle} reload={setRefresh} />}
       <div className="columns is-multiline">
-        {projects.length !== 0 && projects.map((project) => (
+        {projects.length !== 0 && projects
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .map((project) => (
           <div key={project._id} className="column is-one-third">
             <div className="card">
               <div className="card-content">

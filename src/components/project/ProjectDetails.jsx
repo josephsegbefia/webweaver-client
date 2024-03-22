@@ -11,7 +11,7 @@ const ProjectDetails = ({ onClose, projId, }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [loading, setLoading] = useState(false);
-
+  const [title, setTitle] = useState("")
   const { user } = useContext(AuthContext);
 
 
@@ -28,6 +28,8 @@ const ProjectDetails = ({ onClose, projId, }) => {
     axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/projects/${projId}`)
       .then((response) => {
         console.log(response.data)
+        const data = response.data;
+        setTitle(data.title)
         setLoading(false);
       })
       .catch((error) => {
@@ -51,7 +53,7 @@ const ProjectDetails = ({ onClose, projId, }) => {
           )}
           <div className = "card">
             <div className = "card-content">
-
+              <p className = "title is-size-5">{title}</p>
             </div>
 
             <div className = "card-footer">
