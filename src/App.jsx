@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import RoutesComp from './components/dashboard/RoutesComp';
 // import EditUserPortfolio from './components/portfolio/EditUserPortfolio';
 import MasterPortfolioComp from './components/portfolio/MasterPortfolioComp';
+import Sidebar from './components/dashboard/Sidebar';
 import Home from './components/Home';
 import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
@@ -20,6 +21,7 @@ import Nav from './components/Nav';
 import DashNav from './components/dashboard/DashNav';
 import SignUp from './components/auth/SignUp';
 import Users from './components/dashboard/Users';
+
 const App = () => {
   const [dashboardActive, setDashboardActive] = useState(false);
   console.log(dashboardActive);
@@ -49,7 +51,20 @@ const App = () => {
           <Nav />
         </header>
         {dashboardActive && (
-          <DashNav routes = {routes} />
+          <>
+            <DashNav routes = {routes} />
+          </>
+        )}
+        {dashboardActive && (
+          <section className="section">
+          <div className = "container">
+            <div className  = "columns">
+              <div className = "column is-one-quarter">
+                <Sidebar />
+              </div>
+            </div>
+          </div>
+        </section>
         )}
         <div className = 'column'>
           <Routes>

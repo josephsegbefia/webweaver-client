@@ -106,3 +106,12 @@
 a:visited {
   color: #4a4a4a;
 }
+
+
+aside {
+  &.menu {
+    background-color: aliceblue;
+    padding: 1em;
+    min-height: 50vh;
+  }
+}

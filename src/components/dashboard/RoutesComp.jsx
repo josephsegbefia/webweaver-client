@@ -28,7 +28,7 @@ const RoutesComp = () => {
       url: "/users",
       exact: true,
       component: Users,
-      sunbav :[
+      subnav :[
         {
           name: "Create a user",
           url: "/create",

@@ -6,7 +6,7 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth.context'
 
 const Nav = () => {
-  const [activeItem, setActiveItem] = useState('');
+  // const [activeItem, setActiveItem] = useState('');
 
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
