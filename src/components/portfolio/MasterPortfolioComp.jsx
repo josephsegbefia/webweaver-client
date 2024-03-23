@@ -32,14 +32,8 @@ const MasterPortfolioComp = () => {
   const { uniqueIdentifier } = useParams();
 
 
-
-
-
-
-
-
   const toggleEditMode = () => {
-    setEditMode(edit => !edit);
+    setEditMode(true);
   }
 
   useEffect(() => {
@@ -57,19 +51,18 @@ const MasterPortfolioComp = () => {
     <div className = 'container'>
       <div>
         {editMode && portfolioOwner ? (
-          <EditUserPortfolio errorMessage = {errorMessage}/>
+          <EditUserPortfolio errorMessage = {errorMessage} toggleEditMode = {toggleEditMode} setEditMode ={setEditMode} />
         ) : <UserPortfolio owner = {portfolioOwner} errorMessage = {errorMessage}/>}
+        {isLoggedIn && portfolioOwner && !editMode && (
+          <div className = "column is-half">
+            <button onClick = {toggleEditMode} className = 'button is-warning my-3'>{!editMode && 'Edit Profile'}</button>
+          </div>
+        )}
       </div>
-      {isLoggedIn && portfolioOwner ? (
-        <div>
-          {/* <h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1> */}
-          <button onClick = {toggleEditMode} className = 'button is-warning navbar-end my-3'>{!editMode ? 'Edit Profile' : 'Cancel'}</button>
-        </div>
-      ) : ("")}
       <ExperienceList />
       <EducationList />
       <ProjectList />
-      <CreateMessage />
+      {!portfolioOwner && (<CreateMessage />)}
       <Footer />
     </div>
   )

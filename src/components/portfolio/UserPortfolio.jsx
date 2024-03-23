@@ -49,7 +49,7 @@ const UserPortfolio = ({ owner, errorMessage }) => {
 
       axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}`)
         .then((response) => {
-          // console.log(response.data[0])
+          console.log(response.data[0])
           setHeadLine(response.data[0].headLine);
           setInterests(response.data[0].interests);
           setLanguages(response.data[0].languages);
@@ -98,14 +98,14 @@ const UserPortfolio = ({ owner, errorMessage }) => {
                   <img className='is-rounded' src={avatarURL} alt='avatar image' />
                 </figure>
                 ) : (
-                <div>
-                  <i className="fa-regular fa-user fa-2xl"></i>
-                </div>
+                <figure className = 'image is-128x128'>
+                  <img className = 'is-rounded' src = 'https://bulma.io/assets/images/placeholders/128x128.png' alt = 'avatar placeholder'/>
+                </figure>
               )}
 
 
               <p className = 'has-text-centered is-size-5 mt-3'>{firstName} {lastName}</p>
-              <h1 className = 'has-text-centered is-size-5 mt-3 has-text-primary'>{headLine ? headLine : 'Junior Full Stack Web Developer'}</h1>
+              <h1 className = 'has-text-centered is-size-5 mt-3 has-text-primary'>{headLine ? headLine : ''}</h1>
             </div>
 
             <div className = "tile is-child box">

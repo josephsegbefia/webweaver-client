@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,7 +9,7 @@ import { AuthContext } from '../../context/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const EditUserPortfolio = () => {
+const EditUserPortfolio = ({setEditMode}) => {
   const [headLine, setHeadLine] = useState('');
   const [interests, setInterests] = useState([]);
   const [interest, setInterest] = useState('');
@@ -162,6 +163,7 @@ const EditUserPortfolio = () => {
     .then((response) => {
       console.log(response.data)
       setLoading(false);
+      setEditMode(false);
     })
     .catch((error) => {
       console.log(error);
@@ -169,6 +171,8 @@ const EditUserPortfolio = () => {
     })
 
   }
+
+
 
   useEffect(() => {
     if(user){
@@ -195,6 +199,8 @@ const EditUserPortfolio = () => {
   }, [uniqueIdentifier, user]);
 
 
+  console.log(headLine);
+
   return (
     <div className = "container">
       {
@@ -214,13 +220,13 @@ const EditUserPortfolio = () => {
                   60%
                 </progress>
               )}
-              {!avatarURL ? (
-                <figure className = 'image is-128x128'>
+              {avatarURL ? (
+                <figure className = 'image is-96x96'>
                   <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' />
                 </figure>
               ) : (
                 <div>
-                  <p className = "title">Upload a profile photo</p>
+                  <p className = "title is-size-5">Upload a profile photo</p>
               <div className = "file">
                 <label className = "file-label">
                   <input className = "file-input" type="file" name="resume" onChange = {handleAvatarChange}/>
@@ -234,6 +240,7 @@ const EditUserPortfolio = () => {
                   </span>
                 </label>
               </div>
+              <p className = "is-size-7 has-text-danger mt-3">Please click upload image to upload your picture!</p>
               {imageName && (
                 <p>{imageName}</p>
               )}
@@ -243,11 +250,17 @@ const EditUserPortfolio = () => {
 
               <hr />
 
-              <input type = 'text' className = 'input' value = {headLine} onChange = {handleHeadLineChange} />
+              <input
+                type = 'text'
+                className = 'input'
+                value = {headLine}
+                onChange = {handleHeadLineChange}
+                placeholder='Position e.g Junior Full Stack Developer'
+              />
             </div>
 
             <div className = "tile is-child box">
-              <p className = "title">Skills</p>
+              <p className = "title is-size-5">Skills</p>
               <div className = 'is-inline-flex'>
                 <input
                   type =  "text"
@@ -270,28 +283,28 @@ const EditUserPortfolio = () => {
               </div>
 
               <hr />
-              <p className = 'title'>Info</p>
-              <p><span><i className = 'fas fa-envelope mr-3 mb-3'></i>{email}</span></p>
+              <p className = 'title is-size-5'>Info</p>
+              <p className = "is-size-7"><span><i className = 'fas fa-envelope mr-3 mb-3'></i>{email}</span></p>
               <input type="text"
-                className = 'input'
+                className = 'input is-size-7'
                 placeholder='phone'
                 value={phone}
                 onChange={handlePhoneChange}
               />
               <input type="text"
-                className = 'input mt-3'
+                className = 'input mt-3 is-size-7'
                 placeholder = 'LinkedIn url'
                 value = {linkedInURL}
                 onChange = {handleLinkedInURLChange}
               />
               <input type="text"
-                className = 'input mt-3'
+                className = 'input mt-3 is-size-7'
                 placeholder = 'GitHub url'
                 value = {gitHubURL}
                 onChange = {handleGitHubURLChange}
               />
               <input type="text"
-                className = 'input mt-3'
+                className = 'input mt-3 is-size-7'
                 placeholder = 'location e.g Accra, Ghana'
                 value = {location}
                 onChange = {handleLocationChange}
@@ -302,7 +315,7 @@ const EditUserPortfolio = () => {
 
           <div className = "tile is-parent">
             <div className = "tile is-child box">
-              <p className = "title">About me</p>
+              <p className = "title is-size-5">About me</p>
               <textarea
                 name="about-me"
                 style={{width: "100%", resize: "none"}}
@@ -319,7 +332,7 @@ const EditUserPortfolio = () => {
                   value = {interest}
                   onChange={handleInterestChange}
                 />
-                <button className = 'button is-primary add-button mt-3' disabled={fieldCheck(interest)} onClick={addInterest}>+</button>
+                <button type = "button" className = 'button is-primary add-button mt-3' disabled={fieldCheck(interest)} onClick={addInterest}>+</button>
 
                 <input
                   type =  "text"
@@ -329,9 +342,9 @@ const EditUserPortfolio = () => {
                   value = {language}
                   onChange={handleLanguageChange}
                 />
-                <button className = 'button is-primary add-button mt-3' disabled={fieldCheck(language)} onClick={addLanguage}>+</button>
+                <button type = "button" className = 'button is-primary add-button mt-3' disabled={fieldCheck(language)} onClick={addLanguage}>+</button>
               </div>
-              <p className = "is-size-5">Interests</p>
+              <p className = "title is-size-5">Interests</p>
               <div>
                 {interests && interests.map((interest, index) => {
                   return (
@@ -341,7 +354,7 @@ const EditUserPortfolio = () => {
                   )
                 })}
               </div>
-              <p className = "is-size-5 mt-5">Spoken Languages</p>
+              <p className = "title is-size-5 mt-5">Spoken Languages</p>
               <div>
                 {languages && languages.map((language, index) => {
                   return (
@@ -354,9 +367,20 @@ const EditUserPortfolio = () => {
             </div>
           </div>
         </div>
-        <button type='submit' className='button is-primary navbar-end my-3'>
-          Save
-        </button>
+        <div className = "columns">
+
+        </div>
+        <div className = "columns">
+          <div className = "column is-half">
+            <button type='submit' className='button action is-primary my-3'>
+              Save
+            </button>
+          </div>
+          <div className = "column is-half">
+            <button type = "button" className = "button action my-3 is-half is-danger" onClick = {() => setEditMode(false)}>Cancel</button>
+          </div>
+        </div>
+
       </form>
 
     </div>
