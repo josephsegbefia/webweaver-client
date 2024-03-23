@@ -1,7 +1,13 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {useEffect} from 'react'
 
-const Home = () => {
+const Home = ({ setDashboardActive }) => {
+
+  useEffect(() => {
+    setDashboardActive(false);
+  }, [])
+
   return (
     <div>
       <h1>Home</h1>

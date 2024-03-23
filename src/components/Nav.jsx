@@ -32,8 +32,8 @@ const Nav = () => {
         <div className="navbar-end">
           {isLoggedIn && (
             <>
-              <NavLink to = "/projects"  className="navbar-item" onClick={toggleBurgerMenu}>Projects</NavLink>
-              <NavLink  className = 'navbar-item' onClick={toggleBurgerMenu}>Dashboard</NavLink>
+              {/* <NavLink to = "/projects"  className="navbar-item" onClick={toggleBurgerMenu}>Projects</NavLink> */}
+              <NavLink  to = '/dashboard' className = 'navbar-item' onClick={toggleBurgerMenu}>Dashboard</NavLink>
               <NavLink to = '/' className = 'navbar-item' onClick={logOutUser}>Log out</NavLink>
             </>
           )}

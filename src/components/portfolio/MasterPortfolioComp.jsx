@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext} from "react";
@@ -21,7 +22,12 @@ import { AuthContext } from '../../context/auth.context';
 const API_URL = import.meta.env.VITE_API_URL;
 
 
-const MasterPortfolioComp = () => {
+const MasterPortfolioComp = ({ setDashboardActive }) => {
+
+  useEffect(() => {
+    setDashboardActive(false);
+  }, [])
+
   const [portfolioOwner, setPortfolioOwner] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
