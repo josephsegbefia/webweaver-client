@@ -9,4 +9,4 @@ const TrackJob = () => {
   )
 }
 
-export default TrackJob;
+export default TrackJob

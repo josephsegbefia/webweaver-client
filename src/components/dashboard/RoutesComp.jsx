@@ -9,6 +9,7 @@ import CreateUser from './CreateUser';
 import Dashboard from './Dashboard';
 import CreateCV from './CreateCV';
 import EditUser from './EditUser';
+import Jobs from './Jobs';
 import TrackJob from './TrackJob';
 import MasterPortfolioComp from '../portfolio/MasterPortfolioComp';
 
@@ -47,9 +48,16 @@ const RoutesComp = () => {
       component: CreateCV
     },
     {
-      name: "Track Job",
-      url: "/track-job",
-      component: TrackJob
+      name: "Jobs",
+      url: "/jobs",
+      component: Jobs,
+      subnav: [
+        {
+          name: "Track Job",
+          url: "/track",
+          component: TrackJob
+        }
+      ]
     }
   ];
 

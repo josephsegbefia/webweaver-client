@@ -45,45 +45,42 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <Router>
-        <header>
-          <Nav />
-        </header>
-        {dashboardActive && (
-          <>
-            <DashNav routes = {routes} />
-          </>
-        )}
-        {dashboardActive && (
-          <section className="section">
-          <div className = "container">
-            <div className  = "columns">
-              <div className = "column is-one-quarter">
-                <Sidebar />
-              </div>
+    <Router>
+      <header>
+        <Nav />
+      </header>
+      {dashboardActive && (
+        <>
+          <DashNav routes = {routes} />
+        </>
+      )}
+      <div className = "section">
+        <div className = "container">
+          <div className = "columns">
+          {dashboardActive && (
+            <div className = "column is-one-quarter">
+              <Sidebar />
             </div>
+          )}
+          <div className = 'column'>
+            <Routes>
+              {/* <Route path = '/signout' element = {<SignOut />} /> */}
+              <Route path = '/' element = {<Home setDashboardActive = {setDashboardActive} />}/>
+              <Route path = '/portfolios/:uniqueIdentifier' element = {<MasterPortfolioComp setDashboardActive = {setDashboardActive}/>} />
+              <Route path = '/login' element = { <IsAnon> <Login /> </IsAnon> } />
+              <Route path = '/signup' element = {<IsAnon> <SignUp /> </IsAnon>} />
+              <Route path = '/verify-email' element = {<VerifyEmail />} />
+              <Route path = '/forgot-password' element = {<ForgotPasswordForm />} />
+              <Route path = 'password-reset' element = {<PasswordResetForm />} />
+              <Route path = '/users' element = {<IsPrivate><Users /></IsPrivate>}/>
+              {/* <Route path = '/' element = { <Profile /> } /> */}
+              <Route path = '/dashboard' element = {<IsPrivate> <Dashboard setDashboardActive = {setDashboardActive}/> </IsPrivate>}/>
+            </Routes>
           </div>
-        </section>
-        )}
-        <div className = 'column'>
-          <Routes>
-            {/* <Route path = '/signout' element = {<SignOut />} /> */}
-            <Route path = '/' element = {<Home setDashboardActive = {setDashboardActive} />}/>
-            <Route path = '/portfolios/:uniqueIdentifier' element = {<MasterPortfolioComp setDashboardActive = {setDashboardActive}/>} />
-            <Route path = '/login' element = { <IsAnon> <Login /> </IsAnon> } />
-            <Route path = '/signup' element = {<IsAnon> <SignUp /> </IsAnon>} />
-            <Route path = '/verify-email' element = {<VerifyEmail />} />
-            <Route path = '/forgot-password' element = {<ForgotPasswordForm />} />
-            <Route path = 'password-reset' element = {<PasswordResetForm />} />
-            <Route path = '/users' element = {<IsPrivate><Users /></IsPrivate>}/>
-            {/* <Route path = '/' element = { <Profile /> } /> */}
-            <Route path = '/dashboard' element = {<IsPrivate> <Dashboard setDashboardActive = {setDashboardActive}/> </IsPrivate>}/>
-          </Routes>
+          </div>
         </div>
-      </Router>
-
-    </div>
+      </div>
+    </Router>
   )
 }
 
