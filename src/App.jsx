@@ -61,7 +61,7 @@ const App = () => {
             <Route path = '/verify-email' element = {<VerifyEmail />} />
             <Route path = '/forgot-password' element = {<ForgotPasswordForm />} />
             <Route path = 'password-reset' element = {<PasswordResetForm />} />
-            <Route path = '/users' element = {<Users />}/>
+            <Route path = '/users' element = {<IsPrivate><Users /></IsPrivate>}/>
             {/* <Route path = '/' element = { <Profile /> } /> */}
             <Route path = '/dashboard' element = {<IsPrivate> <Dashboard setDashboardActive = {setDashboardActive}/> </IsPrivate>}/>
           </Routes>

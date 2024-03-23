@@ -6,7 +6,7 @@ const Home = ({ setDashboardActive }) => {
 
   useEffect(() => {
     setDashboardActive(false);
-  }, [])
+  })
 
   return (
     <div>
