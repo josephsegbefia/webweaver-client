@@ -13,6 +13,7 @@ import Jobs from './Jobs';
 import TrackJob from './TrackJob';
 import MasterPortfolioComp from '../portfolio/MasterPortfolioComp';
 import AppliedJobs from './AppliedJobs';
+import Messages from './Messages';
 
 const RoutesComp = () => {
   const { user } = useContext(AuthContext); // Access user context value
@@ -60,10 +61,15 @@ const RoutesComp = () => {
         },
         {
           name: "Applied Jobs",
-          url: '/applied-jobs',
+          url: "/applied-jobs",
           component: AppliedJobs
         }
       ]
+    },
+    {
+      name: "Messages",
+      url: "/messages",
+      component: Messages
     }
   ];
 

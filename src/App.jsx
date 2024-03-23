@@ -6,6 +6,7 @@ import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 import PasswordResetForm from './components/auth/PasswordResetForm';
 import Dashboard from './components/dashboard/Dashboard';
 // import routes from './components/dashboard/routes';
+import Messages from './components/dashboard/Messages';
 import RoutesComp from './components/dashboard/RoutesComp';
 // import EditUserPortfolio from './components/portfolio/EditUserPortfolio';
 import MasterPortfolioComp from './components/portfolio/MasterPortfolioComp';
@@ -73,6 +74,7 @@ const App = () => {
               <Route path = '/forgot-password' element = {<ForgotPasswordForm />} />
               <Route path = 'password-reset' element = {<PasswordResetForm />} />
               <Route path = '/users' element = {<IsPrivate><Users /></IsPrivate>}/>
+              <Route path = '/messages' element = {<IsPrivate><Messages /></IsPrivate>}/>
               {/* <Route path = '/' element = { <Profile /> } /> */}
               <Route path = '/dashboard' element = {<IsPrivate> <Dashboard setDashboardActive = {setDashboardActive}/> </IsPrivate>}/>
             </Routes>
