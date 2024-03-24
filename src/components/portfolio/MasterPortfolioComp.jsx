@@ -10,7 +10,6 @@ import ExperienceList from "../experience/ExperienceList";
 import EducationList from "../education/EducationList";
 import ProjectList from "../project/ProjectList";
 import CreateMessage from "../message/createMessage";
-import Footer from "../../Footer";
 import "../project/project.css"
 
 
@@ -24,9 +23,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const MasterPortfolioComp = ({ setDashboardActive }) => {
 
-  useEffect(() => {
-    setDashboardActive(false);
-  }, [])
+
 
   const [portfolioOwner, setPortfolioOwner] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -69,7 +66,6 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
       <EducationList />
       <ProjectList />
       {!portfolioOwner && (<CreateMessage />)}
-      <Footer />
     </div>
   )
 }

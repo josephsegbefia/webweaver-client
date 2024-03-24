@@ -5,8 +5,8 @@ import React, {useEffect} from 'react'
 const Home = ({ setDashboardActive }) => {
 
   useEffect(() => {
-    setDashboardActive(false);
-  })
+
+  }, [])
 
   return (
     <div>
