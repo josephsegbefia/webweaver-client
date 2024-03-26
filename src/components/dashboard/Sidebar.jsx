@@ -20,7 +20,9 @@ const Sidebar = () => {
                   areaRoute.subnav &&
                   areaRoute.subnav.map((route,index) => (
                       <li key = {index}>
-                          <NavLink to={`${areaRoute.url}${route.url}`} activeClassName="is-active">
+                          <NavLink to={`${areaRoute.url}${route.url}`}
+                            // activeClassName="is-active"
+                          >
                               {route.name}
                           </NavLink>
                       </li>

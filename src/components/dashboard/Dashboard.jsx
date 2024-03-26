@@ -37,6 +37,32 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
         console.log(error);
       })
   },[uniqueIdentifier])
+
+
+ const fetchQuote = async () => {
+  try {
+    const response = await axios.get(`${API_URL}api/motivations`);
+    // setQuote(response.data)
+    const data = response.data[0];
+
+    setQuote(data);
+  }catch(error){
+    console.log(error)
+  }
+ }
+
+//  console.log(quote.quote)
+
+
+
+  useEffect(() => {
+
+    fetchQuote()
+
+    const intervalId = setInterval(fetchQuote, 24 * 60 * 60 * 1000);
+    return () => clearInterval(intervalId);
+  }, [])
+
   useEffect(() => {
     setDashboardActive(true);
     localStorage.setItem('dashboardActive', dashboardActive);
@@ -77,10 +103,10 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
                   </div>
                   <div className="tile is-parent">
                       <article className="tile is-child notification is-info">
-                          <p className="title">Important work</p>
+                          <p className="title is-size-6">Important work</p>
                           <p className="subtitle">Image to follow</p>
                           <figure className="image is-4by3">
-                              <img src="https://placedog.net/640/480" />
+                            <img src="https://placedog.net/640/480" />
                           </figure>
                       </article>
                   </div>
@@ -88,9 +114,13 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
               <div className="tile is-parent">
                   <article className="tile is-child notification is-danger">
                       <p className="title is-size-6">Something to keep you going</p>
+                      <hr />
                       <div className="content">
                           <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lacus sit amet ex accumsan euismod. Donec vehicula fermentum augue, a sodales justo gravida congue. Cras mattis augue metus
+                            {/* {quote.quote} */}
+                          </p>
+                          <p>
+                            {/* - {quote.author} */}
                           </p>
                       </div>
                   </article>
@@ -103,7 +133,7 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
                       <p className="subtitle">With even more content</p>
                       <div className="content">
                           <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lacus sit amet ex accumsan euismod. Donec vehicula fermentum augue, a sodales justo gravida congue. Cras mattis augue metus
+
                           </p>
                       </div>
                   </div>
