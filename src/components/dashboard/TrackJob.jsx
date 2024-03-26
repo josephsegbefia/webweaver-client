@@ -54,6 +54,14 @@ const TrackJob = () => {
           </div>
         </div>
         <div className = "columns">
+          <div className = "column">
+            <textarea
+              className = "textarea"
+              placeholder = "Provide a brief description of the job"
+            />
+          </div>
+        </div>
+        <div className = "columns">
           <div className = "column is-half">
             <div className="select is-fullwidth">
               <select
@@ -93,6 +101,55 @@ const TrackJob = () => {
           </div>
         </div>
         <h1 className = "title is-size-6">Please add the supporting documents used for the application below.</h1>
+        <div className = "columns">
+          <div className = "column is-one-third">
+            <p className = "is-size-7 my-4">Upload cv used for this application</p>
+            <div className ="file">
+              <label className ="file-label">
+                <input className ="file-input" type="file" name="resume" />
+                <span className ="file-cta">
+                  <span className ="file-icon">
+                    <i className ="fas fa-upload"></i>
+                  </span>
+                  <span className ="file-label"> Choose a file… </span>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div className = "column is-one-third">
+            <p className = "is-size-7 my-4">Upload resume used for this application</p>
+            <div className ="file">
+              <label className ="file-label">
+                <input className ="file-input" type="file" name="resume" />
+                <span className ="file-cta">
+                  <span className ="file-icon">
+                    <i className ="fas fa-upload"></i>
+                  </span>
+                  <span className ="file-label"> Choose a file… </span>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div className = "column is-one-third">
+            <p className = "is-size-7 my-4">Upload other docs used for this application</p>
+            <div className ="file">
+              <label className ="file-label">
+                <input className ="file-input" type="file" name="resume" />
+                <span className ="file-cta">
+                  <span className ="file-icon">
+                    <i className ="fas fa-upload"></i>
+                  </span>
+                  <span className ="file-label"> Choose a file… </span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className = "columns">
+          <div className = "column is-one-third">
+            <button type = "submit" className = "action button is-primary">Track</button>
+          </div>
+        </div>
       </form>
     </div>
 

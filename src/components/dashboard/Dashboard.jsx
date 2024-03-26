@@ -55,13 +55,13 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    fetchQuote()
+  //   fetchQuote()
 
-    const intervalId = setInterval(fetchQuote, 24 * 60 * 60 * 1000);
-    return () => clearInterval(intervalId);
-  }, [])
+  //   const intervalId = setInterval(fetchQuote, 24 * 60 * 60 * 1000);
+  //   return () => clearInterval(intervalId);
+  // }, [])
 
   useEffect(() => {
     setDashboardActive(true);
