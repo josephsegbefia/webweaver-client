@@ -10,6 +10,10 @@ const Nav = () => {
 
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
+
+  let uniqueIdentifier;
+  user && (uniqueIdentifier = user.uniqueIdentifier);
+
   function toggleBurgerMenu() {
     document.querySelector('.navbar-menu').classList.toggle('is-active');
   }
@@ -33,7 +37,7 @@ const Nav = () => {
           {isLoggedIn && (
             <>
               {/* <NavLink to = "/projects"  className="navbar-item" onClick={toggleBurgerMenu}>Projects</NavLink> */}
-              <NavLink  to = '/dashboard' className = 'navbar-item' onClick={toggleBurgerMenu}>Dashboard</NavLink>
+              <NavLink  to = {`/users/${uniqueIdentifier}/dashboard`} className = 'navbar-item' onClick={toggleBurgerMenu}>Dashboard</NavLink>
               <NavLink to = '/' className = 'navbar-item' onClick={logOutUser}>Log out</NavLink>
             </>
           )}

@@ -32,13 +32,16 @@ import TrackJob from './components/dashboard/TrackJob';
 
 
 const App = () => {
-  const [dashboardActive, setDashboardActive] = useState(false);
+  const [dashboardActive, setDashboardActive] = useState(() => {
+    const storedState = localStorage.getItem('dashboardActive');
+    return storedState ? storedState : false;
+  });
   const routes = RoutesComp();
 
 
   // const location = useLocation();
   // used window.location because useLocation was not working
-  const isDashboardPage = window.location.pathname.startsWith('/dashboard');
+  const isDashboardPage = window.location.pathname.startsWith('/users');
 
 
   return (
@@ -48,7 +51,8 @@ const App = () => {
       </header>
       {
       isDashboardPage &&
-      dashboardActive && (
+      dashboardActive &&
+      (
         <DashNav routes={routes} />
       )}
       <div className="section">
@@ -56,14 +60,15 @@ const App = () => {
           <div className="columns">
             {
             isDashboardPage &&
-            dashboardActive && (
+            dashboardActive
+            && (
               <div className="column is-one-quarter">
                 <Sidebar />
               </div>
             )}
             <div className="column">
               <Routes>
-                <Route path="/" element={<Home setDashboardActive={setDashboardActive} />} />
+                <Route exact path="/" element={<Home setDashboardActive={setDashboardActive} />} />
                 <Route path="/portfolios/:uniqueIdentifier" element={<MasterPortfolioComp setDashboardActive={setDashboardActive} />} />
                 <Route path="/login" element={<IsAnon><Login /></IsAnon>} />
                 <Route path="/signup" element={<IsAnon><SignUp /></IsAnon>} />
@@ -71,8 +76,8 @@ const App = () => {
                 <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                 <Route path="password-reset" element={<PasswordResetForm />} />
                 {/* DashBoard componentx */}
-                <Route path="/dashboard" element={<IsPrivate><Dashboard setDashboardActive={setDashboardActive} /></IsPrivate>} />
-                <Route path="/users" element={<IsPrivate><Users /></IsPrivate>} />
+                <Route exact path="/users/:uniqueIdentifier/dashboard" element={<IsPrivate><Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} /></IsPrivate>} />
+                <Route exact path="/users" element={<IsPrivate><Users /></IsPrivate>} />
                 <Route path="/messages" element={<IsPrivate><Messages /></IsPrivate>} />
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
                 <Route path = "/jobs/track" element = {<IsPrivate><TrackJob /></IsPrivate>}/>

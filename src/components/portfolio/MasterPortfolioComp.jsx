@@ -39,6 +39,10 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
     setEditMode(true);
   }
 
+  useEffect(()=> {
+    setDashboardActive(false)
+  })
+
   useEffect(() => {
     if(user && user.uniqueIdentifier === uniqueIdentifier){
       setPortfolioOwner(true);
