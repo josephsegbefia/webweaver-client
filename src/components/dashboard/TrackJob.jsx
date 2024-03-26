@@ -4,12 +4,18 @@ import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/material_blue.css';
 
 const TrackJob = () => {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const handleFileChange = (e) => {
+    setSelectedFiles([...selectedFiles, ...e.target.files]);
+  };
+
 
   return (
     <div className = "container">
       <div>
         <h1 className = "title is-size-5 has-text-centered mb-5">Provide Job Details for tracking</h1>
-
+        <hr />
       </div>
       <form>
         <div className = "columns">
@@ -100,48 +106,69 @@ const TrackJob = () => {
               </div>
           </div>
         </div>
-        <h1 className = "title is-size-6">Please add the supporting documents used for the application below.</h1>
+        <h1 className = "title is-size-7 has-text-danger">Please add the documents used for the application below. Hit the plus button after each file selection.</h1>
         <div className = "columns">
           <div className = "column is-one-third">
-            <p className = "is-size-7 my-4">Upload cv used for this application</p>
-            <div className ="file">
-              <label className ="file-label">
-                <input className ="file-input" type="file" name="resume" />
-                <span className ="file-cta">
-                  <span className ="file-icon">
-                    <i className ="fas fa-upload"></i>
-                  </span>
-                  <span className ="file-label"> Choose a file… </span>
-                </span>
-              </label>
+            <p className = "is-size-7 my-4">Curriculum Vitae (CV)</p>
+            <div className = "columns">
+              <div className = "column is-two-thirds">
+                <div className ="file">
+                  <label className ="file-label">
+                    <input className ="file-input" type="file" name="resume" />
+                    <span className ="file-cta">
+                      <span className ="file-icon">
+                        <i className ="fas fa-upload"></i>
+                      </span>
+                      <span className ="file-label"> Choose a file… </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div className = "column">
+                <button className = "button is-success"><i className = "fa-solid fa-plus"></i></button>
+              </div>
             </div>
           </div>
           <div className = "column is-one-third">
-            <p className = "is-size-7 my-4">Upload resume used for this application</p>
-            <div className ="file">
-              <label className ="file-label">
-                <input className ="file-input" type="file" name="resume" />
-                <span className ="file-cta">
-                  <span className ="file-icon">
-                    <i className ="fas fa-upload"></i>
-                  </span>
-                  <span className ="file-label"> Choose a file… </span>
-                </span>
-              </label>
+            <p className = "is-size-7 my-4">Cover Letter</p>
+            <div className = "columns">
+              <div className = "column is-two-thirds">
+                <div className ="file">
+                  <label className ="file-label">
+                    <input className ="file-input" type="file" name="resume" />
+                    <span className ="file-cta">
+                      <span className ="file-icon">
+                        <i className ="fas fa-upload"></i>
+                      </span>
+                      <span className ="file-label"> Choose a file… </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div className = "column">
+                <button className = "button is-success"><i className = "fa-solid fa-plus"></i></button>
+              </div>
             </div>
           </div>
           <div className = "column is-one-third">
-            <p className = "is-size-7 my-4">Upload other docs used for this application</p>
-            <div className ="file">
-              <label className ="file-label">
-                <input className ="file-input" type="file" name="resume" />
-                <span className ="file-cta">
-                  <span className ="file-icon">
-                    <i className ="fas fa-upload"></i>
-                  </span>
-                  <span className ="file-label"> Choose a file… </span>
-                </span>
-              </label>
+            <p className = "is-size-7 my-4">Supporting docs</p>
+            <div className = "columns">
+              <div className = "column is-two-thirds">
+                <div className ="file">
+                  <label className ="file-label">
+                    <input className ="file-input" type="file" multiple name="other" />
+                    <span className ="file-cta">
+                      <span className ="file-icon">
+                        <i className ="fas fa-upload"></i>
+                      </span>
+                      <span className ="file-label"> Choose a file… </span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div className = "column">
+                <button className = "button is-success"><i className = "fa-solid fa-plus"></i></button>
+              </div>
             </div>
           </div>
         </div>
