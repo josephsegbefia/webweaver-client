@@ -1,12 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React,{useState, useRef, useEffect} from 'react';
+import React,{useState, useRef, useEffect, useContext} from 'react';
 import axios from "axios";
+import { AuthContext } from '../../context/auth.context';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/material_blue.css';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const TrackJob = () => {
+  const [saving, setSaving] = useState(false);
+
+  // company name, position, description, date applied fields
+  const [companyName, setCompanyName] = useState("");
+  const [position, setPosition] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [location, setLocation] = useState("");
+  const [appliedDate, setAppliedDate] = useState("")
+
   // Supporting Docs upload
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [otherDocs, setOtherDocs] = useState([]);
@@ -21,6 +32,11 @@ const TrackJob = () => {
   const [coverLetter, setCoverLetter] = useState("");
   const [uploadingCoverLetter, setUploadingCoverLetter] = useState(false)
   const [selectedCoverLetter, setSelectedCoverLetter] = useState(null);
+
+  // Data from context
+  const { user } = useContext(AuthContext);
+  let uniqueIdentifier;
+  user && (uniqueIdentifier = user.uniqueIdentifier);
 
 
   // Handle upload for supporting docs - Multiple files
@@ -63,11 +79,7 @@ const TrackJob = () => {
     formData.append('cv', selectedCV);
 
     try {
-      const response = await axios.post(`${API_URL}api/resume/upload`, formData,  {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      const response = await axios.post(`${API_URL}api/resume/upload`, formData)
       setCv(response.data.fileUrl)
       setUploadingCV(false);
     }catch(error){
@@ -87,11 +99,7 @@ const TrackJob = () => {
     formData.append('coverLetter', selectedCoverLetter);
 
     try {
-      const response = await axios.post(`${API_URL}api/cover-letter/upload`, formData,  {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      const response = await axios.post(`${API_URL}api/coverletter/upload`, formData)
       setCoverLetter(response.data.fileUrl)
       setUploadingCoverLetter(false);
     }catch(error){
@@ -101,6 +109,47 @@ const TrackJob = () => {
   }
 
 
+  // Form Submission
+
+  const handleFormSubmission = (e) => {
+    e.preventDefault();
+
+    setSaving(true);
+
+    const storedToken = localStorage.getItem('authToken');
+
+    const requestBody = {
+      companyName,
+      location,
+      position,
+      description,
+      appliedDate,
+      status,
+      cv,
+      coverLetter,
+      otherDocs
+    }
+
+    axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/jobs`, requestBody,
+      { headers: { Authorization: `Bearer ${storedToken}` } })
+        .then((response) => {
+          console.log(response.data)
+          setSaving(false);
+          setCompanyName("");
+          setLocation("");
+          setDescription("");
+          setCoverLetter("");
+          setCv("");
+          otherDocs("");
+          setAppliedDate("");
+          setStatus("");
+          setPosition("")
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+  }
+
 
 
   return (
@@ -109,7 +158,12 @@ const TrackJob = () => {
         <h1 className = "title is-size-5 has-text-centered mb-5">Provide Job Details for tracking</h1>
         <hr />
       </div>
-      <form>
+      <form onSubmit = {handleFormSubmission}>
+        {saving && (
+          <progress className='progress is-medium is-link' max='100' style={{ height: '3px' }}>
+            60%
+          </progress>
+        )}
         <div className = "columns">
           <div className = "column is-one-third">
             <div className="field">
@@ -118,8 +172,8 @@ const TrackJob = () => {
                   className="input"
                   type="text"
                   placeholder="Company Name"
-                  // value={schoolName}
-                  // onChange={(e) => setSchoolName(e.target.value)}
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
                 />
               </p>
             </div>
@@ -131,8 +185,8 @@ const TrackJob = () => {
                   className="input"
                   type="text"
                   placeholder="Position"
-                  // value={schoolName}
-                  // onChange={(e) => setSchoolName(e.target.value)}
+                  value={position}
+                  onChange={(e) => setPosition(e.target.value)}
                 />
               </p>
             </div>
@@ -144,8 +198,8 @@ const TrackJob = () => {
                   className="input"
                   type="text"
                   placeholder="Job Location"
-                  // value={schoolName}
-                  // onChange={(e) => setSchoolName(e.target.value)}
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </p>
             </div>
@@ -156,6 +210,8 @@ const TrackJob = () => {
             <textarea
               className = "textarea"
               placeholder = "Provide a brief description of the job"
+              value = {description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         </div>
@@ -163,8 +219,8 @@ const TrackJob = () => {
           <div className = "column is-half">
             <div className="select is-fullwidth">
               <select
-                // value = {selectedEdType}
-                // onChange = {(e) => setSelectedEdType(e.target.value)}
+                value = {status}
+                onChange = {(e) => setStatus(e.target.value)}
               >
                 <option>Application Status</option>
                 <option>Not applied</option>
@@ -185,8 +241,8 @@ const TrackJob = () => {
                     <Flatpickr
                       className="input"
                       placeholder='Applied date'
-                      // value={selectedStartDate}
-                      // onChange={handleStartDateChange}
+                      value={appliedDate}
+                      onChange={(e) => setAppliedDate(e.target.value)}
                       options={{
                         dateFormat: 'Y-m-d',
                         altInput: true,
@@ -201,6 +257,13 @@ const TrackJob = () => {
         <h1 className = "title is-size-7 has-text-danger">Please add the documents used for the application below. Hit the plus button after each file selection.</h1>
         <div className = "columns">
           <div className = "column is-one-third">
+            {
+              upLoadingCV && (
+                <progress className='progress is-medium is-link' max='100' style={{ height: '1px' }}>
+                  60%
+                </progress>
+              )
+            }
             <p className = "is-size-7 my-4">Curriculum Vitae (CV)</p>
             <div className = "columns">
               <div className = "column is-two-thirds">
@@ -217,11 +280,18 @@ const TrackJob = () => {
                 </div>
               </div>
               <div className = "column">
-                <button type = "button" className = "button is-success"><i className = "fa-solid fa-plus"></i></button>
+                <button type = "button" className = "button is-success" onClick={handleCVUpload}><i className = "fa-solid fa-plus"></i></button>
               </div>
             </div>
           </div>
           <div className = "column is-one-third">
+            {
+              uploadingCoverLetter && (
+                <progress className='progress is-medium is-link' max='100' style={{ height: '1px' }}>
+                  60%
+                </progress>
+              )
+            }
             <p className = "is-size-7 my-4">Cover Letter</p>
             <div className = "columns">
               <div className = "column is-two-thirds">
@@ -238,7 +308,7 @@ const TrackJob = () => {
                 </div>
               </div>
               <div className = "column">
-                <button type = "button" className = "button is-success"><i className = "fa-solid fa-plus"></i></button>
+                <button type = "button" className = "button is-success" onClick={handleCoverLetterUpload}><i className = "fa-solid fa-plus"></i></button>
               </div>
             </div>
           </div>
