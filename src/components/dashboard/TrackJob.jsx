@@ -1,13 +1,34 @@
 /* eslint-disable no-unused-vars */
 import React,{useState, useRef, useEffect} from 'react';
+import axios from "axios";
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/material_blue.css';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const TrackJob = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileChange = (e) => {
     setSelectedFiles([...selectedFiles, ...e.target.files]);
+  };
+
+  const handleFileUpload = async () => {
+    const formData = new FormData();
+    selectedFiles.forEach((file, index) => {
+      formData.append(`images${index}`, file);
+    });
+
+    try {
+      await axios.post(`${API_URL}api/supporting-documents/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Files uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading files:', error);
+    }
   };
 
 
@@ -156,7 +177,7 @@ const TrackJob = () => {
               <div className = "column is-two-thirds">
                 <div className ="file">
                   <label className ="file-label">
-                    <input className ="file-input" type="file" multiple name="other" />
+                    <input className ="file-input" type="file" multiple name="other" onChange = {handleFileChange} />
                     <span className ="file-cta">
                       <span className ="file-icon">
                         <i className ="fas fa-upload"></i>

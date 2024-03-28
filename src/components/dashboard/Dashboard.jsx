@@ -1,78 +1,74 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import { AuthContext } from '../../context/auth.context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-
-
 
 const API_URL = import.meta.env.VITE_API_URL;
 const QUOTE_URL = import.meta.env.VITE_QUOTE_URL;
-const X_API_KEY = import.meta.env.VITE_X_API_KEY;
+// const X_API_KEY = import.meta.env.VITE_X_API_KEY;
 
 const Dashboard = ({ setDashboardActive, dashboardActive }) => {
   const [jobNumber, setJobNumber] = useState(0);
   const [projectNumber, setProjectNumber] = useState(0);
-  const [quote, setQuote] = useState(undefined);
-  const { user } = useContext(AuthContext)
+  const [owner, setOwner] = useState(null);
+  // const [quote, setQuote] = useState(undefined);
+  const { user } = useContext(AuthContext);
 
+  const fetchData = async (identifier) => {
+    const storedToken = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get(
+        `${API_URL}api/users/${identifier}/dashboard`,
+        { headers: { Authorization: `Bearer ${storedToken}` } }
+      );
+      const data = response.data.portfolio[0];
+      setJobNumber(data.jobs.length);
+      setProjectNumber(data.projects.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  let uniqueIdentifier;
-  user && (uniqueIdentifier = user.uniqueIdentifier);
-
-  const storedToken = localStorage.getItem('authToken');
-
+  const name = useRef();
   useEffect(() => {
-    axios.get(`${API_URL}api/users/${uniqueIdentifier}/dashboard`,
-    { headers: { Authorization: `Bearer ${storedToken}` } })
-      .then((response) => {
-        console.log(response.data.portfolio[0]);
-        const data = response.data.portfolio[0];
-        setJobNumber(data.jobs.length);
-        setProjectNumber(data.projects.length);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  },[uniqueIdentifier])
-
-
- const fetchQuote = async () => {
-  try {
-    const response = await axios.get(`${API_URL}api/motivations`);
-    // setQuote(response.data)
-    const data = response.data[0];
-
-    setQuote(data);
-  }catch(error){
-    console.log(error)
-  }
- }
-
-//  console.log(quote.quote)
-
-
+    if (user) {
+      setOwner(user);
+      name.current = user.firstName;
+      console.log(name.current)
+      fetchData(user.uniqueIdentifier);
+    } else {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser) {
+        setOwner(storedUser);
+        name.current = storedUser.firstName
+        console.log(name.current)
+        fetchData(storedUser.uniqueIdentifier);
+      }
+    }
+  }, [user]);
 
   // useEffect(() => {
+  //   const fetchQuote = async () => {
+  //     try {
+  //       const response = await axios.get(`${QUOTE_URL}api/motivations`);
+  //       const data = response.data[0];
+  //       setQuote(data);
+  //     } catch (error){
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchQuote(); // This effect only runs once when the component mounts
+  // }, []);
 
-  //   fetchQuote()
-
-  //   const intervalId = setInterval(fetchQuote, 24 * 60 * 60 * 1000);
-  //   return () => clearInterval(intervalId);
-  // }, [])
-
-  useEffect(() => {
-    setDashboardActive(true);
-    localStorage.setItem('dashboardActive', dashboardActive);
-  })
-
+  // useEffect(() => {
+  //   setDashboardActive(true);
+  //   localStorage.setItem('dashboardActive', dashboardActive);
+  // }, [dashboardActive]); // Only re-run effect i
 
   return (
     <div>
-
-      <h1 className="title is-size-4">{user.firstName}&apos;s dashboard</h1>
+      <h1 className="title is-size-4">{name.current}&apos;s dashboard</h1>
       <div className="tile is-ancestor">
           <div className="tile is-vertical is-8">
               <div className="tile">

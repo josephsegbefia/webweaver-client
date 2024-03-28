@@ -41,7 +41,7 @@ const App = () => {
 
   // const location = useLocation();
   // used window.location because useLocation was not working
-  const isDashboardPage = window.location.pathname.startsWith('/users');
+  // const isDashboardPage = window.location.pathname.startsWith('/users');
 
 
   return (
@@ -49,23 +49,23 @@ const App = () => {
       <header>
         <Nav />
       </header>
-      {
+      {/* {
       isDashboardPage &&
       dashboardActive &&
       (
         <DashNav routes={routes} />
-      )}
+      )} */}
       <div className="section">
         <div className="container">
           <div className="columns">
-            {
+            {/* {
             isDashboardPage &&
             dashboardActive
             && (
               <div className="column is-one-quarter">
                 <Sidebar />
               </div>
-            )}
+            )} */}
             <div className="column">
               <Routes>
                 <Route exact path="/" element={<Home setDashboardActive={setDashboardActive} />} />
@@ -76,7 +76,7 @@ const App = () => {
                 <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                 <Route path="password-reset" element={<PasswordResetForm />} />
                 {/* DashBoard componentx */}
-                <Route exact path="/users/:uniqueIdentifier/dashboard" element={<IsPrivate><Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} /></IsPrivate>} />
+                <Route path="/users/:uniqueIdentifier/dashboard" element={<Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} />} />
                 <Route exact path="/users" element={<IsPrivate><Users /></IsPrivate>} />
                 <Route path="/messages" element={<IsPrivate><Messages /></IsPrivate>} />
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
