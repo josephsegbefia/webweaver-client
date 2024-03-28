@@ -41,7 +41,7 @@ const App = () => {
 
   // const location = useLocation();
   // used window.location because useLocation was not working
-  // const isDashboardPage = window.location.pathname.startsWith('/users');
+  const isDashboardPage = window.location.pathname.startsWith('/users')
 
 
   return (
@@ -49,23 +49,23 @@ const App = () => {
       <header>
         <Nav />
       </header>
-      {/* {
+      {
       isDashboardPage &&
       dashboardActive &&
       (
         <DashNav routes={routes} />
-      )} */}
+      )}
       <div className="section">
         <div className="container">
           <div className="columns">
-            {/* {
+            {
             isDashboardPage &&
             dashboardActive
             && (
               <div className="column is-one-quarter">
                 <Sidebar />
               </div>
-            )} */}
+            )}
             <div className="column">
               <Routes>
                 <Route exact path="/" element={<Home setDashboardActive={setDashboardActive} />} />
