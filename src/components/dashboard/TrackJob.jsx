@@ -9,6 +9,8 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const TrackJob = () => {
   const [saving, setSaving] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(undefined)
 
   // company name, position, description, date applied fields
   const [companyName, setCompanyName] = useState("");
@@ -38,6 +40,19 @@ const TrackJob = () => {
   let uniqueIdentifier;
   user && (uniqueIdentifier = user.uniqueIdentifier);
 
+
+  // FUNCTIONS //
+
+  const checkFields = () => {
+    if(companyName === '' || position === '' || location === '' || description === '' || appliedDate === ''){
+      return true;
+    }
+    false;
+  }
+  // Close form submission success notification
+  const closeNotification = () => {
+    setSubmitted(false);
+  }
 
   // Handle upload for supporting docs - Multiple files
 
@@ -100,6 +115,7 @@ const TrackJob = () => {
 
     try {
       const response = await axios.post(`${API_URL}api/coverletter/upload`, formData)
+      console.log(response.data)
       setCoverLetter(response.data.fileUrl)
       setUploadingCoverLetter(false);
     }catch(error){
@@ -109,8 +125,13 @@ const TrackJob = () => {
   }
 
 
-  // Form Submission
+  // Handle date change
+  const handleDateChange = (date) => {
+    setAppliedDate(date[0]);
+  }
 
+
+  // Form Submission
   const handleFormSubmission = (e) => {
     e.preventDefault();
 
@@ -120,43 +141,57 @@ const TrackJob = () => {
 
     const requestBody = {
       companyName,
-      location,
+      jobLocation:location,
       position,
-      description,
+      jobDescription:description,
       appliedDate,
       status,
-      cv,
-      coverLetter,
-      otherDocs
+      cv:cv,
+      coverLetter:coverLetter,
+      otherDocs:otherDocs
     }
+
+    console.log(requestBody);
 
     axios.post(`${API_URL}api/portfolios/${uniqueIdentifier}/jobs`, requestBody,
       { headers: { Authorization: `Bearer ${storedToken}` } })
         .then((response) => {
           console.log(response.data)
+          setSuccessMessage(response.data.message);
+          setSubmitted(true);
           setSaving(false);
           setCompanyName("");
           setLocation("");
           setDescription("");
           setCoverLetter("");
           setCv("");
-          otherDocs("");
+          setOtherDocs("");
           setAppliedDate("");
           setStatus("");
           setPosition("")
         })
         .catch((error) => {
+          setSaving(false);
           console.log(error);
         })
   }
-
-
 
   return (
     <div className = "container">
       <div>
         <h1 className = "title is-size-5 has-text-centered mb-5">Provide Job Details for tracking</h1>
         <hr />
+        {submitted && (
+          <article className="message is-success my-4">
+            <div className="message-header">
+              <p>Success</p>
+              <button onClick = {closeNotification} className="delete" aria-label="delete"></button>
+            </div>
+            <div className = "message-body">
+              {successMessage}
+            </div>
+          </article>
+        )}
       </div>
       <form onSubmit = {handleFormSubmission}>
         {saving && (
@@ -242,12 +277,12 @@ const TrackJob = () => {
                       className="input"
                       placeholder='Applied date'
                       value={appliedDate}
-                      onChange={(e) => setAppliedDate(e.target.value)}
+                      onChange={handleDateChange}
                       options={{
                         dateFormat: 'Y-m-d',
                         altInput: true,
                         altFormat: 'F j, Y',
-                        // defaultDate: selectedStartDate
+                        defaultDate: appliedDate
                       }}
                     />
                   </div>
@@ -278,9 +313,13 @@ const TrackJob = () => {
                     </span>
                   </label>
                 </div>
+                {cv && (
+                  <p className = "is-size-7 my-3 has-text-success">File uploaded</p>
+                )}
+
               </div>
               <div className = "column">
-                <button type = "button" className = "button is-success" onClick={handleCVUpload}><i className = "fa-solid fa-plus"></i></button>
+                <button type = "button" className = "button is-success" onClick={handleCVUpload} disabled={selectedCV === null}><i className = "fa-solid fa-plus"></i></button>
               </div>
             </div>
           </div>
@@ -306,9 +345,12 @@ const TrackJob = () => {
                     </span>
                   </label>
                 </div>
+                {coverLetter && (
+                  <p className = "is-size-7 my-3 has-text-success">File uploaded</p>
+                )}
               </div>
               <div className = "column">
-                <button type = "button" className = "button is-success" onClick={handleCoverLetterUpload}><i className = "fa-solid fa-plus"></i></button>
+                <button type = "button" className = "button is-success" onClick={handleCoverLetterUpload} disabled={selectedCoverLetter === null}><i className = "fa-solid fa-plus"></i></button>
               </div>
             </div>
           </div>
@@ -334,16 +376,19 @@ const TrackJob = () => {
                     </span>
                   </label>
                 </div>
+                {otherDocs.length > 0 && (
+                  <p className = "is-size-7 my-3 has-text-success">Files uploaded</p>
+                )}
               </div>
               <div className = "column">
-                <button type = "button" className = "button is-success" onClick={handleFileUpload}><i className = "fa-solid fa-plus"></i></button>
+                <button type = "button" className = "button is-success" onClick={handleFileUpload} disabled={selectedFiles.length === 0}><i className = "fa-solid fa-plus"></i></button>
               </div>
             </div>
           </div>
         </div>
         <div className = "columns">
           <div className = "column is-one-third">
-            <button type = "submit" className = "action button is-primary">Track</button>
+            <button type = "submit" className = "action button is-primary" disabled = {saving || checkFields()}>Track</button>
           </div>
         </div>
       </form>
