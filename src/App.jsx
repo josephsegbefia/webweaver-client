@@ -27,6 +27,7 @@ import DashNav from './components/dashboard/DashNav';
 import SignUp from './components/auth/SignUp';
 import Users from './components/dashboard/Users';
 import TrackJob from './components/dashboard/TrackJob';
+import TrackedJobs from './components/dashboard/TrackedJobs';
 
 
 
@@ -81,6 +82,7 @@ const App = () => {
                 <Route path="/messages" element={<IsPrivate><Messages /></IsPrivate>} />
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
                 <Route path = "/jobs/track" element = {<IsPrivate><TrackJob /></IsPrivate>}/>
+                <Route path = "jobs/tracked-jobs" element = { <IsPrivate><TrackedJobs /></IsPrivate>}/>
               </Routes>
             </div>
           </div>

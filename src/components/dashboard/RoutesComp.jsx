@@ -12,7 +12,7 @@ import EditUser from './EditUser';
 import Jobs from './Jobs';
 import TrackJob from './TrackJob';
 import MasterPortfolioComp from '../portfolio/MasterPortfolioComp';
-import AppliedJobs from './AppliedJobs';
+import TrackedJobs from './TrackedJobs';
 import Messages from './Messages';
 
 const RoutesComp = () => {
@@ -60,9 +60,9 @@ const RoutesComp = () => {
           component: TrackJob
         },
         {
-          name: "Applied Jobs",
-          url: "/applied-jobs",
-          component: AppliedJobs
+          name: "Tracked Jobs",
+          url: "/tracked-jobs",
+          component: TrackedJobs
         }
       ]
     },
