@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import JobDetails from './JobDetails';
+import EditJob from './EditJob';
 
 // API URL
 const API_URL = import.meta.env.VITE_API_URL;
@@ -18,12 +19,10 @@ const TrackedJobs = () => {
 
   // For modal - States
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [jobId,setJobId] = useState('');
 
-  const getJobId = (id) => {
-    handleOpenDetails();
-    setJobId(id);
-  }
+
   // For modal - Functions
   const handleCloseDetails = () => {
     setDetailsOpen(false);
@@ -32,6 +31,25 @@ const TrackedJobs = () => {
   const handleOpenDetails = () => {
     setDetailsOpen(true);
   }
+
+  const handleOpenEdit = () => {
+    setEditOpen(true);
+  }
+
+  const handleCloseEdit = () => {
+    setEditOpen(false);
+  }
+
+  const getJobIdAndOpenViewJobModal = (id) => {
+    handleOpenDetails();
+    setJobId(id);
+  }
+
+  const getJobIdAndOpenEditJobModal = (id) => {
+    handleOpenEdit();
+    setJobId(id);
+  }
+
   let uniqueIdentifier;
   user && (uniqueIdentifier = user.uniqueIdentifier);
 
@@ -106,11 +124,11 @@ const TrackedJobs = () => {
               <td className = 'is-size-7'>{formatDate(job.appliedDate)}</td>
               <td>
                 <div className="buttons">
-                  {/* Add action buttons here */}
-                  <button className="button is-primary is-small" onClick={()=> getJobId(job._id)}>View</button>
-                  <button className="button is-warning is-small">Edit</button>
+
+                  <button className="button is-primary is-small" onClick={()=> getJobIdAndOpenViewJobModal(job._id)}>View</button>
+                  <button className="button is-warning is-small" onClick={() => getJobIdAndOpenEditJobModal(job._id)}>Edit</button>
                   <button className="button is-danger is-small">Delete</button>
-                  {/* Add more action buttons as needed */}
+
                 </div>
               </td>
             </tr>
@@ -129,6 +147,7 @@ const TrackedJobs = () => {
         </div>
       )}
       {detailsOpen && <JobDetails onClose = {handleCloseDetails} jobId = {jobId}/>}
+      {editOpen && <EditJob onClose = {handleCloseEdit} jobId = {jobId} />}
     </div>
   );
 };
