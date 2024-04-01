@@ -85,7 +85,7 @@ const TrackedJobs = () => {
 
   useEffect(() => {
     fetchTrackedJobs();
-  }, [currentPage]);
+  }, [currentPage, editOpen]);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -95,7 +95,7 @@ const TrackedJobs = () => {
 
   console.log(trackedJobs);
   return (
-    <div className="container">
+    <div className="container justify-center">
       <h1 className="title is-size-5 has-text-centered mb-5">Tracked Jobs</h1>
       <hr />
       {loading ? (
@@ -118,9 +118,9 @@ const TrackedJobs = () => {
           {trackedJobs.map((job) => (
             <tr key={job._id}>
               <td className = 'is-size-7'>{job.companyName}</td>
-              <td className = 'is-size-7'>{job.position}</td>
-              <td className = 'is-size-7'>{job.jobLocation}</td>
-              <td className = 'is-size-7'>{job.status}</td>
+              <td className = 'is-size-7 mr-4'>{job.position}</td>
+              <td className = 'is-size-7 mr-4'>{job.jobLocation}</td>
+              <td className = 'is-size-7'>{job.status.toUpperCase()}</td>
               <td className = 'is-size-7'>{formatDate(job.appliedDate)}</td>
               <td>
                 <div className="buttons">

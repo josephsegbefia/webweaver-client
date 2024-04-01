@@ -37,6 +37,7 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
       name.current = user.firstName;
       console.log(name.current)
       fetchData(user.uniqueIdentifier);
+      setDashboardActive(true);
     } else {
       const storedUser = JSON.parse(localStorage.getItem('user'));
       if (storedUser) {

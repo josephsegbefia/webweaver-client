@@ -33,10 +33,11 @@ import TrackedJobs from './components/dashboard/TrackedJobs';
 
 
 const App = () => {
-  const [dashboardActive, setDashboardActive] = useState(() => {
-    const storedState = localStorage.getItem('dashboardActive');
-    return storedState ? storedState : false;
-  });
+  // const [dashboardActive, setDashboardActive] = useState(() => {
+  //   const storedState = localStorage.getItem('dashboardActive');
+  //   return storedState ? storedState : false;
+  // });
+  const [dashboardActive, setDashboardActive] = useState(false);
   const routes = RoutesComp();
 
 
@@ -77,7 +78,7 @@ const App = () => {
                 <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                 <Route path="password-reset" element={<PasswordResetForm />} />
                 {/* DashBoard componentx */}
-                <Route path="/users/:uniqueIdentifier/dashboard" element={<Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} />} />
+                <Route path="/users/:uniqueIdentifier/dashboard" element={<IsPrivate><Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} /></IsPrivate>} />
                 <Route exact path="/users" element={<IsPrivate><Users /></IsPrivate>} />
                 <Route path="/messages" element={<IsPrivate><Messages /></IsPrivate>} />
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
