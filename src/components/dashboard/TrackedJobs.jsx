@@ -5,13 +5,17 @@ import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import JobDetails from './JobDetails';
 import EditJob from './EditJob';
+import DeleteJobTracking from './DeleteJobTracking';
 
 // API URL
 const API_URL = import.meta.env.VITE_API_URL;
 
 const TrackedJobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null)
+  const [totalPages, setTotalPages] = useState(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteStatus, setDeleteStatus] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState(undefined);
 
   const { user } = useContext(AuthContext);
   const [trackedJobs, setTrackedJobs] = useState([]);
@@ -21,6 +25,21 @@ const TrackedJobs = () => {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [jobId,setJobId] = useState('');
+
+
+  // Handle delete Open;
+  const handleDeleteOpen = (id) => {
+    setJobId(id);
+    setDeleteOpen(true);
+  }
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  }
+
+  const closeDeleteMessage = () => {
+    setDeleteStatus(false);
+  }
 
 
   // For modal - Functions
@@ -58,12 +77,14 @@ const TrackedJobs = () => {
   const limit = 10;
 
   const nextPage = () => {
+    handleDeleteClose()
     if(currentPage < totalPages){
       setCurrentPage(currentPage + 1);
     }
   }
 
   const prevPage = () => {
+    handleDeleteClose();
     if(currentPage > 1){
       setCurrentPage(currentPage - 1);
     }
@@ -85,7 +106,7 @@ const TrackedJobs = () => {
 
   useEffect(() => {
     fetchTrackedJobs();
-  }, [currentPage, editOpen]);
+  }, [currentPage, editOpen, deleteStatus]);
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -95,15 +116,27 @@ const TrackedJobs = () => {
 
   console.log(trackedJobs);
   return (
-    <div className="container justify-center">
+    <div className="container">
       <h1 className="title is-size-5 has-text-centered mb-5">Tracked Jobs</h1>
       <hr />
+      {deleteStatus && (
+        <article className= {`message ${deleteStatus ? 'is-success' : 'is-danger' }`}>
+        <div className="message-header">
+          <p>Success</p>
+          <button onClick = {closeDeleteMessage} className="delete" aria-label="delete"></button>
+        </div>
+        <div className = "message-body">
+          <p>{deleteMessage}</p>
+        </div>
+      </article>
+      )}
+      {deleteOpen && (<DeleteJobTracking handleDeleteClose = {handleDeleteClose} jobId = {jobId} setDeleteSuccessful = {setDeleteStatus} setDeleteMessage={setDeleteMessage}/>)}
       {loading ? (
         <progress className='progress is-medium is-link' max='100' style={{ height: '3px' }}>
           60%
         </progress>
       ) : (
-        <table className="table">
+        <table className="table is-fullwidth my-5">
         <thead>
           <tr>
             <th className = 'is-size-7'>Company</th>
@@ -127,8 +160,7 @@ const TrackedJobs = () => {
 
                   <button className="button is-primary is-small" onClick={()=> getJobIdAndOpenViewJobModal(job._id)}>View</button>
                   <button className="button is-warning is-small" onClick={() => getJobIdAndOpenEditJobModal(job._id)}>Edit</button>
-                  <button className="button is-danger is-small">Delete</button>
-
+                  <button className="button is-danger is-small" onClick = {() => handleDeleteOpen(job._id)}>Delete</button>
                 </div>
               </td>
             </tr>
