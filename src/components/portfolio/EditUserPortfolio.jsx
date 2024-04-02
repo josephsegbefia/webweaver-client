@@ -216,7 +216,7 @@ const EditUserPortfolio = ({setEditMode}) => {
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box">
               {imgUploading && (
-                <progress className = 'progress is-medium is-link' max = '100'>
+                <progress className = 'progress slim is-medium is-link' max = '100'>
                   60%
                 </progress>
               )}

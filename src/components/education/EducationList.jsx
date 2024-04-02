@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react'
@@ -9,7 +10,7 @@ import AddEducation from './AddEducation'
 import EditEducation from './EditEducation';
 import DeleteConfirmation from './DeleteConfirmation';
 
-const EducationList = () => {
+const EducationList = ({ checkOwner }) => {
   const [addEducationFormOpen, setAddEducationFormOpen] = useState(false);
   // const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   // const [openDelete, setOpenDelete] = useState(false);
@@ -51,14 +52,14 @@ const EducationList = () => {
     setAddEducationFormOpen(false);
   };
 
-  const checkOwner = () => {
-    if (user) {
-      if (user.uniqueIdentifier === uniqueIdentifier && isLoggedIn) {
-        return true;
-      }
-    }
-    return false;
-  };
+  // const checkOwner = () => {
+  //   if (user) {
+  //     if (user.uniqueIdentifier === uniqueIdentifier && isLoggedIn) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
 
   const limit = 3;
 
@@ -107,7 +108,7 @@ const EducationList = () => {
       {loadingEducations && (
         <div className="columns is-vcentered">
           <div className="column">
-            <progress className='progress is-medium is-link' max='100'>
+            <progress className='progress is-medium is-link' max='100' style={{height: "4px"}}>
               60%
             </progress>
           </div>
@@ -142,7 +143,7 @@ const EducationList = () => {
       )}
       <div className="columns">
         <div className="column">
-          {checkOwner() && (
+          {checkOwner && (
             <div>
               <button className="button is-primary my-3" onClick = {handleOpenAddEducationForm}>+ Add Education</button>
             </div>

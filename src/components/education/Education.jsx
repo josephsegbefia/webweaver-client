@@ -72,7 +72,7 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId, setRefresh }
                   {formatDate(education.endDate)}
                 </p>
               </div>
-              {checkOwner() && (
+              {checkOwner && (
                 <footer className="card-footer">
                   <p className="card-footer-item" onClick={() => getEdId(education._id)}>
                     <span>

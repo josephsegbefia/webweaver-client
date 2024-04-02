@@ -64,7 +64,7 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
                   ))}
                 </div>
               </div>
-              {checkOwner() && (
+              {checkOwner && (
                 <footer className="card-footer">
                   <p className="card-footer-item" onClick={() => getExId(experience._id)}>
                     <span>

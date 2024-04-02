@@ -1,79 +1,77 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import EditUserPortfolio from "./EditUserPortfolio";
 import UserPortfolio from "./UserPortfolio";
-// import Project from "../project/Project";
 import ExperienceList from "../experience/ExperienceList";
 import EducationList from "../education/EducationList";
 import ProjectList from "../project/ProjectList";
 import CreateMessage from "../message/createMessage";
-import "../project/project.css"
-
-
-import '../../assets/styles.scss'
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-
 const MasterPortfolioComp = ({ setDashboardActive }) => {
-
-
-
   const [portfolioOwner, setPortfolioOwner] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(undefined);
-
+  const [errorMessage, setErrorMessage] = useState(undefined)
+  const [visitorSight, setVisitorSight] = useState(false);
 
   const { user, isLoggedIn } = useContext(AuthContext);
-
   const { uniqueIdentifier } = useParams();
-
 
   const toggleEditMode = () => {
     setEditMode(true);
   }
 
-  useEffect(()=> {
+  // Toggle between owner's view and visitor's view
+  const toggleVisitorSight = () => {
+    setVisitorSight(prevState => !prevState);
+    setPortfolioOwner(prevState => !prevState)
+  }
+
+  useEffect(() => {
     setDashboardActive(false)
   })
 
   useEffect(() => {
-    if(user && user.uniqueIdentifier === uniqueIdentifier){
+    if (user && user.uniqueIdentifier === uniqueIdentifier) {
       setPortfolioOwner(true);
     } else {
       setPortfolioOwner(false);
     }
   }, [uniqueIdentifier, user])
 
-  console.log('Owner', portfolioOwner)
-
-
   return (
-    <div className = 'container'>
+    <div className='container'>
       <div>
-        {editMode && portfolioOwner ? (
-          <EditUserPortfolio errorMessage = {errorMessage} toggleEditMode = {toggleEditMode} setEditMode ={setEditMode} />
-        ) : <UserPortfolio owner = {portfolioOwner} errorMessage = {errorMessage}/>}
+        {(editMode && portfolioOwner && visitorSight) ? (
+          <EditUserPortfolio errorMessage={errorMessage} toggleEditMode={toggleEditMode} setEditMode={setEditMode} />
+        ) : (
+          <UserPortfolio owner={portfolioOwner} errorMessage={errorMessage} />
+        )}
         {isLoggedIn && portfolioOwner && !editMode && (
-          <div className = "column is-half">
-            <button onClick = {toggleEditMode} className = 'button is-warning my-3'>{!editMode && 'Edit Profile'}</button>
+          <div className="column is-half">
+            <button onClick={toggleEditMode} className='button is-warning my-3'>{!editMode && 'Edit Profile'}</button>
           </div>
         )}
       </div>
-      <ExperienceList />
-      <EducationList />
-      <ProjectList />
+      <ExperienceList checkOwner = {portfolioOwner} />
+      <EducationList checkOwner = {portfolioOwner} />
+      <ProjectList checkOwner = {portfolioOwner} />
       {!portfolioOwner && (<CreateMessage />)}
+
+      {/* Button to toggle visitor's view */}
+      <div className="columns" style={{ marginTop: "10rem" }}>
+        <div className="column is-half is-offset-one-quarter">
+          <button className="button action is-primary" type="button" onClick={toggleVisitorSight}>
+            {visitorSight ? "Return to Owner's View" : "What a visitor would see"}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
 
-
-
-export default MasterPortfolioComp
+export default MasterPortfolioComp;

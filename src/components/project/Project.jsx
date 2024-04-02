@@ -78,7 +78,7 @@ const Project = ({ projects, checkOwner, onOpenEditor, openProjectDetails, setPr
                     </span>
                   </a>
                 </p>
-                {checkOwner() && (
+                {checkOwner && (
                   <>
                     <p className="card-footer-item" onClick={() => getProjectId(project._id)}>
                       <span>

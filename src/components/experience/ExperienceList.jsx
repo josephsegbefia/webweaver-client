@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react'
@@ -9,7 +10,7 @@ import AddExperience from './AddExperience'
 import DeleteConfirmation from './DeleteConfirmation';
 import EditExperience from './EditExperience';
 
-const ExperienceList = () => {
+const ExperienceList = ({ checkOwner }) => {
   const [addExperienceFormOpen, setAddExperienceFormOpen] = useState(false);
   const [experienceList, setExperienceList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,14 +50,14 @@ const ExperienceList = () => {
     setAddExperienceFormOpen(false);
   };
 
-  const checkOwner = () => {
-    if (user) {
-      if (user.uniqueIdentifier === uniqueIdentifier && isLoggedIn) {
-        return true;
-      }
-    }
-    return false;
-  };
+  // const checkOwner = () => {
+  //   if (user) {
+  //     if (user.uniqueIdentifier === uniqueIdentifier && isLoggedIn) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
 
   const limit = 2;
 
@@ -105,7 +106,7 @@ const ExperienceList = () => {
       {loadingExperiences && (
         <div className="columns is-vcentered">
           <div className="column">
-            <progress className='progress is-medium is-link' max='100'>
+            <progress className='progress is-medium is-link' max='100' style={{height: "4px"}}>
               60%
             </progress>
           </div>
@@ -140,7 +141,7 @@ const ExperienceList = () => {
       )}
       <div className="columns">
         <div className="column">
-          {checkOwner() && (
+          {checkOwner && (
             <div>
               <button className="button is-primary my-3" onClick = {handleOpenAddExperienceForm}>+ Add Experience</button>
             </div>
