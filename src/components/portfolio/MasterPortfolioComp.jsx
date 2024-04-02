@@ -18,12 +18,16 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
   const [errorMessage, setErrorMessage] = useState(undefined)
   const [visitorSight, setVisitorSight] = useState(false);
 
+
   const { user, isLoggedIn } = useContext(AuthContext);
   const { uniqueIdentifier } = useParams();
 
   const toggleEditMode = () => {
     setEditMode(true);
   }
+
+  console.log("Visitor Sight:", visitorSight);
+  console.log("PortfolioOwner:", portfolioOwner);
 
   // Toggle between owner's view and visitor's view
   const toggleVisitorSight = () => {
@@ -46,7 +50,7 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
   return (
     <div className='container'>
       <div>
-        {(editMode && portfolioOwner && visitorSight) ? (
+        {(editMode && portfolioOwner && !visitorSight) ? (
           <EditUserPortfolio errorMessage={errorMessage} toggleEditMode={toggleEditMode} setEditMode={setEditMode} />
         ) : (
           <UserPortfolio owner={portfolioOwner} errorMessage={errorMessage} />
@@ -63,13 +67,29 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
       {!portfolioOwner && (<CreateMessage />)}
 
       {/* Button to toggle visitor's view */}
-      <div className="columns" style={{ marginTop: "10rem" }}>
-        <div className="column is-half is-offset-one-quarter">
-          <button className="button action is-primary" type="button" onClick={toggleVisitorSight}>
-            {visitorSight ? "Return to Owner's View" : "What a visitor would see"}
-          </button>
-        </div>
-      </div>
+      {
+        portfolioOwner && !visitorSight && (
+          <div className="columns" style={{ marginTop: "10rem" }}>
+            <div className="column is-half is-offset-one-quarter">
+              <button className="button action is-primary" type="button" onClick={toggleVisitorSight}>
+                What a visitor would see
+              </button>
+            </div>
+          </div>
+        )
+      }
+      {
+        !portfolioOwner && visitorSight && (
+          <div className="columns" style={{ marginTop: "10rem" }}>
+            <div className="column is-half is-offset-one-quarter">
+              <button className="button action is-primary" type="button" onClick={toggleVisitorSight}>
+                Back to owner view
+              </button>
+            </div>
+          </div>
+        )
+      }
+
     </div>
   )
 }

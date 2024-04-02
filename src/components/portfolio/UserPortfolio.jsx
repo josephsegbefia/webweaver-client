@@ -74,7 +74,7 @@ const UserPortfolio = ({ owner, errorMessage }) => {
       )}
 
       {owner ? (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>) : (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Welcome to my portfolio</h1>)}
-
+        <hr />
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
             <div className = "tile is-child box">

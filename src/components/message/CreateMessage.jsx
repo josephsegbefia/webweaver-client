@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import axios from "axios";
 
@@ -17,10 +18,11 @@ const CreateMessage = () => {
 
 
 
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
-  let uniqueIdentifier;
-  user && (uniqueIdentifier = user.uniqueIdentifier);
+  const { uniqueIdentifier } = useParams();
+  console.log(uniqueIdentifier);
+  // user && (uniqueIdentifier = user.uniqueIdentifier);
 
   const cancel  = () => {
     setFullName("");
