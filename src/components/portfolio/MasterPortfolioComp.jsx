@@ -69,7 +69,7 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
       {/* Button to toggle visitor's view */}
       {
         portfolioOwner && !visitorSight && (
-          <div className="columns" style={{ marginTop: "10rem" }}>
+          <div className="columns" style={{ marginTop: "5rem" }}>
             <div className="column is-half is-offset-one-quarter">
               <button className="button action is-primary" type="button" onClick={toggleVisitorSight}>
                 What a visitor would see
@@ -80,7 +80,7 @@ const MasterPortfolioComp = ({ setDashboardActive }) => {
       }
       {
         !portfolioOwner && visitorSight && (
-          <div className="columns" style={{ marginTop: "10rem" }}>
+          <div className="columns" style={{ marginTop: "5rem" }}>
             <div className="column is-half is-offset-one-quarter">
               <button className="button action is-primary" type="button" onClick={toggleVisitorSight}>
                 Back to owner view

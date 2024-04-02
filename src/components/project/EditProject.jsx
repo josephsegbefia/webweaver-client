@@ -113,7 +113,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
         setShortDesc(data.shortDesc);
         setDescription(data.description);
         setTechsUsed(data.techsUsed);
-        setImgUrl(data.ImgUrl);
+        setImgUrl(data.imgUrl);
         setLiveLink(data.liveLink);
         setGitHubLink(data.gitHubLink);
         setLoading(false);
@@ -123,6 +123,8 @@ const EditProject = ({ onClose, projId, refresh }) => {
         setLoading(false);
       })
   }
+
+
 
   useEffect(() => {
     fetchProject()
@@ -141,6 +143,8 @@ const EditProject = ({ onClose, projId, refresh }) => {
       gitHubLink,
       liveLink
     }
+
+    console.log(requestBody);
 
     const storedToken = localStorage.getItem('authToken');
 
@@ -299,7 +303,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
               <div className = "column is-inline-flex">
                 <div className = "file">
                   <label className = "file-label">
-                    <input className = "file-input" type="file" name="resume" placeholder='upload project image' onChange={handleImgChange}/>
+                    <input className = "file-input" type="file" name="project-image" placeholder='upload project image' onChange={handleImgChange}/>
                     <span className = "file-cta">
                       <span className = "file-icon">
                         <i className = "fas fa-upload"></i>
