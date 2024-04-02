@@ -7,21 +7,6 @@ import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 
 
-
-// const fakeSkills = [
-//   'React', 'HTML', 'JavaScript', 'NodeJS', 'ExpressJS', 'MongoDB', 'CSS', 'TypeScript', 'Python', 'Git'
-// ];
-
-// const fakeInterests = [
-//   'Open Source Contributions', 'Technology Exploration', 'Problem Solving', 'User Experience (UX) Design',
-//   'Continuous Learning', 'Outdoor Activities and Sports', 'Travel and Exploration'
-// ];
-
-// const fakeLangs = [
-//   'Spanish', 'English', 'German', 'Italian'
-// ]
-
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 const UserPortfolio = ({ owner, errorMessage }) => {
@@ -92,20 +77,20 @@ const UserPortfolio = ({ owner, errorMessage }) => {
 
         <div className = "tile is-ancestor mt-6">
           <div className ="tile is-4 is-vertical is-parent">
-            <div className = "tile is-child box has-text-centered">
+            <div className = "tile is-child box">
               {avatarURL ? (
-                <figure className='image is-128x128'>
-                  <img className='is-rounded' src={avatarURL} alt='avatar image' />
+                <figure className='image is-128x128' style={{margin: "0 auto", border: "2px solid #00d1b2", borderRadius: "50%"}}>
+                  <img className='is-rounded ' src={avatarURL} alt='avatar image' style={{height: "128px", width: "128px"}}/>
                 </figure>
                 ) : (
                 <figure className = 'image is-128x128'>
                   <img className = 'is-rounded' src = 'https://bulma.io/assets/images/placeholders/128x128.png' alt = 'avatar placeholder'/>
                 </figure>
               )}
-
-
-              <p className = 'has-text-centered is-size-5 mt-3'>{firstName} {lastName}</p>
-              <h1 className = 'has-text-centered is-size-5 mt-3 has-text-primary'>{headLine ? headLine : ''}</h1>
+              <div>
+                <p className = 'has-text-centered is-size-5 mt-3'>{firstName} {lastName}</p>
+                <h1 className = 'has-text-centered is-size-5 mt-3 has-text-primary'>{headLine ? headLine : ''}</h1>
+              </div>
             </div>
 
             <div className = "tile is-child box">
