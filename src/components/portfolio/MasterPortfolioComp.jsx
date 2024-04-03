@@ -8,7 +8,7 @@ import UserPortfolio from "./UserPortfolio";
 import ExperienceList from "../experience/ExperienceList";
 import EducationList from "../education/EducationList";
 import ProjectList from "../project/ProjectList";
-import CreateMessage from "../message/createMessage";
+import CreateMessage from "../message/CreateMessage"
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 
