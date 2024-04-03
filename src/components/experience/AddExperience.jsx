@@ -13,10 +13,10 @@ const AddExperience = ({ onClose, setRefresh }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [position, setPosition] = useState('');
   const [company, setCompany] = useState('');
-  const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [selectedEndDate, setSelectedEndDate] = useState('');
+  const [selectedStartDate, setSelectedStartDate] = useState(undefined);
+  const [selectedEndDate, setSelectedEndDate] = useState(undefined);
   const [location, setLocation] = useState('')
-  const [currentPosition, setCurrentPosition] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState(true);
   const [responsibilities, setResponsibilties] = useState()
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [saveStatus, setSaveStatus] = useState("Ready");
@@ -32,8 +32,7 @@ const AddExperience = ({ onClose, setRefresh }) => {
       position === '' ||
       selectedStartDate === '' ||
       responsibilities === '' ||
-      location === '' ||
-      (selectedEndDate === '' && !currentPosition)
+      location === ''
     ) {
       return true;
     }
@@ -51,6 +50,7 @@ const AddExperience = ({ onClose, setRefresh }) => {
 
   const handleEndDateChange = (date) => {
     setSelectedEndDate(date[0]);
+    setCurrentPosition(!currentPosition);
   };
 
   const handleClose = () => {
@@ -172,7 +172,7 @@ const AddExperience = ({ onClose, setRefresh }) => {
                 />
               </div>
             </div>
-            <div className = "columns">
+            {/* <div className = "columns">
               <div className = "column">
                 <label className="checkbox">
                   <input
@@ -180,12 +180,12 @@ const AddExperience = ({ onClose, setRefresh }) => {
                     className = "mr-4"
                     checked = {currentPosition}
                     onChange = {() => setCurrentPosition(!currentPosition)}
-                    disabled = {selectedEndDate !== ""}
+                    disabled = {selectedEndDate !== undefined}
                   />
                     I still work here.
                 </label>
               </div>
-            </div>
+            </div> */}
             <div className = "columns">
               <div className = "column is-half">
                 <div className="field">
@@ -205,7 +205,7 @@ const AddExperience = ({ onClose, setRefresh }) => {
                   </div>
                 </div>
               </div>
-              <div className = "column is-half" style={{"display": `${currentPosition ? "none" : "block"}`}}>
+              <div className = "column is-half">
                 <div className="field">
                   <label className="label">Select End Date:</label>
                   <div className = "control">
@@ -223,6 +223,7 @@ const AddExperience = ({ onClose, setRefresh }) => {
                   />
                   </div>
                 </div>
+                <p className = "is-size-7 has-text-danger">Leave blank if current position</p>
               </div>
             </div>
             <div className="columns">

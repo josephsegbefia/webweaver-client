@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const DeleteConfirmation = ({ educationId, setShowDeleteNotification, schoolName, reload }) => {
+const DeleteConfirmation = ({ experienceId, setShowDeleteNotification, schoolName, reload }) => {
   const [deleting, setDeleting] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -23,7 +23,7 @@ const DeleteConfirmation = ({ educationId, setShowDeleteNotification, schoolName
 
   const handleDelete = () => {
     setDeleting(true);
-    axios.delete(`${API_URL}api/portfolios/${uniqueIdentifier}/educations/${educationId}`, {
+    axios.delete(`${API_URL}api/portfolios/${uniqueIdentifier}/experiences/${experienceId}`, {
       headers: { Authorization: `Bearer ${storedToken}` }
     })
       .then((response) => {

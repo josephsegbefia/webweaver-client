@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, {useState, useEffect, useContext } from 'react';
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -30,8 +31,9 @@ const ProjectDetails = ({ onClose, projId, }) => {
     onClose && onClose();
   };
 
-  let uniqueIdentifier;
-  user && (uniqueIdentifier = user.uniqueIdentifier);
+  // let uniqueIdentifier;
+  // user && (uniqueIdentifier = user.uniqueIdentifier);
+  const {uniqueIdentifier} = useParams();
 
   // const visitLink = (link) => {
   //   window.location.href = link;

@@ -16,9 +16,9 @@ const EditExperience = ({ onClose, exId, refresh }) => {
   const [position, setPosition] = useState('');
   const [company, setCompany] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [selectedEndDate, setSelectedEndDate] = useState('');
+  const [selectedEndDate, setSelectedEndDate] = useState(undefined);
   const [location, setLocation] = useState('')
-  const [currentPosition, setCurrentPosition] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState("");
   const [responsibilities, setResponsibilties] = useState()
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [saveStatus, setSaveStatus] = useState("Ready");
@@ -34,10 +34,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
     uniqueIdentifier = user.uniqueIdentifier;
   }
 
-  console.log(uniqueIdentifier);
-
-
-  console.log(selectedEndDate);
+  console.log(currentPosition);
 
   const checkFormFields = () => {
     if (
@@ -45,8 +42,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
       position === '' ||
       selectedStartDate === '' ||
       responsibilities === '' ||
-      location === '' ||
-      (selectedEndDate === '' && !currentPosition)
+      location === ''
     ) {
       return true;
     }
@@ -59,8 +55,17 @@ const EditExperience = ({ onClose, exId, refresh }) => {
   };
 
   const handleEndDateChange = (date) => {
-    setSelectedEndDate(date[0]);
+    const formattedDate = date[0] || ''; //date[0] ? date[0] : ''; // Format date to string if date exists, otherwise set to null
+    setSelectedEndDate(formattedDate);
+    if(selectedEndDate){
+      setCurrentPosition(false);
+    } else {
+      setCurrentPosition(true);
+    }
+
+    console.log("current Position==>", currentPosition)
   };
+
 
   const handleClose = () => {
     setIsOpen(false);
@@ -92,6 +97,9 @@ const EditExperience = ({ onClose, exId, refresh }) => {
       })
   }
 
+  console.log(selectedEndDate);
+  // console.log(currentPosition)
+
   useEffect(() => {
     fetchExperience()
   }, [uniqueIdentifier, exId])
@@ -113,6 +121,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
       endDate: selectedEndDate
     }
 
+    console.log(requestBody)
 
 
     const storedToken = localStorage.getItem('authToken');
@@ -122,7 +131,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
       .then((response) => {
         setCompany("");
         setLocation("");
-        setCurrentPosition(false);
+        setCurrentPosition("");
         setResponsibilties("");
         setPosition("")
         setSelectedStartDate("");
@@ -218,7 +227,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                 />
               </div>
             </div>
-            <div className = "columns">
+            {/* <div className = "columns">
               <div className = "column">
                 <label className="checkbox">
                   <input
@@ -226,13 +235,13 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                     className = "mr-4"
                     checked = {currentPosition}
                     onChange = {() => setCurrentPosition(!currentPosition)}
-                    disabled = {selectedEndDate !== ""}
+                    disabled = {selectedEndDate !== undefined}
                     value={currentPosition}
                   />
                     I still work here.
                 </label>
               </div>
-            </div>
+            </div> */}
             <div className = "columns">
               <div className = "column is-half">
                 <div className="field">
@@ -252,7 +261,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                   </div>
                 </div>
               </div>
-              <div className = "column is-half" style={{"display": `${currentPosition ? "none" : "block"}`}}>
+              <div className = "column is-half">
                 <div className="field">
                   <label className="label">Select End Date:</label>
                   <div className = "control">
@@ -265,11 +274,12 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                       altInput: true,
                       altFormat: 'F j, Y',
                       defaultDate: selectedEndDate,
-                      disabled: true
+                      // disabled: true
                     }}
                   />
                   </div>
                 </div>
+                <p className = "is-size-7 has-text-danger">Leave blank if current position</p>
               </div>
             </div>
             <div className="columns">

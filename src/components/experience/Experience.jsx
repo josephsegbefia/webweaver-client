@@ -55,7 +55,8 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
                   {experience.location}
                 </p>
                 <p className = "has-text-primary is-size-7 mt-4">
-                  {formatDate(experience.startDate)} - {experience.currentPosition ? "Present" : formatDate(experience.endDate)}
+                  {/* {formatDate(experience.startDate)} - {experience.currentPosition === false ? "Present" : formatDate(experience.endDate)} */}
+                  {formatDate(experience.startDate)} - {experience.endDate ? formatDate(experience.endDate) : "Present"}
                 </p>
                 <hr />
                 <div>
