@@ -22,7 +22,7 @@ const Nav = () => {
   return (
     <nav className="navbar is-success" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <NavLink to="/" className="navbar-item is-size-4">WebWeavr</NavLink>
+        <NavLink to="/" className="navbar-item is-size-4">WebWeavrr</NavLink>
 
         <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic"
           onClick={toggleBurgerMenu}>

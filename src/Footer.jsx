@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className = "footer mt-6 has-background-success is-full-width">
       <div className = "content has-text-centered">
       <p>
-        <strong>Webweavr</strong> by <a href="">Joseph Segbefia</a>.
+        <strong>Webweavrr</strong> by <a href="">Joseph Segbefia</a>.
         {/* The source code is licensed
         <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The
         website content is licensed
@@ -17,7 +17,7 @@ const Footer = () => {
         >. */}
       </p>
       <p>
-      &copy; <span>{currentYear}</span> WebWeavr. All Rights Reserved.
+      &copy; <span>{currentYear}</span> WebWeavrr. All Rights Reserved.
       </p>
     </div>
   </footer>
