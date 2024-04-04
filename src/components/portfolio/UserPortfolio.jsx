@@ -21,6 +21,7 @@ const UserPortfolio = ({ owner, errorMessage }) => {
   const [gitHubURL, setGitHubURL] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
+  const [loadingPort, setLoadingPort] = useState(false)
 
   // const [owner, setOwner] = useState(null);
   const [firstName, setFirstName] = useState('');
@@ -30,8 +31,9 @@ const UserPortfolio = ({ owner, errorMessage }) => {
 
   const {uniqueIdentifier} = useParams();
 
-  useEffect(() => {
 
+  useEffect(() => {
+      setLoadingPort(true);
       axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}`)
         .then((response) => {
           console.log(response.data[0])
@@ -48,12 +50,10 @@ const UserPortfolio = ({ owner, errorMessage }) => {
           setLocation(response.data[0].location);
           setFirstName(response.data[0].firstName);
           setLastName(response.data[0].lastName);
-
-
+          setLoadingPort(false);
         })
         .catch((error) => {
           console.log(error);
-
         })
   },[uniqueIdentifier])
 
@@ -71,6 +71,11 @@ const UserPortfolio = ({ owner, errorMessage }) => {
             {errorMessage}
           </div>
         </article>
+      )}
+      {loadingPort && (
+        <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
+          60%
+        </progress>
       )}
 
       {owner ? (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Hello, { user && user.firstName} please complete your portfolio here</h1>) : (<h1 className = "has-text-centered is-size-4 mt-3 has-text-primary">Welcome to my portfolio</h1>)}
@@ -108,12 +113,17 @@ const UserPortfolio = ({ owner, errorMessage }) => {
 
 
               <hr />
+
               <p className = "title is-size-5">Contact</p>
               <p className = "is-size-7"><span><i className = 'fas fa-envelope mr-3 mb-3'></i></span>{email}</p>
               <p className = "is-size-7"><span><i className = 'fas fa-phone mr-3 mb-3'></i></span>{phone}</p>
               <p className = "is-size-7"><span><i className = "fa-brands fa-linkedin mr-3 mb-3"></i></span>{linkedInURL}</p>
               <p className = "is-size-7"><span><i className = "fa-brands fa-github mr-3 mb-3"></i></span>{gitHubURL}</p>
               <p className = "is-size-7"><span><i className = "fa-solid fa-location-pin mr-3 mb-3"></i></span>{location}</p>
+              <hr />
+              <p className = "title is-size-5">Share link</p>
+              <span><p className="is-size-7"><span><i className='fa-solid fa-share mr-2 mb-3'></i></span>{`webweavrr.com/portfolios/${uniqueIdentifier}`} {/*<i className='fa-solid fa-copy ml-3'></i> */} </p></span>
+
             </div>
 
           </div>
