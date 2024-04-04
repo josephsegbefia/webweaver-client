@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useContext, useState, useRef } from 'react';
@@ -15,6 +16,7 @@ const Dashboard = ({ setDashboardActive, dashboardActive }) => {
   // const [quote, setQuote] = useState(undefined);
   const { user } = useContext(AuthContext);
 
+  console.log(user);
   const fetchData = async (identifier) => {
     const storedToken = localStorage.getItem('authToken');
     try {

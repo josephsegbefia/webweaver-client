@@ -7,10 +7,17 @@ import { Navigate } from 'react-router-dom';
 function IsAdmin({ children }) {
   const { isLoggedIn, user } = useContext(AuthContext);
 
-  if(!isLoggedIn && !user.isAdmin){
-    return <Navigate to = '/' />
-  } else {
+
+  let isAdmin;
+
+  if(user){
+    isAdmin = user.isAdmin;
+  }
+
+  if (isAdmin) {
     return children;
+  } else {
+    return <Navigate to="/" />;
   }
 }
 
