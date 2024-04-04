@@ -59,8 +59,8 @@ const VerifyEmail = () => {
      bio: '',
      phone: '',
      avatarURL: '',
-     gitHubURL: '',
-     linkedInURL: '',
+     gitHubURL: 'www.yourgithublink.com',
+     linkedInURL: 'www.yourlinkedin.com',
      location: ''
     };
 
