@@ -1,22 +1,37 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import SignUp from './auth/SignUp';
 import HomeCard from './HomeCard';
 import portfolioman from '../assets/manbooks.png';
 import jobman from '../assets/jobman.png';
 import robogirl from '../assets/robogirl.png'
+import logo from '../assets/logo.png';
 
 const Home = ({ setDashboardActive }) => {
 
   useEffect(() => {
     setDashboardActive(false);
-  }, [])
+  }, []);
+
+
+
+
+
 
   return (
     <div className = "container">
-      <div className = "columns mb-6">
-        <div className = "column" style={{border: "1px solid red"}}>First col</div>
+      <div className = "columns intro mb-6">
+        <div className = "column">
+          <p className = "is-size-6 mt-6" style={{lineHeight: "30px", textAlign: "justify", padding: "15px", margin: "0 auto"}}>
+            Welcome to our portfolio platform, where crafting your professional story is made simple.
+            Seamlessly create personalized portfolios, showcasing your projects, education, experience, and more.
+            Stay organized by managing job applications with attached CVs and resumes.
+            Excitingly, AI integration is on the horizon, promising automated CV and cover letter creation.
+            Start shaping your career journey effortlessly today
+          </p>
+        </div>
+        <div className = "vertical-line"></div>
         <div className = "column">
           <SignUp />
         </div>
@@ -24,6 +39,7 @@ const Home = ({ setDashboardActive }) => {
       <div className = "columns">
         <div className = "column">
           <p className = "title has-text-centered">Features</p>
+          <p className = "subtitle has-text-centered">Advantages Provided by Our Platform</p>
           <hr />
         </div>
 

@@ -155,3 +155,24 @@ aside {
   background-color: #00d1b2;
   color: white;
 }
+
+
+.vertical-line {
+  border-right: 3px solid #00d1b2; /* Adjust color and thickness as needed */
+  height: 500px; /* Adjust height as needed */
+}
+
+
+.intro{
+  background-color: aliceblue;
+  padding: 30px;
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+  .vertical-line {
+    display: none;
+  }
+}
