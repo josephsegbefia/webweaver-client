@@ -93,7 +93,7 @@ const VerifyEmail = () => {
         <div className = "column is-half is-offset-one-quarter">
         <div>
       {isLoading ? (
-        <progress className = 'progress is-medium is-link' max = '100'>
+        <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
           60%
         </progress>
       ) : (

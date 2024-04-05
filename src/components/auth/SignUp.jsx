@@ -44,8 +44,9 @@ const SignUp = () => {
   }
 
   const reloadPage = () => {
-    setReload(reload => !reload);
+    setReload(true);
     setErrorMessage(undefined);
+    setSuccessMessage(undefined);
   }
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const SignUp = () => {
         .catch((error) => {
           setIsLoading(loading => !loading)
           const errorDescription = error.response.data.message;
+          setSuccessMessage(undefined);
           setErrorMessage(errorDescription);
           setFirstName('');
           setLastName('');
@@ -92,7 +94,7 @@ const SignUp = () => {
   return (
     <>
       {isLoading && (
-        <progress className = 'progress is-medium is-link' max = '100'>
+        <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
           60%
         </progress>
       )}

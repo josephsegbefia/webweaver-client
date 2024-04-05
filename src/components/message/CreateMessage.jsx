@@ -74,7 +74,7 @@ const CreateMessage = () => {
       <div className = "columns">
         <div className="column is-half is-offset-one-quarter">
           {loading && (
-            <progress className = 'progress is-medium is-link' max = '100'>
+            <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
               60%
             </progress>
           )}

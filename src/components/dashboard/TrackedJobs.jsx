@@ -132,7 +132,7 @@ const TrackedJobs = () => {
       )}
       {deleteOpen && (<DeleteJobTracking handleDeleteClose = {handleDeleteClose} jobId = {jobId} setDeleteSuccessful = {setDeleteStatus} setDeleteMessage={setDeleteMessage}/>)}
       {loading ? (
-        <progress className='progress is-medium is-link' max='100' style={{ height: '3px' }}>
+        <progress className='progress is-medium is-link' max='100' style={{ height: '4px' }}>
           60%
         </progress>
       ) : (

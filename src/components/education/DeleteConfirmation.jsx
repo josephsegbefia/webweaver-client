@@ -43,7 +43,7 @@ const DeleteConfirmation = ({ educationId, setShowDeleteNotification, schoolName
       {deleting && (
         <div className="columns is-vcentered">
           <div className="column">
-            <progress className="progress is-medium is-link" max="100">
+            <progress className="progress is-medium is-link" max="100" style={{height: "4px"}}>
               60%
             </progress>
           </div>

@@ -95,7 +95,7 @@ const Login = () => {
             <div className = 'my-6'>
                 {
                   isLoading && (
-                    <progress className = 'progress is-medium is-link' max = '100'>
+                    <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
                       60%
                     </progress>
                   )
