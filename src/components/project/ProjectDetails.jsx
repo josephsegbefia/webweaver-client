@@ -74,7 +74,7 @@ const ProjectDetails = ({ onClose, projId, }) => {
       <div className="modal-background" onClick={handleClose}></div>
         <div className="modal-content">
           {loading && (
-            <progress className = 'progress is-medium is-link' max = '100'>
+            <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
               60%
             </progress>
           )}

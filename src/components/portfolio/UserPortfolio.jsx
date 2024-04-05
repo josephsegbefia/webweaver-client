@@ -73,7 +73,7 @@ const UserPortfolio = ({ owner, errorMessage }) => {
         </article>
       )}
       {loadingPort && (
-        <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
+        <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}} >
           60%
         </progress>
       )}
@@ -88,7 +88,7 @@ const UserPortfolio = ({ owner, errorMessage }) => {
                   <img className='is-rounded ' src={avatarURL} alt='avatar image' style={{height: "128px", width: "128px"}}/>
                 </figure>
                 ) : (
-                <figure className = 'image is-128x128'>
+                <figure className = 'image is-128x128' style={{margin: "0 auto", borderRadius: "50%"}}>
                   <img className = 'is-rounded' src = 'https://bulma.io/assets/images/placeholders/128x128.png' alt = 'avatar placeholder'/>
                 </figure>
               )}

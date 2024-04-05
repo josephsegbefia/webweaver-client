@@ -95,7 +95,7 @@ const Login = () => {
             <div className = 'my-6'>
                 {
                   isLoading && (
-                    <progress className = 'progress is-medium is-link' max = '100'>
+                    <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}}>
                       60%
                     </progress>
                   )
@@ -145,8 +145,8 @@ const Login = () => {
         <div className = "columns">
           <div className = "column is-half is-offset-one-quarter">
             <p>Don't have an account yet?</p>
-            <p>Can't remember your password? Reset it <Link to = {'/forgot-password'}>here</Link></p>
-            <Link to={"/signup"}> Sign Up</Link>
+            <p className = "mb-3">Can't remember your password? Reset it <Link to = {'/forgot-password'} className = "login-signup-buttons">here</Link></p>
+            <Link to={"/signup"} className = "login-signup-buttons"> Sign Up</Link>
           </div>
         </div>
       </form>

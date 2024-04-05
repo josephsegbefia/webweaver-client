@@ -11,6 +11,7 @@ import Messages from './components/dashboard/Messages';
 import RoutesComp from './components/dashboard/RoutesComp';
 import Sidebar from './components/dashboard/Sidebar';
 import Jobs from './components/dashboard/Jobs';
+import AllUsers from './components/dashboard/AllUsers';
 
 
 import MasterPortfolioComp from './components/portfolio/MasterPortfolioComp';
@@ -18,6 +19,7 @@ import MasterPortfolioComp from './components/portfolio/MasterPortfolioComp';
 import Home from './components/Home';
 import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
+import IsAdmin from './components/auth/isAdmin';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 
@@ -28,6 +30,7 @@ import SignUp from './components/auth/SignUp';
 import Users from './components/dashboard/Users';
 import TrackJob from './components/dashboard/TrackJob';
 import TrackedJobs from './components/dashboard/TrackedJobs';
+import CreateUser from './components/dashboard/CreateUser';
 
 
 
@@ -79,7 +82,9 @@ const App = () => {
                 <Route path="password-reset" element={<PasswordResetForm />} />
                 {/* DashBoard componentx */}
                 <Route path="/users/:uniqueIdentifier/dashboard" element={<IsPrivate><Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} /></IsPrivate>} />
-                <Route exact path="/users" element={<IsPrivate><Users /></IsPrivate>} />
+                <Route exact path="/users" element={<IsAdmin><Users /></IsAdmin>} />
+                <Route  path = "/users/create" element = {<IsAdmin><CreateUser /></IsAdmin>}/>
+                <Route  path = "/users/all-users" element = {<IsAdmin><AllUsers /></IsAdmin>}/>
                 <Route path="/messages" element={<IsPrivate><Messages /></IsPrivate>} />
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
                 <Route path = "/jobs/track" element = {<IsPrivate><TrackJob /></IsPrivate>}/>
