@@ -19,7 +19,7 @@ import MasterPortfolioComp from './components/portfolio/MasterPortfolioComp';
 import Home from './components/Home';
 import IsAnon from './components/auth/IsAnon';
 import IsPrivate from './components/auth/IsPrivate';
-import IsAdmin from './components/auth/isAdmin';
+import IsAdmin from './components/auth/IsAdmin';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 
