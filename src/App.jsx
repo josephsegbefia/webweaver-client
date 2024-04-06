@@ -90,8 +90,8 @@ const App = () => {
                 <Route path="/messages" element={<IsPrivate><Messages /></IsPrivate>} />
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
                 <Route path = "/jobs/track" element = {<IsPrivate><TrackJob /></IsPrivate>}/>
-                <Route path = "jobs/tracked-jobs" element = { <IsPrivate><TrackedJobs /></IsPrivate>}/>
-                <Route path = '/create-cv' element = {<CreateCV />} />
+                <Route path = "/jobs/tracked-jobs" element = { <IsPrivate><TrackedJobs /></IsPrivate>}/>
+                <Route path = "/create-cv" element = {<IsPrivate><CreateCV /></IsPrivate>} />
               </Routes>
             </div>
           </div>

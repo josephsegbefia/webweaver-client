@@ -176,7 +176,7 @@ const CreateMessage = () => {
                 </p>
                 <p className="card-footer-item">
                   <span>
-                  <button type = "submit" className = "submit-button"><i className = "fa-solid fa-paper-plane"></i></button>
+                  <button type = "submit" className = "submit-button">Send</button>
                   </span>
                 </p>
               </footer>

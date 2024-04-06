@@ -175,4 +175,10 @@ aside {
   .vertical-line {
     display: none;
   }
+
+  aside {
+    &.menu {
+      display: none;
+    }
+  }
 }
