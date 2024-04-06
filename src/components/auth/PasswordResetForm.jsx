@@ -126,7 +126,7 @@ const PasswordResetForm = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="password"
                       placeholder="Password"
                       value={password}
@@ -140,7 +140,7 @@ const PasswordResetForm = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="password"
                       placeholder="Repeat Password"
                       value={passwordConfirm}

@@ -150,7 +150,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="School Name"
                       value={schoolName}
@@ -167,7 +167,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
                 <div className = "field">
                   <p className = "control">
                     <input
-                      className = "input"
+                      className = "input is-primary"
                       type="text"
                       placeholder = "Program/Course"
                       value = {program}
@@ -178,7 +178,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
                 </div>
               </div>
               <div className="column is-half">
-                <div className="select is-fullwidth">
+                <div className="select is-fullwidth is-primary">
                   <select value = {selectedEdType} onChange = {(e) => setSelectedEdType(e.target.value)}>
                     <option>Select Education Type</option>
                     <option>Self tutored</option>
@@ -190,7 +190,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
             </div>
             <div className="columns">
               <div className="column">
-                <div className="select is-fullwidth">
+                <div className="select is-fullwidth is-primary">
                   <select value = {selectedCert} onChange = {(e) => setSelectedCert(e.target.value)}>
                     <option>Select certificate earned</option>
                     <option>Under graduate</option>
@@ -206,7 +206,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
                   <label className="label">Select Start Date:</label>
                   <div className = "control">
                   <Flatpickr
-                    className="input"
+                    className="input is-primary"
                     value={selectedStartDate}
                     onChange={handleStartDateChange}
                     options={{
@@ -224,7 +224,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
                   <label className="label">Select End Date:</label>
                   <div className = "control">
                   <Flatpickr
-                    className="input"
+                    className="input is-primary"
                     value={selectedEndDate}
                     onChange={handleEndDateChange}
                     options={{

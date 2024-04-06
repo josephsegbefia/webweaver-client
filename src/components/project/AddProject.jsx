@@ -156,7 +156,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Project Title"
                       value={title}
@@ -169,7 +169,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Techs used e.g React"
                       value={tech}
@@ -188,7 +188,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Provide a short description"
                       value={shortDesc}
@@ -203,7 +203,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <div className="field">
                   <p className="control">
                     <textarea
-                      className="textarea"
+                      className="textarea is-primary"
                       placeholder="Provide a more detailed description"
                       onChange = {(e) => setDescription(e.target.value)}
                       value={description}
@@ -217,7 +217,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Provide link to view the app live."
                       value={liveLink}
@@ -232,7 +232,7 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Provide a link to the project's github repo"
                       value={gitHubLink}
@@ -259,7 +259,7 @@ const AddProject = ({ onClose, setRefresh }) => {
               <div className = "column is-inline-flex">
                 <div className = "file">
                   <label className = "file-label">
-                    <input className = "file-input" type="file" name="resume" placeholder='upload project image' onChange={handleImgChange}/>
+                    <input className = "file-input is-primary" type="file" name="resume" placeholder='upload project image' onChange={handleImgChange}/>
                     <span className = "file-cta">
                       <span className = "file-icon">
                         <i className = "fas fa-upload"></i>

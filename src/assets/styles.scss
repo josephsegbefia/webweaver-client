@@ -106,7 +106,10 @@
 a:visited {
   color: #4a4a4a;
 }
-
+a {
+  text-decoration: none;
+  color:#333
+}
 
 aside {
   &.menu {

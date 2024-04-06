@@ -177,7 +177,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Company Name"
                       value={company}
@@ -193,7 +193,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                 <div className = "field">
                   <p className = "control">
                     <input
-                      className = "input"
+                      className = "input is-primary"
                       type="text"
                       placeholder = "Position e.g, Junior Product Manager"
                       value = {position}
@@ -206,7 +206,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                 <div className = "field">
                   <p className = "control">
                     <input
-                      className = "input"
+                      className = "input is-primary"
                       type="text"
                       placeholder = "Location e.g Accra, Ghana"
                       value = {location}
@@ -220,7 +220,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
               <div className="column">
                 <textarea
                   type = 'text'
-                  className='textarea'
+                  className='textarea is-primary'
                   placeholder='What are/were your responsibilities? Separate each point with a period. Keep it short. About 4 - 6 points are enough.'
                   value = {responsibilities}
                   onChange = {(e) => setResponsibilties(e.target.value)}
@@ -248,7 +248,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                   <label className="label">Select Start Date:</label>
                   <div className = "control">
                   <Flatpickr
-                    className="input"
+                    className="input is-primary"
                     value={selectedStartDate}
                     onChange={handleStartDateChange}
                     options={{
@@ -266,7 +266,7 @@ const EditExperience = ({ onClose, exId, refresh }) => {
                   <label className="label">Select End Date:</label>
                   <div className = "control">
                   <Flatpickr
-                    className="input"
+                    className="input is-primary"
                     value={selectedEndDate}
                     onChange={handleEndDateChange}
                     options={{

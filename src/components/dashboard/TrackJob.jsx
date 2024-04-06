@@ -204,7 +204,7 @@ const TrackJob = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-primary"
                   type="text"
                   placeholder="Company Name"
                   value={companyName}
@@ -217,7 +217,7 @@ const TrackJob = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-primary"
                   type="text"
                   placeholder="Position"
                   value={position}
@@ -230,7 +230,7 @@ const TrackJob = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-primary"
                   type="text"
                   placeholder="Job Location"
                   value={location}
@@ -274,7 +274,7 @@ const TrackJob = () => {
                 {/* <label className="label">Select Start Date:</label> */}
                   <div className = "control">
                     <Flatpickr
-                      className="input"
+                      className="input is-primary"
                       placeholder='Applied date'
                       value={appliedDate}
                       onChange={handleDateChange}
