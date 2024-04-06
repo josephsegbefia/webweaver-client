@@ -44,7 +44,7 @@ const Home = ({ setDashboardActive }) => {
         </div>
 
       </div>
-      <div className = "columns">
+      <div className = "columns my-5">
         <div className = "column has-text-centered">
           <HomeCard
             imgSrc={portfolioman}
@@ -70,11 +70,33 @@ const Home = ({ setDashboardActive }) => {
           />
         </div>
       </div>
+      {/* Show this section later */}
       <div className = "columns">
-        <div className = "column" style = {{backgroundColor: "#00d1b2"}}>
-          <p className = "title is-size-2 has-text-centered m-5" style = {{color: "white"}}>It&apos;s free</p>
-        </div>
+        <div className = "column"></div>
       </div>
+      {/* <div className = "columns">
+        <div className = "column">
+          <div className = "card">
+            <div className = "card-content">
+              <p className = "has-text-centered has-text-primary is-size-3">5 active users</p>
+            </div>
+          </div>
+        </div>
+        <div className = "column">
+          <div className = "card">
+            <div className = "card-content">
+
+            </div>
+          </div>
+        </div>
+        <div className = "column">
+          <div className = "card">
+            <div className = "card-content">
+
+            </div>
+          </div>
+        </div>
+      </div> */}
     </div>
   )
 }
