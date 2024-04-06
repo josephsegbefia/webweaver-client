@@ -46,7 +46,7 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
         {experiences.map((experience) => (
           <div key={experience._id} className="column is-half">
             <div className="card">
-              <div className="card-content">
+              <div className="card-content" style = {{textAlign: "justify"}}>
                 <p className="is-size-5">
                   {experience.position} @ {experience.company}
                 </p>
@@ -61,7 +61,7 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
                 <hr />
                 <div>
                   {experience.responsibilities.trim().split('.').map((responsibility, index) => (
-                    <li key={index}>{responsibility}</li>
+                    <p key={index} className = "my-4"><li>{responsibility}</li></p>
                   ))}
                 </div>
               </div>

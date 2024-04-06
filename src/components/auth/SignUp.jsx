@@ -16,7 +16,7 @@ const SignUp = () => {
   const [successMessage, setSuccessMessage] = useState(undefined);
   const [isLoading, setIsLoading] = useState('');
   const [reload, setReload] = useState(false);
-  const [revealPassword, setRevealPassword] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -90,8 +90,6 @@ const SignUp = () => {
   }
 
 
-
-  console.log(revealPassword)
 
   return (
     <>
@@ -210,11 +208,6 @@ const SignUp = () => {
                 </div>
               </div>
             </div>
-           {/* <div className = "columns">
-            <div className = "column is-one-quarter is-offset-one-quarter">
-              {revealPassword ? <i className = "fa-regular fa-eye-slash" onClick = {() => setRevealPassword(true)}></i> : <i className = "fa-regular fa-eye"></i>}
-            </div>
-           </div> */}
 
             <div className = "columns">
               <div className = "column is-half is-offset-one-quarter">

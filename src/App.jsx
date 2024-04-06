@@ -31,6 +31,7 @@ import Users from './components/dashboard/Users';
 import TrackJob from './components/dashboard/TrackJob';
 import TrackedJobs from './components/dashboard/TrackedJobs';
 import CreateUser from './components/dashboard/CreateUser';
+import CreateCV from './components/dashboard/CreateCV';
 
 
 
@@ -80,6 +81,7 @@ const App = () => {
                 <Route path="/verify-email" element={<VerifyEmail />} />
                 <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                 <Route path="password-reset" element={<PasswordResetForm />} />
+
                 {/* DashBoard componentx */}
                 <Route path="/users/:uniqueIdentifier/dashboard" element={<IsPrivate><Dashboard setDashboardActive={setDashboardActive} dashboardActive = {dashboardActive} /></IsPrivate>} />
                 <Route exact path="/users" element={<IsAdmin><Users /></IsAdmin>} />
@@ -89,6 +91,7 @@ const App = () => {
                 <Route path = "/jobs" element = {<IsPrivate><Jobs/></IsPrivate>}/>
                 <Route path = "/jobs/track" element = {<IsPrivate><TrackJob /></IsPrivate>}/>
                 <Route path = "jobs/tracked-jobs" element = { <IsPrivate><TrackedJobs /></IsPrivate>}/>
+                <Route path = '/create-cv' element = {<CreateCV />} />
               </Routes>
             </div>
           </div>

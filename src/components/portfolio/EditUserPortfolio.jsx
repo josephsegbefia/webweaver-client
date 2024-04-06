@@ -221,8 +221,8 @@ const EditUserPortfolio = ({setEditMode}) => {
                 </progress>
               )}
               {avatarURL ? (
-                <figure className = 'image is-96x96'>
-                  <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' />
+                <figure className = 'image is-128x128' style={{margin: "0 auto", borderRadius: "50%"}}>
+                  <img className = 'is-rounded' src = {avatarURL} alt = 'avatar image' style={{height: "128px", width: "128px"}}/>
                 </figure>
               ) : (
                 <div>
