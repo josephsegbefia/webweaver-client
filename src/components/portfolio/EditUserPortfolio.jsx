@@ -252,7 +252,7 @@ const EditUserPortfolio = ({setEditMode}) => {
 
               <input
                 type = 'text'
-                className = 'input'
+                className = 'input is-primary'
                 value = {headLine}
                 onChange = {handleHeadLineChange}
                 placeholder='Position e.g Junior Full Stack Developer'
@@ -266,7 +266,7 @@ const EditUserPortfolio = ({setEditMode}) => {
                   type =  "text"
                   name = 'skills'
                   placeholder = 'Add skills'
-                  className = 'input'
+                  className = 'input is-primary'
                   value = {skill}
                   onChange={handleSkillChange}
                 />
@@ -286,25 +286,25 @@ const EditUserPortfolio = ({setEditMode}) => {
               <p className = 'title is-size-5'>Info</p>
               <p className = "is-size-7"><span><i className = 'fas fa-envelope mr-3 mb-3'></i>{email}</span></p>
               <input type="text"
-                className = 'input is-size-7'
+                className = 'input is-size-7 is-primary'
                 placeholder='phone'
                 value={phone}
                 onChange={handlePhoneChange}
               />
               <input type="text"
-                className = 'input mt-3 is-size-7'
+                className = 'input mt-3 is-size-7 is-primary'
                 placeholder = 'LinkedIn url'
                 value = {linkedInURL}
                 onChange = {handleLinkedInURLChange}
               />
               <input type="text"
-                className = 'input mt-3 is-size-7'
+                className = 'input mt-3 is-size-7 is-primary'
                 placeholder = 'GitHub url'
                 value = {gitHubURL}
                 onChange = {handleGitHubURLChange}
               />
               <input type="text"
-                className = 'input mt-3 is-size-7'
+                className = 'input mt-3 is-size-7 is-primary'
                 placeholder = 'location e.g Accra, Ghana'
                 value = {location}
                 onChange = {handleLocationChange}
@@ -319,26 +319,26 @@ const EditUserPortfolio = ({setEditMode}) => {
               <textarea
                 name="about-me"
                 style={{width: "100%", resize: "none"}}
-                className = 'textarea'
+                className = 'textarea is-primary'
                 value = {bio}
                 onChange = {handleBioChange}
               />
               <div className = 'is-inline-flex'>
                 <input
-                  type =  "text"
+                  type =  "text is-primary"
                   name = 'interest'
                   placeholder = 'Add interests'
-                  className = 'input my-3'
+                  className = 'input my-3 is-primary'
                   value = {interest}
                   onChange={handleInterestChange}
                 />
                 <button type = "button" className = 'button is-primary add-button mt-3' disabled={fieldCheck(interest)} onClick={addInterest}>+</button>
 
                 <input
-                  type =  "text"
+                  type =  "text is-primary"
                   name = 'languages'
                   placeholder = 'Add spoken languages'
-                  className = 'input mt-3 ml-3'
+                  className = 'input mt-3 ml-3 is-primary'
                   value = {language}
                   onChange={handleLanguageChange}
                 />
