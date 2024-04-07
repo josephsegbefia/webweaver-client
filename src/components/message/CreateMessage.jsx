@@ -69,7 +69,8 @@ const CreateMessage = () => {
   }
   return (
     <div className = "container">
-      <p className="title is-size-3 my-6 has-text-centered">Shoot me a message</p>
+      <p className="title is-size-3 mt-6 has-text-centered">Shoot me a message</p>
+      <p className = "is-size-5 has-text-centered has-text-primary">Consider me for your team, let&apos;s collaborate, or simply reach out to say hello</p>
       <hr />
       <div className = "columns">
         <div className="column is-half is-offset-one-quarter">

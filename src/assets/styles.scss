@@ -6,6 +6,11 @@
 }
 
 
+// Honey pot input
+input[name="honeypot"] {
+  display: none;
+}
+
 /* Modal Styles */
 .modal {
   display: none;

@@ -17,6 +17,9 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState('');
   const [reload, setReload] = useState(false);
 
+  // honeyPot
+  const [honeyPot, setHoneyPot] = useState('')
+
 
   const navigate = useNavigate();
 
@@ -56,6 +59,10 @@ const SignUp = () => {
 
   const handleSignupSubmit = (event) => {
     event.preventDefault();
+    if(honeyPot){
+      // console.log("Bot detected")
+      return;
+    }
     setIsLoading(loading => !loading);
     if(checkPasswordFields()){
       setIsLoading(loading => !loading);
@@ -178,7 +185,22 @@ const SignUp = () => {
                 </div>
               </div>
             </div>
-
+            {/* <div className = "columns"> */}
+              {/* <div className = "column is-half is-offset-one-quarter"> */}
+                <div className="field">
+                  <p className="control">
+                    <input
+                      className="input is-primary"
+                      type="email"
+                      placeholder="Email"
+                      value={honeyPot}
+                      name = "honeypot"
+                      onChange={(e) => setHoneyPot(e.target.value)}
+                    />
+                  </p>
+                </div>
+              {/* </div> */}
+            {/* </div> */}
             <div className = "columns">
               <div className = "column is-one-quarter is-offset-one-quarter">
                 <div className="field">
