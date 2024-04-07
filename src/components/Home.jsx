@@ -27,7 +27,7 @@ const Home = ({ setDashboardActive }) => {
           <p className = "is-size-6 mt-6" style={{lineHeight: "30px", textAlign: "justify", padding: "15px", margin: "0 auto"}}>
             Welcome to our portfolio platform, where crafting your professional story is made simple.
             Seamlessly create personalized portfolios, showcasing your projects, education, experience, and more.
-            Stay organized by managing job applications with attached CVs and resumes.
+            Stay organized by managing job applications with attached CVs and cover letter.
             Excitingly, AI integration is on the horizon, promising automated CV and cover letter creation.
             Start shaping your career journey effortlessly today
           </p>
