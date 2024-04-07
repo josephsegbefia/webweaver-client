@@ -229,7 +229,7 @@ const EditJob = ({ onClose, jobId }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Company Name"
                       value={companyName}
@@ -242,7 +242,7 @@ const EditJob = ({ onClose, jobId }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Position"
                       value={position}
@@ -298,7 +298,7 @@ const EditJob = ({ onClose, jobId }) => {
                 <div className="field">
                   <div className="control">
                     <Flatpickr
-                      className="input"
+                      className="input is-primary"
                       placeholder='Applied date'
                       value={appliedDate}
                       onChange={handleDateChange}

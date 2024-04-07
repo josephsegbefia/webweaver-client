@@ -67,7 +67,7 @@ const SignUp = () => {
       .then((response) => {
         if(response.status === 201){
           setIsLoading(loading => !loading);
-          setSuccessMessage(`A verification email has been sent to the provided email: ${email}`);
+          setSuccessMessage(`A verification email has been sent to the provided email: ${email}. Kindly check your spam folder if email not found in inbox`);
           setFirstName('');
           setLastName('');
           setEmail('');
@@ -138,7 +138,7 @@ const SignUp = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="First name"
                       value={firstName}
@@ -152,7 +152,7 @@ const SignUp = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Last name"
                       value={lastName}
@@ -168,7 +168,7 @@ const SignUp = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="email"
                       placeholder="Email"
                       value={email}
@@ -184,7 +184,7 @@ const SignUp = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="password"
                       placeholder="Password"
                       value={password}
@@ -198,7 +198,7 @@ const SignUp = () => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="password"
                       placeholder="Repeat Password"
                       value={repeatPassword}

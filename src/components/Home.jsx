@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../context/auth.context';
 import SignUp from './auth/SignUp';
 import HomeCard from './HomeCard';
 import portfolioman from '../assets/manbooks.png';
@@ -9,14 +10,13 @@ import jobman from '../assets/jobman.png';
 import robogirl from '../assets/robogirl.png'
 import logo from '../assets/logo.png';
 
+
 const Home = ({ setDashboardActive }) => {
 
+  const {isLoggedIn, user} = useContext(AuthContext);
   useEffect(() => {
     setDashboardActive(false);
   }, []);
-
-
-
 
 
 
@@ -34,7 +34,7 @@ const Home = ({ setDashboardActive }) => {
         </div>
         <div className = "vertical-line"></div>
         <div className = "column">
-          <SignUp />
+          {!isLoggedIn && <SignUp />}
         </div>
       </div>
       <div className = "columns">

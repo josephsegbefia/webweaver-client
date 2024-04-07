@@ -104,7 +104,7 @@ const Login = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-primary"
                   type="email"
                   placeholder="Email"
                   value={email}
@@ -120,7 +120,7 @@ const Login = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-primary"
                   type="password"
                   placeholder="Password"
                   value={password}

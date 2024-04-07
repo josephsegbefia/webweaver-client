@@ -199,7 +199,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Project Title"
                       value={title}
@@ -212,7 +212,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Techs used e.g React"
                       value={tech}
@@ -231,7 +231,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Provide a short description"
                       value={shortDesc}
@@ -247,7 +247,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <textarea
-                      className="textarea"
+                      className="textarea is-primary"
                       placeholder="Provide a more detailed description"
                       onChange = {(e) => setDescription(e.target.value)}
                       value={description}
@@ -261,7 +261,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Provide link to view the app live."
                       value={liveLink}
@@ -276,7 +276,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <div className="field">
                   <p className="control">
                     <input
-                      className="input"
+                      className="input is-primary"
                       type="text"
                       placeholder="Provide a link to the project's github repo"
                       value={gitHubLink}

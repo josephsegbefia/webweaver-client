@@ -105,7 +105,7 @@ const ForgotPasswordForm = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-primary"
                   type="email"
                   placeholder="Email"
                   value={email}

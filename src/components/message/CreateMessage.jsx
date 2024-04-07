@@ -108,7 +108,7 @@ const CreateMessage = () => {
                     <div className="field">
                       <p className="control">
                         <input
-                          className="input message-input has-text-success"
+                          className="input is-primary message-input has-text-success"
                           type="text"
                           placeholder="Your full name"
                           value={fullName}
@@ -124,7 +124,7 @@ const CreateMessage = () => {
                     <div className="field">
                       <p className="control">
                         <input
-                          className="input message-input has-text-success"
+                          className="input  is-primary message-input has-text-success"
                           type="text"
                           placeholder="Subject of your message"
                           value={messageSubject}
@@ -140,7 +140,7 @@ const CreateMessage = () => {
                     <div className="field">
                       <p className="control">
                         <input
-                          className="input message-input has-text-success"
+                          className="input is-primary is-primary message-input has-text-success"
                           type="email"
                           placeholder="Email Address"
                           value={emailAddress}
@@ -156,7 +156,7 @@ const CreateMessage = () => {
                     <div className="field">
                       <p className="control">
                         <textarea
-                          className="textarea message-input has-text-success"
+                          className="textarea is-primary message-input has-text-success"
                           type="text"
                           placeholder="Your message"
                           rows="2"
