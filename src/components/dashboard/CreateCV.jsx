@@ -13,6 +13,7 @@ const CreateCV = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('')
+  const [skills, setSkills] = useState([]);
   const [avatarURL, setAvatarURL] = useState('');
   const [bio, setBio] = useState('');
   const [educationList, setEducationList] = useState([]);
@@ -45,6 +46,7 @@ const CreateCV = () => {
       const response = await axios.get(`${API_URL}api/cv/portfolios/${uniqueIdentifier}`);
       console.log(response);
       const data = response.data.portfolio[0];
+      setSkills(data.skills);
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setEmail(data.email)
@@ -72,6 +74,29 @@ const CreateCV = () => {
     fetchUserDetails()
   }
 
+
+
+  const handleCVSubmission = (e) => {
+    e.preventDefault();
+
+    const requestBody = {
+      jobDescription, firstName,
+      lastName, email,
+      bio, phone,
+      educationList, projectList,
+      gitHubURL, linkedInURL,
+      skills, jobTitle
+    }
+    axios.post(`${API_URL}api/ai-assistant`, requestBody)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+
   return (
     <div className = "container">
       <h1 className = "title is-size-5 has-text-centered mb-3">Create Curriculum Vitae</h1>
@@ -94,7 +119,7 @@ const CreateCV = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input"
+                  className="input is-small is-primary"
                   type="text"
                   placeholder="Position you are applying to"
                   value={jobTitle}
@@ -107,7 +132,7 @@ const CreateCV = () => {
         <div className = "columns">
           <div className = "column">
             <textarea
-              className = "textarea"
+              className = "textarea is-small is-primary"
               placeholder = "Paste job description here"
               value = {jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
@@ -124,7 +149,7 @@ const CreateCV = () => {
       </form>
 
       {dataFetched && (
-        <form>
+        <form onSubmit={handleCVSubmission}>
           <p className = "title is-size-5 has-text-centered mt-5 mb-3">Data to be used to build CV</p>
           <p className = "has-text-centered is-size-6 mb-5">You can edit the sections not greyed out</p>
           <div className = "columns">
@@ -132,7 +157,7 @@ const CreateCV = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input is-small"
+                  className="input is-small is-primary"
                   type="text"
                   placeholder="First Name"
                   value={firstName}
@@ -146,7 +171,7 @@ const CreateCV = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input is-small"
+                  className="input is-small is-primary"
                   type="text"
                   placeholder="Last Name"
                   value={lastName}
@@ -160,7 +185,7 @@ const CreateCV = () => {
             <div className="field">
               <p className="control">
                 <input
-                  className="input is-small"
+                  className="input is-small is-primary"
                   type="text"
                   placeholder="phone"
                   value={phone}
@@ -175,7 +200,7 @@ const CreateCV = () => {
             <div className = "field">
               <p className = "control">
                 <input
-                  className = "input is-small"
+                  className = "input is-small is-primary"
                   type = "text"
                   placeholder="github link"
                   value = {gitHubURL}
@@ -188,7 +213,7 @@ const CreateCV = () => {
             <div className = "field">
               <p className = "control">
                 <input
-                  className = "input is-small"
+                  className = "input is-small is-primary"
                   type = "text"
                   placeholder="linked link"
                   value = {linkedInURL}
@@ -201,7 +226,7 @@ const CreateCV = () => {
             <div className = "field">
               <p className = "control">
                 <input
-                  className = "input is-small"
+                  className = "input is-small is-primary"
                   type = "text"
                   placeholder="email"
                   value = {email}
@@ -216,7 +241,7 @@ const CreateCV = () => {
             <div className = "field">
               <p className = "control">
                 <textarea
-                  className = "textarea is-small"
+                  className = "textarea is-small is-primary"
                   type = "text"
                   placeholder="email"
                   value = {bio}
