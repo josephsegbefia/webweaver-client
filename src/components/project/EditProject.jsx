@@ -317,6 +317,11 @@ const EditProject = ({ onClose, projId, refresh }) => {
                 <button className = "button mx-3" onClick={uploadImage} type = "button">Upload</button>
               </div>
             </div>
+            {
+              !imgUploading && !imageName && (
+                <p className = "is-size-7 has-text-danger my-3">Please click upload button after img file selection</p>
+              )
+            }
             {imgUploading && (
               <div className = "columns">
                 <div className = "column">
