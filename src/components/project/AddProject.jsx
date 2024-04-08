@@ -179,9 +179,18 @@ const AddProject = ({ onClose, setRefresh }) => {
                 </div>
               </div>
               <div className="column">
-                <button className="button is-success" onClick={addTech} disabled={fieldCheck(tech)} type = "button">Add</button>
+                <button className="button is-success" onClick={addTech} disabled={fieldCheck(tech)} type = "button"> + </button>
               </div>
             </div>
+            <div className = "columns">
+              <div className = "column">
+
+              </div>
+              <div className = "column">
+                <p className = "is-size-7 has-text-danger">Please click + button after entering each tech</p>
+              </div>
+            </div>
+
 
             <div className="columns">
               <div className="column">
@@ -273,6 +282,12 @@ const AddProject = ({ onClose, setRefresh }) => {
                 <button className = "button mx-3" onClick={uploadImage} type = "button">Upload</button>
               </div>
             </div>
+            {
+              !imgUploading && !imageName && (
+                <p className = "is-size-7 has-text-danger my-3">Please click upload button after img file selection</p>
+              )
+            }
+
             {imgUploading && (
               <div className = "columns">
                 <div className = "column">

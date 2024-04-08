@@ -180,7 +180,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
               <div className="column is-half">
                 <div className="select is-fullwidth is-primary">
                   <select value = {selectedEdType} onChange = {(e) => setSelectedEdType(e.target.value)}>
-                    <option>Select Education Type</option>
+                    <option>Education Type</option>
                     <option>Self tutored</option>
                     <option>Bootcamp</option>
                     <option>Tertiary education</option>
@@ -192,7 +192,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
               <div className="column">
                 <div className="select is-fullwidth is-primary">
                   <select value = {selectedCert} onChange = {(e) => setSelectedCert(e.target.value)}>
-                    <option>Select certificate earned</option>
+                    <option>Certificate earned</option>
                     <option>Under graduate</option>
                     <option>Post graduate</option>
                     <option>other</option>
@@ -203,7 +203,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
             <div className = "columns">
               <div className = "column is-half">
                 <div className="field">
-                  <label className="label">Select Start Date:</label>
+                  <label className="label">Start Date:</label>
                   <div className = "control">
                   <Flatpickr
                     className="input is-primary"
@@ -221,7 +221,7 @@ const EditEducation = ({ onClose, edId, refresh }) => {
               </div>
               <div className = "column is-half">
                 <div className="field">
-                  <label className="label">Select End Date:</label>
+                  <label className="label">End Date or Expected End Date:</label>
                   <div className = "control">
                   <Flatpickr
                     className="input is-primary"

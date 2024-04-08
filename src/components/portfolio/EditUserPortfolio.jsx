@@ -261,6 +261,7 @@ const EditUserPortfolio = ({setEditMode}) => {
 
             <div className = "tile is-child box">
               <p className = "title is-size-5">Skills</p>
+              <p className = "is-size-7 has-text-danger my-3">Please click + button after entering each skill</p>
               <div className = 'is-inline-flex'>
                 <input
                   type =  "text"
@@ -323,6 +324,7 @@ const EditUserPortfolio = ({setEditMode}) => {
                 value = {bio}
                 onChange = {handleBioChange}
               />
+              <p className = "is-size-7 has-text-danger hastext-centered my-3">Please click + button after entering each interest and language</p>
               <div className = 'is-inline-flex'>
                 <input
                   type =  "text is-primary"
