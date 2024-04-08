@@ -9,6 +9,7 @@ import DeleteConfirmation from './DeleteConfirmation';
 const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh }) => {
   const [experienceId, setExperienceId] = useState('');
   const [position, setPosition] = useState('');
+  const [company, setCompany] = useState('');
 
   const [showDeleteNotification, setShowDeleteNotification] = useState(false);
   const formatDate = (dateString) => {
@@ -31,9 +32,10 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
     onOpenEditor();
   }
 
-  const getExIdAndPos4Del = (exId, name) => {
+  const getExIdAndPos4Del = (exId, position, company) => {
     setExperienceId(exId);
-    setPosition(name);
+    // setPosition(position);
+    setCompany(company);
     handleDeleteNotificationShow()
   }
 
@@ -41,9 +43,9 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
 
   return (
     <div className="container">
-      {showDeleteNotification && <DeleteConfirmation experienceId = {experienceId} setShowDeleteNotification = {setShowDeleteNotification} postion = {position} reload = {setRefresh}/>}
+      {showDeleteNotification && <DeleteConfirmation experienceId = {experienceId} setShowDeleteNotification = {setShowDeleteNotification} postion = {position} company = {company} setRefresh = {setRefresh}/>}
       <div className="columns">
-        {experiences.map((experience) => (
+        {experiences.length && experiences.sort((a, b)=> new Date(b.startDate) - new Date(a.startDate)).map((experience) => (
           <div key={experience._id} className="column is-half">
             <div className="card">
               <div className="card-content" style = {{textAlign: "justify"}}>
@@ -74,7 +76,7 @@ const Experience = ({ experiences, checkOwner, onOpenEditor, setExId, setRefresh
                   </p>
                   <p className="card-footer-item has-text-danger"
                     // onClick={()=> openDelete()}
-                    onClick={() => getExIdAndPos4Del(experience._id, experience.position)}
+                    onClick={() => getExIdAndPos4Del(experience._id, experience.position, experience.company)}
                   >
                     <span>
                       <i className="fa-solid fa-trash"></i>

@@ -77,9 +77,9 @@ const Messages = () => {
   const markAsRead = (messageId) => {
 
     axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/messages/${messageId}`)
-  .then((response) => {
-    console.log(response.data);
-    setRead(true);
+      .then((response) => {
+        console.log(response.data);
+        setRead(true);
 
     const requestBody = {
       read: true
@@ -95,6 +95,14 @@ const Messages = () => {
   });
 
   }
+
+  // const deleteMessage = async (id) => {
+  //   try {
+  //     await axios.delete(`${API_URL}api/portfolios/${uniqueIdentifier}/messages/${id}`);
+  //     console.log(`Message with ID ${id} deleted successfully`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 
 
   // OPEN VIEW MESSAGE MODAL
@@ -166,4 +174,4 @@ const Messages = () => {
   )
 }
 
-export default Messages
+export default Messages;
