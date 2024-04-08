@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
+import MessageDetails from './MessageDetails';
 import axios from 'axios';
 
 
@@ -12,9 +13,15 @@ const Messages = () => {
   const [read, setRead] = useState(undefined);
   const [loadingMessages, setLoadingMessages] = useState(false);
 
+  // Modal State
+  const [messageId,setMessageId] = useState('');
+
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
+
+  // View Message
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -28,6 +35,16 @@ const Messages = () => {
     if(currentPage < totalPages){
       setCurrentPage(currentPage + 1);
     }
+  }
+
+
+  // For modal - Functions
+  const handleCloseDetails = () => {
+    setDetailsOpen(false);
+  }
+
+  const handleOpenDetails = () => {
+    setDetailsOpen(true);
   }
 
   const prevPage = () => {
@@ -81,6 +98,13 @@ const Messages = () => {
       })
   }
 
+
+  // OPEN VIEW MESSAGE MODAL
+  const getMessageIdAndOpenViewMessageModal = (id) => {
+    handleOpenDetails();
+    setMessageId(id);
+  }
+
   useEffect(() => {
     fetchMessages();
   }, [read]);
@@ -106,7 +130,7 @@ const Messages = () => {
             <th className = 'is-size-7'>Subject</th>
             <th className = 'is-size-7'>Status</th>
             <th className = 'is-size-7'>Date</th>
-            <th className = 'is-size-7 has-text-centered'>Actions</th>
+            <th className = 'is-size-7 ml-5'>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -119,7 +143,7 @@ const Messages = () => {
               <td className = 'is-size-7'>{formatDate(message.createdAt)}</td>
               <td>
                 <div className="buttons has-text-centered">
-                  <button className="button is-primary is-small">Read</button>
+                  <button className="button is-primary is-small" onClick={() => getMessageIdAndOpenViewMessageModal(message._id)}>Read</button>
                   <button className="button is-primary is-small" onClick={() => markAsRead(message._id)}>{!message.read ? "Mark as read":"Mark as unread"}</button>
                   <button className="button is-danger is-small" >Delete</button>
                 </div>
@@ -138,6 +162,7 @@ const Messages = () => {
           </div>
         </div>
       )}
+      {detailsOpen && <MessageDetails onClose = {handleCloseDetails} messageId = {messageId}/>}
     </div>
   )
 }
