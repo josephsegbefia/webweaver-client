@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const DeleteConfirmation = ({ experienceId, setShowDeleteNotification, schoolName, reload }) => {
+const DeleteConfirmation = ({ experienceId, setShowDeleteNotification, position, company, setRefresh }) => {
   const [deleting, setDeleting] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -19,6 +19,8 @@ const DeleteConfirmation = ({ experienceId, setShowDeleteNotification, schoolNam
     setShowDeleteNotification(false);
   };
 
+  console.log(position);
+
   const storedToken = localStorage.getItem('authToken');
 
   const handleDelete = () => {
@@ -29,7 +31,7 @@ const DeleteConfirmation = ({ experienceId, setShowDeleteNotification, schoolNam
       .then((response) => {
         console.log(response);
         setSuccessMessage(response.data.message);
-        reload(true);
+        setRefresh(refresh => !refresh);
         setDeleting(false);
       })
       .catch((error) => {
@@ -88,7 +90,7 @@ const DeleteConfirmation = ({ experienceId, setShowDeleteNotification, schoolNam
                 <button onClick={handleClose} className="delete" aria-label="delete"></button>
               </div>
               <div className="message-body">
-                <p className="my-4">Are you sure you want to delete {schoolName} from your education history?</p>
+                <p className="my-4">Are you sure you want to delete experience @ {company} from your experience history?</p>
                 <div className="columns">
                   <div className="column is-half">
                     <button className="button action is-primary" onClick={handleClose}>No</button>

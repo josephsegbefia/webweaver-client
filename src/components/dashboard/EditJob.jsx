@@ -142,6 +142,7 @@ const EditJob = ({ onClose, jobId }) => {
     try {
       const response = await axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/jobs/${jobId}`);
       const data = response.data;
+      console.log(data);
       setCompanyName(data.companyName);
       setPosition(data.position);
       setLocation(data.jobLocation);

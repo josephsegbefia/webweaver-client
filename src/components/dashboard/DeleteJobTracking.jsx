@@ -35,7 +35,7 @@ const DeleteJobTracking = ({ handleDeleteClose, jobId, setDeleteSuccessful, setD
     <div>
       <article className="message is-danger">
         <div className="message-header">
-          <p>Error</p>
+          <p></p>
           <button onClick = {handleDeleteClose} className="delete" aria-label="delete"></button>
         </div>
         <div className = "message-body">
@@ -44,7 +44,7 @@ const DeleteJobTracking = ({ handleDeleteClose, jobId, setDeleteSuccessful, setD
             <button className = "button has-text-danger is-small" type = "button" onClick={handleDelete}>
               Yes
             </button>
-            <button className = "button has-text-success is-small" type = "button">
+            <button className = "button has-text-success is-small" type = "button" onClick={handleDeleteClose}>
               No
             </button>
           </div>
