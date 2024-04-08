@@ -29,7 +29,11 @@ const Home = ({ setDashboardActive }) => {
             Seamlessly create personalized portfolios, showcasing your projects, education, experience, and more.
             Stay organized by managing job applications with attached CVs and cover letter.
             Excitingly, AI integration is on the horizon, promising automated CV and cover letter creation.
-            Start shaping your career journey effortlessly today
+            Start shaping your career journey effortlessly today.
+
+            <br />
+            Get started effortlessly! Sign up now for a complimentary account. Craft your portfolio with ease—upload projects, share your education history, and much more.
+            Head to your personalized dashboard to kickstart your job tracking journey.
           </p>
         </div>
         <div className = "vertical-line"></div>
