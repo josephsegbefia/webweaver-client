@@ -17,6 +17,7 @@ const MessageDetails = ({ onClose, messageId }) => {
   const [senderEmail, setSenderEmail] = useState('');
   const [content, setContent] = useState('');
   const [date, setDate] = useState(undefined)
+  const [loading, setLoading] = useState(false);
 
   const {user} = useContext(AuthContext);
 
@@ -61,6 +62,15 @@ const MessageDetails = ({ onClose, messageId }) => {
       <div className="modal-background" onClick={handleClose}></div>
       <div className="modal-content">
         <div className = "card">
+          {loading && (
+            <div className="columns is-vcentered">
+              <div className="column">
+                <progress className='progress is-medium is-link' max='100' style={{height: "4px"}}>
+                  60%
+                </progress>
+              </div>
+            </div>
+          )}
           <div className = "card-content">
             <h1 className = "title is-size-6">From: {senderName}</h1>
             <p className = "mb-3">Sender Email: {senderEmail}</p>

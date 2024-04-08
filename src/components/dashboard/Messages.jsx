@@ -10,7 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
-  const [read, setRead] = useState(undefined);
+  const [read, setRead] = useState('');
   const [loadingMessages, setLoadingMessages] = useState(false);
 
   // Modal State
@@ -77,37 +77,36 @@ const Messages = () => {
   const markAsRead = (messageId) => {
 
     axios.get(`${API_URL}api/portfolios/${uniqueIdentifier}/messages/${messageId}`)
-      .then((response) => {
-        console.log(response.data);
-        setRead(!read);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+  .then((response) => {
+    console.log(response.data);
+    setRead(true);
 
-      const requestBody = {
-        read
-      }
+    const requestBody = {
+      read: true
+    };
 
-    axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}/messages/${messageId}`, requestBody)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    return axios.put(`${API_URL}api/portfolios/${uniqueIdentifier}/messages/${messageId}`, requestBody);
+  })
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
   }
 
 
   // OPEN VIEW MESSAGE MODAL
   const getMessageIdAndOpenViewMessageModal = (id) => {
     handleOpenDetails();
+    markAsRead(id);
     setMessageId(id);
   }
 
   useEffect(() => {
     fetchMessages();
-  }, [read]);
+  }, [read, detailsOpen]);
 
   return (
     <div className = "container">
@@ -134,17 +133,17 @@ const Messages = () => {
           </tr>
         </thead>
         <tbody>
-          {messages.map((message) => (
+          {messages.length !== 0 && messages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((message) => (
             <tr key={message._id}>
-              <td className = 'is-size-7'>{message.senderName}</td>
-              <td className = 'is-size-7 mr-4'>{message.senderEmail}</td>
-              <td className = 'is-size-7 mr-4'>{message.subject}</td>
-              <td className = 'is-size-7'>{message.read ? "Opened" : "Unread"}</td>
-              <td className = 'is-size-7'>{formatDate(message.createdAt)}</td>
+              <td className = {`is-size-7 ${message.read ? '' : 'title'}`}>{message.senderName}</td>
+              <td className = {`is-size-7 ${message.read ? '' : 'title'}`}>{message.senderEmail}</td>
+              <td className = {`is-size-7 ${message.read ? '' : 'title'}`}>{message.subject}</td>
+              <td className = {`is-size-7 ${message.read ? '' : 'title'}`}>{message.read ? "Read" : "Unread"}</td>
+              <td className = {`is-size-7 ${message.read ? '' : 'title'}`}>{formatDate(message.createdAt)}</td>
               <td>
-                <div className="buttons has-text-centered">
+                <div className="buttons">
                   <button className="button is-primary is-small" onClick={() => getMessageIdAndOpenViewMessageModal(message._id)}>Read</button>
-                  <button className="button is-primary is-small" onClick={() => markAsRead(message._id)}>{!message.read ? "Mark as read":"Mark as unread"}</button>
+                  {/* <button className="button is-primary is-small" onClick={() => markAsRead(message._id)}>{!message.read ? "Mark as read":"Mark as unread"}</button> */}
                   <button className="button is-danger is-small" >Delete</button>
                 </div>
               </td>
