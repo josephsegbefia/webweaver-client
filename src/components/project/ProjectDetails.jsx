@@ -98,9 +98,10 @@ const ProjectDetails = ({ onClose, projId, }) => {
             </div>
             <div className = "card-content">
               <p className = "title is-size-5">{title}</p>
+              <p className = "is-size-7 has-text-success my-2">{formatDate(createdAt)}</p>
               <hr />
               <p className = "subtitle is-size-6">{shortDesc}</p>
-              <p className = "is-size-7 has-text-success my-2">{formatDate(createdAt)}</p>
+
               <p className = "is-size-6">App powered by:</p>
               {techsUsed.map((tech, index) => (
                   <div key={index} className="is-inline-flex">
