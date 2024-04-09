@@ -42,8 +42,8 @@ const Education = ({ educations, checkOwner, onOpenEditor, setEdId, setRefresh }
     <div className="container">
       {showDeleteNotification && <DeleteConfirmation educationId = {educationId} setShowDeleteNotification = {setShowDeleteNotification} schoolName = {schoolName} reload = {setRefresh}/>}
       <div className="columns is-multiline">
-        {educations.map((education, index) => (
-          <div key={index} className="column is-one-third">
+        {educations.length > 0 && educations.sort((a, b)=> new Date(b.beginDate) - new Date(a.beginDate)).map((education) => (
+          <div key={education._id} className="column is-one-third">
             <div className="card">
               <div className="card-content">
                 <p className="is-size-5">
