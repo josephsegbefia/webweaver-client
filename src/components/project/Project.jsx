@@ -50,9 +50,10 @@ const Project = ({ projects, checkOwner, onOpenEditor, openProjectDetails, setPr
             <div className="card">
               <div className="card-content">
                 <p className="title is-size-5">{project.title}</p>
+                <p className = "is-size-7 mt-3 has-text-primary">Added on: {formatDate(project.createdAt)}</p>
                 <hr />
                 <p className="subtitle is-size-6">{project.shortDesc}</p>
-                <p className = "is-size-7 my-3 has-text-primary">Added on: {formatDate(project.createdAt)}</p>
+
                 {project.techsUsed.map((tech) => (
                   <div key={project._id} className="is-inline-flex">
                     <span className="tag is-success is-light mr-3">{tech}</span>
