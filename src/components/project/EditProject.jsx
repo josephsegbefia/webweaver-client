@@ -21,7 +21,8 @@ const EditProject = ({ onClose, projId, refresh }) => {
   const [imgUploading, setImgUploading] = useState(false);
   const [imageName, setImageName] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [saveStatus, setSaveStatus] = useState("Ready");
+  // const [saveStatus, setSaveStatus] = useState("Ready");
+  const [saving, setSaving] = useState(false);
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
   const [liveLink, setLiveLink] = useState("");
@@ -133,7 +134,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setSaving(false);
     const requestBody = {
       title,
       shortDesc,
@@ -158,12 +159,14 @@ const EditProject = ({ onClose, projId, refresh }) => {
         setTechsUsed("");
         setGitHubLink("");
         setLiveLink("");
-        setSaveStatus("Success");
+        // setSaveStatus("Success");
         refresh(refresh => !refresh);
         handleClose();
       })
       .catch((error) => {
         console.log(error)
+        setErrorMessage(error.response.data.message);
+        setSaving(false);
       })
   }
 
@@ -193,6 +196,13 @@ const EditProject = ({ onClose, projId, refresh }) => {
               </div>
             </article>
           )}
+          {
+            saving && (
+              <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}} >
+                60%
+              </progress>
+            )
+          }
           <form onSubmit = {handleSubmit}>
             <div className="columns">
               <div className="column is-half">
