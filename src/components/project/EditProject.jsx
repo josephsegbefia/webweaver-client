@@ -339,23 +339,7 @@ const EditProject = ({ onClose, projId, refresh }) => {
 
             <div className="columns">
               <div className="column">
-                {/* <button className="button is-success action" disabled = {imageName === ""} type = "submit">Save</button> */}
-                {
-                  {
-                    Saving: (
-                      <button className = "button is-success action" value = "Creating..." type = "submit" disabled = {true}>Saving...</button>
-                    ),
-                    Success: (
-                      <button className = "button is-success action" value = "Saved" type = "submit" disabled = {true}>Saved!</button>
-                    ),
-                    Error: (
-                      <button className = "button is-success action" value = "Save Failed - Retry?" type = "submit"></button>
-                    ),
-                    Ready: (
-                      <button className = "button is-success action" value = "Save" type = "submit">Save</button>
-                    )
-                  }[saveStatus]
-                }
+                <button className="button is-success action" type = "submit">Save</button>
               </div>
               <div className="column">
                 <button className="button is-danger action" onClick = {handleClose}>Cancel</button>

@@ -22,7 +22,7 @@ const AddProject = ({ onClose, setRefresh }) => {
   const [imgUploading, setImgUploading] = useState(false);
   const [imageName, setImageName] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [saveStatus, setSaveStatus] = useState("Ready");
+  const [saving, setSaving] = useState(false);
   const [reload, setReload] = useState(false);
 
   const { user } = useContext(AuthContext);
@@ -100,6 +100,7 @@ const AddProject = ({ onClose, setRefresh }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSaving(true);
 
     const requestBody = {
       title,
@@ -124,12 +125,14 @@ const AddProject = ({ onClose, setRefresh }) => {
         setImgUrl('');
         setGitHubLink('');
         setLiveLink('');
-        setSaveStatus("Success");
         setRefresh(refresh => !refresh);
         handleClose();
+        setSaving(false);
       })
       .catch((error) => {
+        setErrorMessage(error.response.data.message);
         console.log(error);
+        setSaving(false);
       })
   }
 
@@ -150,6 +153,13 @@ const AddProject = ({ onClose, setRefresh }) => {
               </div>
             </article>
           )}
+          {
+            saving && (
+              <progress className = 'progress is-medium is-link' max = '100' style={{height: "4px"}} >
+                60%
+              </progress>
+            )
+          }
           <form onSubmit = {handleSubmit}>
             <div className="columns">
               <div className="column is-half">
@@ -305,23 +315,8 @@ const AddProject = ({ onClose, setRefresh }) => {
 
             <div className="columns">
               <div className="column">
-                {/* <button className="button is-success action" disabled = {imageName === ""} type = "submit">Save</button> */}
-                {
-                  {
-                    Saving: (
-                      <button className = "button is-success action" value = "Creating..." type = "submit" disabled = {true}>Saving...</button>
-                    ),
-                    Success: (
-                      <button className = "button is-success action" value = "Saved" type = "submit" disabled = {true}>Saved!</button>
-                    ),
-                    Error: (
-                      <button className = "button is-success action" value = "Save Failed - Retry?" type = "submit"></button>
-                    ),
-                    Ready: (
-                      <button className = "button is-success action" value = "Save" type = "submit" disabled = {imageName === ""}>Save</button>
-                    )
-                  }[saveStatus]
-                }
+                <button className="button is-success action"  type = "submit">Save</button>
+
               </div>
               <div className="column">
                 <button className="button is-danger action" onClick = {handleClose}>Cancel</button>
