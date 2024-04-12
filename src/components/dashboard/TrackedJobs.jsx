@@ -148,7 +148,7 @@ const TrackedJobs = () => {
           </tr>
         </thead>
         <tbody>
-          {trackedJobs.map((job) => (
+          {trackedJobs.sort((a, b)=> new Date(b.createdAt) - new Date(a.createdAt)).map((job) => (
             <tr key={job._id}>
               <td className = 'is-size-7'>{job.companyName}</td>
               <td className = 'is-size-7 mr-4'>{job.position}</td>
